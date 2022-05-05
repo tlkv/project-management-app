@@ -1,0 +1,21 @@
+@import './variables';
+
+.narrow-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.main-container {
+  min-height: calc(100vh - $footer-height);
+  max-width: 96vw;
+  margin: 0 auto;
+  padding: $header-height 5px;
+}
+
+h1.title {
+  text-align: center;
+}
+
+button {
+  cursor: pointer;
+}

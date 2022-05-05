@@ -1,0 +1,15 @@
+@import '../../sass/variables';
+
+#footer {
+  background: #eaeef3;
+  color: #000;
+  height: $footer-height;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .course-logo {
+    max-width: 60px;
+  }
+}
