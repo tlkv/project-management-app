@@ -1,0 +1,38 @@
+@import '../../sass/variables';
+
+#header {
+  z-index: 1;
+  position: fixed;
+  width: 100%;
+  background-color: $blue-trello;
+  top: 0;
+}
+
+.nav-item {
+  display: block;
+  .active {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  .header-button {
+    margin-top: 12px;
+  }
+}
+
+.nav-wrapper {
+  display: flex;
+  margin: 0 auto;
+  justify-content: space-evenly;
+}
+
+.nav-inner {
+  display: flex;
+  margin: 0;
+  text-decoration: none;
+  color: #fff;
+  height: $header-height;
+  align-items: center;
+  &:hover {
+    color: #fab117;
+  }
+}

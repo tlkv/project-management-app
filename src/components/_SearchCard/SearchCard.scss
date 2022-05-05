@@ -1,0 +1,24 @@
+.search-card-item {
+  background-color: #999;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid #4cc7f4;
+  padding: 5px;
+  cursor: pointer;
+}
+.search-card-img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+}
+
+.search-card-tags,
+.search-card-title {
+  height: 54px;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+
+.search-card-title {
+  font-weight: bold;
+}
