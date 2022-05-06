@@ -20,6 +20,7 @@ export const AppContext = createContext({} as AppContextData);
 
 function App() {
   const [lang, switchLang] = useState(LANG_RU);
+  const [isAuth, setIsAuth] = useState(false);
 
   // old search page data
   const [apiPhotos, dispatchApiQuery] = useReducer(apiReducer, RESP_DEFAULT);
@@ -39,8 +40,10 @@ function App() {
       dispatchSearchInfo,
       lang,
       switchLang,
+      isAuth,
+      setIsAuth,
     }),
-    [apiPhotos, sort, pagination, searchInfo, lang]
+    [apiPhotos, sort, pagination, searchInfo, lang, isAuth]
   );
 
   return (

@@ -6,7 +6,7 @@ import ROUTES_LIST from '../../utils/router';
 import './Header.scss';
 
 function Header() {
-  const { lang, switchLang } = useContext(AppContext);
+  const { lang, switchLang, setIsAuth } = useContext(AppContext);
   const navigate = useNavigate();
 
   const changeLang = () => {
@@ -23,6 +23,12 @@ function Header() {
 
   const navigateProfile = () => {
     navigate('/profile');
+  };
+
+  const logout = () => {
+    localStorage.removeItem('login');
+    localStorage.removeItem('token');
+    setIsAuth(false);
   };
 
   return (
@@ -65,7 +71,7 @@ function Header() {
             </button>
           </li>
           <li className="nav-item">
-            <button type="button" className="header-button">
+            <button type="button" className="header-button" onClick={logout}>
               Logout
             </button>
           </li>
