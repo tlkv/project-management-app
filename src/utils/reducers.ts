@@ -7,11 +7,14 @@ import {
   PaginationAction,
   SearchInfo,
   SearchInfoAction,
+  BoardsResponse,
+  BoardsAction,
 } from '../data/interfaces';
 import {
   API_PAGE_DEFAULT,
   API_QUERY,
   DEF_PAGE,
+  SET_BOARDS,
   NEXT_PAGE,
   PREV_PAGE,
   SEARCH_INFO,
@@ -61,6 +64,15 @@ export const apiReducer = (state: ApiResponse, { type, payload }: ApiAction) => 
 export const searchInfoReducer = (state: SearchInfo, { type, payload }: SearchInfoAction) => {
   switch (type) {
     case SEARCH_INFO:
+      return payload;
+    default:
+      return state;
+  }
+};
+
+export const boardsReducer = (state: BoardsResponse[], { type, payload }: BoardsAction) => {
+  switch (type) {
+    case SET_BOARDS:
       return payload;
     default:
       return state;
