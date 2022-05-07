@@ -5,7 +5,7 @@ import { AppContext } from '../../App';
 import { SET_BOARDS } from '../../data/constants';
 
 function CreateBoardBar() {
-  const { dispatchBoards } = useContext(AppContext);
+  const { boards, dispatchBoards } = useContext(AppContext);
   const [boardName, setBoardName] = useState('');
   const [boardIsCreating, setBoardIsCreating] = useState(false);
   const [isValidationError, setIsValidationError] = useState(false);
@@ -19,7 +19,9 @@ function CreateBoardBar() {
   };
 
   useEffect(() => {
-    loadBoards();
+    if (!boards.length) {
+      loadBoards();
+    }
   }, []);
 
   const validate = () => {
