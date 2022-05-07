@@ -4,9 +4,10 @@ import { AppContext } from '../../App';
 import { LANG_EN, LANG_RU } from '../../data/constants';
 import ROUTES_LIST from '../../utils/router';
 import './Header.scss';
+import API_LOGOUT from '../../api/logout';
 
 function Header() {
-  const { lang, switchLang } = useContext(AppContext);
+  const { lang, switchLang, setIsAuth } = useContext(AppContext);
   const navigate = useNavigate();
 
   const changeLang = () => {
@@ -19,6 +20,10 @@ function Header() {
 
   const navigateLogin = () => {
     navigate('/login');
+  };
+
+  const navigateRegistration = () => {
+    navigate('/registration');
   };
 
   const navigateProfile = () => {
@@ -60,12 +65,12 @@ function Header() {
             </button>
           </li>
           <li className="nav-item">
-            <button type="button" className="header-button" onClick={navigateLogin}>
+            <button type="button" className="header-button" onClick={navigateRegistration}>
               Sign Up
             </button>
           </li>
           <li className="nav-item">
-            <button type="button" className="header-button">
+            <button type="button" className="header-button" onClick={() => API_LOGOUT(setIsAuth)}>
               Logout
             </button>
           </li>

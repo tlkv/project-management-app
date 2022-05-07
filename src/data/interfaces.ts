@@ -1,4 +1,4 @@
-import { Dispatch } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 
 export interface SearchCardData {
   datetaken: string;
@@ -66,4 +66,11 @@ export interface AppContextData {
   dispatchPagination: Dispatch<PaginationAction>;
   searchInfo: SearchInfo;
   dispatchSearchInfo: Dispatch<SearchInfoAction>;
+  isAuth: boolean;
+  setIsAuth: Dispatch<React.SetStateAction<boolean>>
+}
+
+export interface AuthPopupData {
+  message: string;
+  setIsPopupShown: Dispatch<SetStateAction<boolean>>;
 }

@@ -1,0 +1,29 @@
+.auth-popup {
+  position: absolute;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.auth-popup__box {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 500px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #fff;
+  color: black;
+  padding: 20px 10px;
+  border-radius: 5px;
+}
+.auth-popup__message {
+  font-size: 20px;
+}

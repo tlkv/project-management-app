@@ -71,3 +71,5 @@ export const SEARCH_INFO_DEFAULT: SearchInfo = {
   title: '',
   url_l: '',
 };
+
+export const API_URL = 'https://rs-team-34.herokuapp.com';
