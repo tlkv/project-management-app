@@ -1,17 +1,15 @@
 import './CreateBoardBar.scss';
 import React, { useContext, useEffect, useState } from 'react';
-import { createBoard, getBoards, signIn, signUp } from '../../api/api';
 import { AppContext } from '../../App';
 import { SET_BOARDS } from '../../data/constants';
+import getBoards from '../../api/getBoards';
+import createBoard from '../../api/createBoard';
 
 function CreateBoardBar() {
   const { boards, dispatchBoards } = useContext(AppContext);
   const [boardName, setBoardName] = useState('');
   const [boardIsCreating, setBoardIsCreating] = useState(false);
   const [isValidationError, setIsValidationError] = useState(false);
-  // const isHaveToken = localStorage.getItem('token');
-  // signUp();
-  // signIn();
 
   const loadBoards = async () => {
     const data = await getBoards();
