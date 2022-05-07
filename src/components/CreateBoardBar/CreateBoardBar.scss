@@ -1,0 +1,49 @@
+$primary-color: #026aa7;
+$bar-controls-height: 28px;
+
+.create-board {
+  margin: 25px 0;
+  display: flex;
+  align-items: center;
+}
+
+.create-board__input {
+  position: relative;
+  z-index: 2;
+  margin-left: 5px;
+  padding: 5px 10px;
+  height: $bar-controls-height;
+
+  font-size: 14px;
+  font-weight: 100;
+  border: none;
+  border-radius: 4px 0 0 4px;
+
+  &:focus {
+    outline-color: $primary-color;
+  }
+}
+
+.create-board__create-btn {
+  padding: 5px 10px;
+  height: $bar-controls-height;
+
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  background-color: $primary-color;
+  transition: background-color 100ms;
+
+  &:hover {
+    background-color: #0081cd;
+  }
+  &:active {
+    background-color: #008fe2;
+  }
+}
+
+.create-board__invalid {
+  margin-left: 10px;
+  color: #ff0000;
+  font-weight: 100;
+}
