@@ -16,6 +16,8 @@
 ```
 cd project-management-app
 
+git checkout develop
+
 npm install
 
 npm start
