@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { deleteBoard } from '../../api/api';
+import deleteBoard from '../../api/deleteBoard';
 import { AppContext } from '../../App';
 import { SET_BOARDS } from '../../data/constants';
 import { BoardsResponse } from '../../data/interfaces';
