@@ -20,6 +20,7 @@ function CreateBoardBar() {
     if (!boards.length) {
       loadBoards();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const validate = () => {
