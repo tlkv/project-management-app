@@ -14,13 +14,19 @@ import {
   SEARCH_INFO_DEFAULT,
   LANG_RU,
 } from './data/constants';
-import { apiReducer, paginationReducer, searchInfoReducer, sortReducer } from './utils/reducers';
+import {
+  boardsReducer,
+  apiReducer,
+  paginationReducer,
+  searchInfoReducer,
+  sortReducer,
+} from './utils/reducers';
 
 export const AppContext = createContext({} as AppContextData);
 
 function App() {
   const [lang, switchLang] = useState(LANG_RU);
-
+  const [boards, dispatchBoards] = useReducer(boardsReducer, []);
   // old search page data
   const [apiPhotos, dispatchApiQuery] = useReducer(apiReducer, RESP_DEFAULT);
   const [sort, dispatchSort] = useReducer(sortReducer, API_SORT_DEFAULT);
@@ -39,8 +45,10 @@ function App() {
       dispatchSearchInfo,
       lang,
       switchLang,
+      boards,
+      dispatchBoards,
     }),
-    [apiPhotos, sort, pagination, searchInfo, lang]
+    [boards, apiPhotos, sort, pagination, searchInfo, lang]
   );
 
   return (
