@@ -1,0 +1,10 @@
+.board-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  .no-data {
+    margin: 0;
+    font-weight: 100;
+    color: #d7d7d7;
+  }
+}
