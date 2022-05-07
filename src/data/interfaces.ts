@@ -55,6 +55,16 @@ export interface SearchInfoAction {
   payload: SearchInfo;
 }
 
+export interface BoardsResponse {
+  id: string;
+  title: string;
+}
+
+export interface BoardsAction {
+  type: string;
+  payload: BoardsResponse[];
+}
+
 export interface AppContextData {
   lang: string;
   switchLang: Dispatch<React.SetStateAction<string>>;
@@ -66,4 +76,6 @@ export interface AppContextData {
   dispatchPagination: Dispatch<PaginationAction>;
   searchInfo: SearchInfo;
   dispatchSearchInfo: Dispatch<SearchInfoAction>;
+  boards: BoardsResponse[];
+  dispatchBoards: Dispatch<BoardsAction>;
 }
