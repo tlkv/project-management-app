@@ -35,6 +35,12 @@ export const ROUTES_LIST = [
     onNavbar: false,
   },
   {
+    path: '/registration',
+    element: <LoginPage />,
+    navbarText: 'Sign up',
+    onNavbar: false,
+  },
+  {
     path: '/',
     element: <MainPage />,
     navbarText: 'Main',

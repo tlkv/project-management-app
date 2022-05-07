@@ -27,6 +27,7 @@ export const AppContext = createContext({} as AppContextData);
 function App() {
   const [lang, switchLang] = useState(LANG_RU);
   const [boards, dispatchBoards] = useReducer(boardsReducer, []);
+  const [isAuth, setIsAuth] = useState(false);
   // old search page data
   const [apiPhotos, dispatchApiQuery] = useReducer(apiReducer, RESP_DEFAULT);
   const [sort, dispatchSort] = useReducer(sortReducer, API_SORT_DEFAULT);
@@ -45,10 +46,12 @@ function App() {
       dispatchSearchInfo,
       lang,
       switchLang,
+      isAuth,
+      setIsAuth,
       boards,
       dispatchBoards,
     }),
-    [boards, apiPhotos, sort, pagination, searchInfo, lang]
+    [apiPhotos, sort, pagination, searchInfo, lang, isAuth, boards]
   );
 
   return (
