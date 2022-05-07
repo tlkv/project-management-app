@@ -1,4 +1,3 @@
-import { SetStateAction, Dispatch } from 'react';
 import { AuthPopupData } from '../../../data/interfaces';
 import './AuthPopup.scss';
 

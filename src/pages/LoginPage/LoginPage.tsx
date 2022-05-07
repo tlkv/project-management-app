@@ -1,9 +1,13 @@
 import { useContext, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, NavLink } from 'react-router-dom';
 import './LoginPage.scss';
-import { API_URL } from '../../data/constants';
 import { AppContext } from '../../App';
 import AuthPopup from './AuthPopup/AuthPopup';
+import API_GET_TOKEN from '../../api/getToken';
+import API_LOGIN_WITH_TOKEN from '../../api/loginWithToken';
+import API_GET_RESPONSE_ON_CREATING_USER from '../../api/getResponseOnCreatingUser';
+import IS_PASSWORD_VALID from '../../utils/isPasswordValid';
+import IS_NAME_OR_LOGIN_VALID from '../../utils/isNameOrLoginValid';
 
 function LoginPage() {
   const context = useContext(AppContext);
@@ -20,30 +24,31 @@ function LoginPage() {
   const [popupMessage, setPopupMessage] = useState('');
   const handleNameInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
+    setIsNameValid(true);
   };
   const handleLoginInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLogin(e.target.value);
+    setIsLoginValid(true);
   };
   const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
+    setIsPasswordValid(true);
   };
   const createUser = async (e: React.MouseEvent<HTMLInputElement>) => {
     e.preventDefault();
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name,
-        login,
-        password,
-      }),
-    };
-    const response = await fetch(`${API_URL}/signup`, options);
-    console.log(response);
+    const isInputDataValid =
+      IS_NAME_OR_LOGIN_VALID(name) && IS_NAME_OR_LOGIN_VALID(login) && IS_PASSWORD_VALID(password);
+    if (!isInputDataValid) {
+      setIsNameValid(IS_NAME_OR_LOGIN_VALID(name));
+      setIsLoginValid(IS_NAME_OR_LOGIN_VALID(login));
+      setIsPasswordValid(IS_PASSWORD_VALID(password));
+      return;
+    }
+    const response = await API_GET_RESPONSE_ON_CREATING_USER(name, login, password);
     if (response.status === 201) {
-      navigate('/login');
+      const token = await API_GET_TOKEN(login, password);
+      API_LOGIN_WITH_TOKEN(token as string, login, context.setIsAuth);
+      navigate('/');
       return;
     }
     if (response.status === 409) {
@@ -51,32 +56,25 @@ function LoginPage() {
       setIsPopupShown(true);
     }
   };
+
   const logIn = async (e: React.MouseEvent<HTMLInputElement>) => {
     e.preventDefault();
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        login,
-        password,
-      }),
-    };
-    const response = await fetch(`${API_URL}/signin`, options);
-    if (response.status === 201) {
-      const body = await response.json();
-      context.setIsAuth(true);
-      localStorage.setItem('token', body.token);
-      localStorage.setItem('login', login);
+    const isInputDataValid = IS_NAME_OR_LOGIN_VALID(login) && IS_PASSWORD_VALID(password);
+    if (!isInputDataValid) {
+      setIsLoginValid(IS_NAME_OR_LOGIN_VALID(login));
+      setIsPasswordValid(IS_PASSWORD_VALID(password));
+      return;
+    }
+    const token = await API_GET_TOKEN(login, password);
+    if (token) {
+      API_LOGIN_WITH_TOKEN(token, login, context.setIsAuth);
       navigate('/');
       return;
     }
-    if (response.status === 403) {
-      setPopupMessage('Wrong login or password');
-      setIsPopupShown(true);
-    }
+    setPopupMessage('Wrong login or password');
+    setIsPopupShown(true);
   };
+
   return (
     <div className="narrow-container">
       <h1 className="login__title">
@@ -97,6 +95,9 @@ function LoginPage() {
                 onInput={handleNameInput}
               />
             </label>
+            {isNameValid ? null : (
+              <div className="login__invalid-field">Name must contain only letters</div>
+            )}
           </div>
         )}
         <div className="login__form-field login__form-field_text">
@@ -110,27 +111,31 @@ function LoginPage() {
               onInput={handleLoginInput}
             />
           </label>
-          {/* {this.state.isNameValid ? null : <div className="form__invalid-field">Invalid name</div>} */}
+          {isLoginValid ? null : (
+            <div className="login__invalid-field">Login must contain only letters</div>
+          )}
         </div>
         <div className="login__form-field login__form-field_text">
           <label htmlFor="password">
             Password
             <input
               className="login__form_input"
-              type="text"
+              type="password"
               placeholder="Enter your password"
               id="password"
               onInput={handlePasswordInput}
             />
           </label>
-          {/* {this.state.isNameValid ? null : <div className="form__invalid-field">Invalid name</div>} */}
+          {isPasswordValid ? null : (
+            <div className="login__invalid-field">Password must contain at least 8 characters</div>
+          )}
         </div>
         {isLogin ? (
           <input
             className="login__form_submit"
             type="submit"
             value="Sign in"
-            disabled={isLoginValid && isPasswordValid && (!login || !password)}
+            disabled={!(login && password)}
             onClick={logIn}
           />
         ) : (
@@ -138,9 +143,7 @@ function LoginPage() {
             className="login__form_submit"
             type="submit"
             value="Sign up"
-            disabled={
-              isLoginValid && isNameValid && isPasswordValid && (!name || !login || !password)
-            }
+            disabled={!(name && login && password)}
             onClick={createUser}
           />
         )}
@@ -148,16 +151,16 @@ function LoginPage() {
       {isLogin ? (
         <p className="login__suggestion">
           Not with us? So&nbsp;
-          <Link className="login__link" to="/registration">
+          <NavLink className="login__link" to="/registration">
             sign up!
-          </Link>
+          </NavLink>
         </p>
       ) : (
         <p className="login__suggestion">
           Already with us? So&nbsp;
-          <Link className="login__link" to="/login">
+          <NavLink className="login__link" to="/login">
             sign in!
-          </Link>
+          </NavLink>
         </p>
       )}
       {isPopupShown ? <AuthPopup message={popupMessage} setIsPopupShown={setIsPopupShown} /> : null}

@@ -4,6 +4,7 @@ import { AppContext } from '../../App';
 import { LANG_EN, LANG_RU } from '../../data/constants';
 import ROUTES_LIST from '../../utils/router';
 import './Header.scss';
+import API_LOGOUT from '../../api/logout';
 
 function Header() {
   const { lang, switchLang, setIsAuth } = useContext(AppContext);
@@ -21,14 +22,12 @@ function Header() {
     navigate('/login');
   };
 
-  const navigateProfile = () => {
-    navigate('/profile');
+  const navigateRegistration = () => {
+    navigate('/registration');
   };
 
-  const logout = () => {
-    localStorage.removeItem('login');
-    localStorage.removeItem('token');
-    setIsAuth(false);
+  const navigateProfile = () => {
+    navigate('/profile');
   };
 
   return (
@@ -66,12 +65,12 @@ function Header() {
             </button>
           </li>
           <li className="nav-item">
-            <button type="button" className="header-button" onClick={navigateLogin}>
+            <button type="button" className="header-button" onClick={navigateRegistration}>
               Sign Up
             </button>
           </li>
           <li className="nav-item">
-            <button type="button" className="header-button" onClick={logout}>
+            <button type="button" className="header-button" onClick={() => API_LOGOUT(setIsAuth)}>
               Logout
             </button>
           </li>
