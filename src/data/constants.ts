@@ -3,7 +3,6 @@ import { ApiResponse, PaginationData, SearchInfo, SortTypes } from './interfaces
 export const LANG_RU = 'RU';
 export const LANG_EN = 'EN';
 
-export const API_URL = 'https://rs-team-34.herokuapp.com';
 export const API_QUERY = 'API_QUERY';
 export const UPD_SORT = 'UPD_SORT';
 export const UPD_PER_PAGE = 'UPD_PER_PAGE';
