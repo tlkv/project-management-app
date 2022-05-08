@@ -67,7 +67,7 @@ export interface AppContextData {
   searchInfo: SearchInfo;
   dispatchSearchInfo: Dispatch<SearchInfoAction>;
   isAuth: boolean;
-  setIsAuth: Dispatch<React.SetStateAction<boolean>>
+  setIsAuth: Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface AuthPopupData {
