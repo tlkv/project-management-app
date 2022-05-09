@@ -9,6 +9,8 @@ import {
   SearchInfoAction,
   BoardsResponse,
   BoardsAction,
+  ConfirmStatus,
+  ConfirmAction,
 } from '../data/interfaces';
 import {
   API_PAGE_DEFAULT,
@@ -20,6 +22,8 @@ import {
   SEARCH_INFO,
   SORT_TYPES,
   UPD_PER_PAGE,
+  CONFIRM_MODAL_INIT,
+  CONFIRM_MODAL_CLOSE,
 } from '../data/constants';
 
 export const paginationReducer = (state: PaginationData, { type, payload }: PaginationAction) => {
@@ -74,6 +78,17 @@ export const boardsReducer = (state: BoardsResponse[], { type, payload }: Boards
   switch (type) {
     case SET_BOARDS:
       return payload;
+    default:
+      return state;
+  }
+};
+
+export const confirmReducer = (state: ConfirmStatus, { type, payload }: ConfirmAction) => {
+  switch (type) {
+    case CONFIRM_MODAL_INIT:
+      return payload as ConfirmStatus;
+    case CONFIRM_MODAL_CLOSE:
+      return { ...state, ...payload } as ConfirmStatus;
     default:
       return state;
   }
