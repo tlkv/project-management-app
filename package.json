@@ -32,7 +32,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test-coverage": "react-scripts test --coverage --watchAll=false",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src/**/*.{js,jsx,ts,tsx} --max-warnings=0",
+    "prettier": "prettier --write src/**/*.{js,jsx,ts,tsx}"
   },
   "eslintConfig": {
     "extends": [

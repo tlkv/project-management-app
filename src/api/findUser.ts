@@ -1,13 +1,12 @@
 import jwtDecode from 'jwt-decode';
 import { ApiUserInfo, jwtToken } from '../data/interfacesA';
-import getAllUsers from './getAllUsers';
 import getUser from './getUser';
 
 const findUser = async () => {
   const token = localStorage.getItem('token') || '';
   const encoded: jwtToken = jwtDecode(token);
   const id = encoded.userId || '';
-  console.log('encoded.userId', encoded.userId);
+  // console.log('encoded.userId', encoded.userId);
   const user: ApiUserInfo = await getUser(id);
 
   /* const all = await getAllUsers(token);

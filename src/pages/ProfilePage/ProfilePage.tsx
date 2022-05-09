@@ -2,12 +2,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import './ProfilePage.scss';
 
-import { Navigate, useNavigate } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { API_URL } from '../../data/constants';
-import { AppContext } from '../../App';
-import getAllUsers from '../../api/getAllUsers';
 import findUser from '../../api/findUser';
 import { ApiUserQuery } from '../../data/interfacesA';
 
@@ -30,21 +26,18 @@ export const apiHello = async () => {
 function ProfilePage() {
   const {
     register,
-    handleSubmit,
+    /* handleSubmit,
     reset,
-    getValues,
+    getValues, */
     setValue,
     formState: { errors },
   } = useForm<ApiUserQuery>();
-  const navigate = useNavigate();
-
-  const { isAuth } = useContext(AppContext);
+  // const navigate = useNavigate();
 
   // const userLogin = localStorage.getItem('login') || '';
   // const userToken = localStorage.getItem('token') || '';
   const handleCurrentUser = async () => {
     const res = await findUser();
-    console.log(res);
     setValue('name', res.name);
     setValue('login', res.login);
     // setValue
@@ -61,9 +54,9 @@ function ProfilePage() {
       navigate('/welcome');
     }
   }, [isAuth]); */
-  const onSubmit = handleSubmit(({ name, login, password }) => {
+  /* const onSubmit = handleSubmit(({ name, login, password }) => {
     console.log(name, login, password);
-  });
+  }); */
 
   return (
     <div className="narrow-container profile-container">
@@ -76,7 +69,7 @@ function ProfilePage() {
         handleCurrentUser
       </button>
       <h3>FORM</h3>
-      <form onSubmit={onSubmit} className="user-controls">
+      <form /* onSubmit={onSubmit} */ className="user-controls">
         <div className="profile-field">
           <label htmlFor="form-name">
             Name:
