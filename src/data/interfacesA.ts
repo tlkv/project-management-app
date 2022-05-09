@@ -9,3 +9,9 @@ export interface ApiUserQuery {
   login: string;
   password: string;
 }
+
+export interface jwtToken {
+  iat: number;
+  login: string;
+  userId: string;
+}

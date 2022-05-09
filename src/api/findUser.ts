@@ -1,15 +1,18 @@
-import { ApiUserInfo } from '../data/interfacesA';
+import jwtDecode from 'jwt-decode';
+import { ApiUserInfo, jwtToken } from '../data/interfacesA';
 import getAllUsers from './getAllUsers';
+import getUser from './getUser';
 
-const findUser = async (token: string, login: string) => {
-  const defUser: ApiUserInfo = {
-    login: '',
-    id: '',
-    name: 'anonymous',
-  };
-  const all = await getAllUsers(token);
-  const match = all.find((i) => i.login === login);
-  return match || defUser;
+const findUser = async () => {
+  const token = localStorage.getItem('token') || '';
+  const encoded: jwtToken = jwtDecode(token);
+  const id = encoded.userId || '';
+  console.log('encoded.userId', encoded.userId);
+  const user: ApiUserInfo = await getUser(id);
+
+  /* const all = await getAllUsers(token);
+  const match = all.find((i) => i.login === login); */
+  return user;
 };
 
 export default findUser;

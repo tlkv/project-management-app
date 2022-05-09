@@ -14,6 +14,9 @@ const getAllUsers = async (token: string) => {
     const users: ApiUserInfo[] = await res.json();
     return users;
   }
+  if (res.status >= 400) {
+    // logout
+  }
   return defData;
 };
 

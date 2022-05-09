@@ -31,7 +31,7 @@ export const ROUTES_LIST = [
   {
     path: '/login',
     element: <LoginPage />,
-    navbarText: 'Login',
+    navbarText: 'Sign In',
     onNavbar: false,
   },
   {
