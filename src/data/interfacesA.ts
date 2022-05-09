@@ -17,6 +17,7 @@ export interface JwtToken {
 }
 
 export interface ModalConfirmation {
-  toggleModal: () => void;
+  showModal: React.Dispatch<React.SetStateAction<boolean>>;
   message: string;
+  modalCallback: () => Promise<void>;
 }

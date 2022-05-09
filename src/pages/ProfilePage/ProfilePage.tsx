@@ -32,9 +32,6 @@ export const apiHello = async () => {
 function ProfilePage() {
   const { setIsAuth } = useContext(AppContext);
   const [isModalOpen, showModal] = useState(false);
-  const toggleModal = () => {
-    showModal(!isModalOpen);
-  };
   const [currName, setCurrName] = useState('');
   const [currLogin, setCurrLogin] = useState('');
   const {
@@ -79,7 +76,7 @@ function ProfilePage() {
   const onDelete = async () => {
     await deleteUser();
     API_LOGOUT(setIsAuth);
-    console.log('deleted');
+    navigate('/welcome');
   };
 
   return (
@@ -123,7 +120,7 @@ function ProfilePage() {
                 type="password"
                 className="form-password"
                 autoComplete="on"
-                {...register('password', { required: true, pattern: /^[A-Za-z0-9]\w{8,}$/ })}
+                {...register('password', { required: true, pattern: /^[A-Za-z0-9]\w{7,}$/ })}
               />
             </label>
             {errors.password && (
@@ -136,14 +133,15 @@ function ProfilePage() {
         <button type="button" onClick={onDelete}>
           Delete User
         </button>
-        <button type="button" onClick={toggleModal}>
-          Delete User MODAL
-        </button>
       </div>
+      <button type="button" onClick={() => showModal(true)}>
+        showModalBottomTest
+      </button>
       {isModalOpen && (
         <ModalConfirm
-          toggleModal={toggleModal}
+          showModal={showModal}
           message="Remove this user? This action is irreversible!"
+          modalCallback={onDelete}
         />
       )}
     </>

@@ -61,7 +61,7 @@ function Header() {
           </li>
           <li className="nav-item">
             <button type="button" className="header-button" onClick={navigateLogin}>
-              Login
+              Sign In
             </button>
           </li>
           <li className="nav-item">
