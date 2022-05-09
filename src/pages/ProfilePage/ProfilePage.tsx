@@ -2,10 +2,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import './ProfilePage.scss';
 
-import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import { set, useForm } from 'react-hook-form';
+import { API_URL } from '../../data/constants';
+import { AppContext } from '../../App';
+import getAllUsers from '../../api/getAllUsers';
 import findUser from '../../api/findUser';
 import { ApiUserQuery } from '../../data/interfacesA';
+import updateUser from '../../api/updateUser';
 
 /* 
 const updateUser = async () => {
@@ -24,22 +29,29 @@ export const apiHello = async () => {
 }; */
 
 function ProfilePage() {
+  const [currName, setCurrName] = useState('');
+  const [currLogin, setCurrLogin] = useState('');
   const {
     register,
-    /* handleSubmit,
+    handleSubmit,
     reset,
-    getValues, */
+    getValues,
     setValue,
     formState: { errors },
   } = useForm<ApiUserQuery>();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+
+  const { isAuth } = useContext(AppContext);
 
   // const userLogin = localStorage.getItem('login') || '';
   // const userToken = localStorage.getItem('token') || '';
   const handleCurrentUser = async () => {
     const res = await findUser();
+    console.log('findUser', res);
     setValue('name', res.name);
     setValue('login', res.login);
+    setCurrName(res.name);
+    setCurrLogin(res.login);
     // setValue
   };
   useEffect(() => {
@@ -54,22 +66,21 @@ function ProfilePage() {
       navigate('/welcome');
     }
   }, [isAuth]); */
-  /* const onSubmit = handleSubmit(({ name, login, password }) => {
-    console.log(name, login, password);
-  }); */
+  const onSubmit = handleSubmit(async ({ name, login, password }) => {
+    console.log({ name, login, password });
+    await updateUser(name, login, password);
+    setCurrName(name);
+    setCurrLogin(login);
+  });
 
   return (
     <div className="narrow-container profile-container">
       <h1 className="title">Profile</h1>
       <img src="./assets/img/userIcon.png" alt="user icon" className="user-img" />
-      <div>Welcome, !</div>
-      <div>userName: !</div>
-      <div>userId: !</div>
-      <button type="button" onClick={handleCurrentUser}>
-        handleCurrentUser
-      </button>
-      <h3>FORM</h3>
-      <form /* onSubmit={onSubmit} */ className="user-controls">
+      <div>Name: {currName}!</div>
+      <div>Login: {currLogin}</div>
+      <h3>Edit profile</h3>
+      <form onSubmit={onSubmit} className="user-controls">
         <div className="profile-field">
           <label htmlFor="form-name">
             Name:
@@ -77,10 +88,10 @@ function ProfilePage() {
               id="form-name"
               type="text"
               className="form-name"
-              {...register('name', { required: true })}
+              {...register('name', { required: true, pattern: /^[A-Za-z0-9]\w{3,}$/ })}
             />
           </label>
-          {errors.name && <div className="valid-err">Name is required</div>}
+          {errors.name && <div className="valid-err">Name should be at least 4 symbols</div>}
         </div>
         <div className="profile-field">
           <label htmlFor="form-login">
@@ -89,10 +100,10 @@ function ProfilePage() {
               id="form-login"
               type="text"
               className="form-login"
-              {...register('login', { required: true })}
+              {...register('login', { required: true, pattern: /^[A-Za-z0-9]\w{3,}$/ })}
             />
           </label>
-          {errors.login && <div className="valid-err">Login is required</div>}
+          {errors.login && <div className="valid-err">Login should be at least 4 symbols</div>}
         </div>
         <div className="profile-field">
           <label htmlFor="form-password">
@@ -101,7 +112,8 @@ function ProfilePage() {
               id="form-password"
               type="password"
               className="form-password"
-              {...register('password', { required: true })}
+              autoComplete="on"
+              {...register('password', { required: true, pattern: /^[A-Za-z0-9]\w{8,}$/ })}
             />
           </label>
           {errors.password && (
@@ -110,7 +122,7 @@ function ProfilePage() {
         </div>
         <input type="submit" value="Save" className="save-button" />
       </form>
-      <h3>Delete user</h3>
+      <h3>Delete profile</h3>
       <button type="button">Delete User</button>
     </div>
   );

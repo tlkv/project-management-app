@@ -96,7 +96,7 @@ function LoginPage() {
               />
             </label>
             {isNameValid ? null : (
-              <div className="login__invalid-field">Name must contain only letters</div>
+              <div className="login__invalid-field">Name must be at least 4 symbols</div>
             )}
           </div>
         )}
@@ -112,7 +112,7 @@ function LoginPage() {
             />
           </label>
           {isLoginValid ? null : (
-            <div className="login__invalid-field">Login must contain only letters</div>
+            <div className="login__invalid-field">Login must be at least 4 symbols</div>
           )}
         </div>
         <div className="login__form-field login__form-field_text">
