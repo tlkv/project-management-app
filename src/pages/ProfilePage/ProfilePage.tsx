@@ -4,13 +4,14 @@ import './ProfilePage.scss';
 
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-import { set, useForm } from 'react-hook-form';
-import { API_URL } from '../../data/constants';
+import { useForm } from 'react-hook-form';
 import { AppContext } from '../../App';
-import getAllUsers from '../../api/getAllUsers';
-import findUser from '../../api/findUser';
+import findCurrentUser from '../../api/findCurrentUser';
 import { ApiUserQuery } from '../../data/interfacesA';
 import updateUser from '../../api/updateUser';
+import ModalConfirm from '../../components/ModalConfirm/ModalConfirm';
+import deleteUser from '../../api/deleteUser';
+import API_LOGOUT from '../../api/logout';
 
 /* 
 const updateUser = async () => {
@@ -29,6 +30,11 @@ export const apiHello = async () => {
 }; */
 
 function ProfilePage() {
+  const { setIsAuth } = useContext(AppContext);
+  const [isModalOpen, showModal] = useState(false);
+  const toggleModal = () => {
+    showModal(!isModalOpen);
+  };
   const [currName, setCurrName] = useState('');
   const [currLogin, setCurrLogin] = useState('');
   const {
@@ -42,12 +48,9 @@ function ProfilePage() {
   const navigate = useNavigate();
 
   const { isAuth } = useContext(AppContext);
-
-  // const userLogin = localStorage.getItem('login') || '';
-  // const userToken = localStorage.getItem('token') || '';
   const handleCurrentUser = async () => {
-    const res = await findUser();
-    console.log('findUser', res);
+    const res = await findCurrentUser();
+    console.log('findCurrentUser', res);
     setValue('name', res.name);
     setValue('login', res.login);
     setCurrName(res.name);
@@ -73,58 +76,77 @@ function ProfilePage() {
     setCurrLogin(login);
   });
 
+  const onDelete = async () => {
+    await deleteUser();
+    API_LOGOUT(setIsAuth);
+    console.log('deleted');
+  };
+
   return (
-    <div className="narrow-container profile-container">
-      <h1 className="title">Profile</h1>
-      <img src="./assets/img/userIcon.png" alt="user icon" className="user-img" />
-      <div>Name: {currName}!</div>
-      <div>Login: {currLogin}</div>
-      <h3>Edit profile</h3>
-      <form onSubmit={onSubmit} className="user-controls">
-        <div className="profile-field">
-          <label htmlFor="form-name">
-            Name:
-            <input
-              id="form-name"
-              type="text"
-              className="form-name"
-              {...register('name', { required: true, pattern: /^[A-Za-z0-9]\w{3,}$/ })}
-            />
-          </label>
-          {errors.name && <div className="valid-err">Name should be at least 4 symbols</div>}
-        </div>
-        <div className="profile-field">
-          <label htmlFor="form-login">
-            Login:
-            <input
-              id="form-login"
-              type="text"
-              className="form-login"
-              {...register('login', { required: true, pattern: /^[A-Za-z0-9]\w{3,}$/ })}
-            />
-          </label>
-          {errors.login && <div className="valid-err">Login should be at least 4 symbols</div>}
-        </div>
-        <div className="profile-field">
-          <label htmlFor="form-password">
-            Password:
-            <input
-              id="form-password"
-              type="password"
-              className="form-password"
-              autoComplete="on"
-              {...register('password', { required: true, pattern: /^[A-Za-z0-9]\w{8,}$/ })}
-            />
-          </label>
-          {errors.password && (
-            <div className="valid-err">Password should be at least 8 symbols</div>
-          )}
-        </div>
-        <input type="submit" value="Save" className="save-button" />
-      </form>
-      <h3>Delete profile</h3>
-      <button type="button">Delete User</button>
-    </div>
+    <>
+      <div className="narrow-container profile-container">
+        <h1 className="title">Profile</h1>
+        <img src="./assets/img/userIcon.png" alt="user icon" className="user-img" />
+        <div>Name: {currName}!</div>
+        <div>Login: {currLogin}</div>
+        <h3>Edit profile</h3>
+        <form onSubmit={onSubmit} className="user-controls">
+          <div className="profile-field">
+            <label htmlFor="form-name">
+              Name:
+              <input
+                id="form-name"
+                type="text"
+                className="form-name"
+                {...register('name', { required: true, pattern: /^[A-Za-z0-9]\w{3,}$/ })}
+              />
+            </label>
+            {errors.name && <div className="valid-err">Name should be at least 4 symbols</div>}
+          </div>
+          <div className="profile-field">
+            <label htmlFor="form-login">
+              Login:
+              <input
+                id="form-login"
+                type="text"
+                className="form-login"
+                {...register('login', { required: true, pattern: /^[A-Za-z0-9]\w{3,}$/ })}
+              />
+            </label>
+            {errors.login && <div className="valid-err">Login should be at least 4 symbols</div>}
+          </div>
+          <div className="profile-field">
+            <label htmlFor="form-password">
+              Password:
+              <input
+                id="form-password"
+                type="password"
+                className="form-password"
+                autoComplete="on"
+                {...register('password', { required: true, pattern: /^[A-Za-z0-9]\w{8,}$/ })}
+              />
+            </label>
+            {errors.password && (
+              <div className="valid-err">Password should be at least 8 symbols</div>
+            )}
+          </div>
+          <input type="submit" value="Save" className="save-button" />
+        </form>
+        <h3>Delete profile</h3>
+        <button type="button" onClick={onDelete}>
+          Delete User
+        </button>
+        <button type="button" onClick={toggleModal}>
+          Delete User MODAL
+        </button>
+      </div>
+      {isModalOpen && (
+        <ModalConfirm
+          toggleModal={toggleModal}
+          message="Remove this user? This action is irreversible!"
+        />
+      )}
+    </>
   );
 }
 

@@ -1,7 +1,9 @@
 import { API_URL } from '../data/constants';
 import { ApiUserInfo } from '../data/interfacesA';
+import decodeToken from './decodeToken';
 
-const getAllUsers = async (token: string) => {
+const getAllUsers = async () => {
+  const { token } = decodeToken();
   const defData: ApiUserInfo[] = [];
   const options = {
     headers: {

@@ -10,8 +10,13 @@ export interface ApiUserQuery {
   password: string;
 }
 
-export interface jwtToken {
+export interface JwtToken {
   iat: number;
   login: string;
   userId: string;
+}
+
+export interface ModalConfirmation {
+  toggleModal: () => void;
+  message: string;
 }

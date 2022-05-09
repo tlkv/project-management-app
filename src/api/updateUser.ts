@@ -1,11 +1,9 @@
-import jwtDecode from 'jwt-decode';
 import { API_URL } from '../data/constants';
-import { ApiUserInfo, jwtToken } from '../data/interfacesA';
+import { ApiUserInfo } from '../data/interfacesA';
+import decodeToken from './decodeToken';
 
 const updateUser = async (name: string, login: string, password: string) => {
-  const token = localStorage.getItem('token') || '';
-  const encoded: jwtToken = jwtDecode(token);
-  const id = encoded.userId || '';
+  const { token, id } = decodeToken();
   const options = {
     method: 'PUT',
     headers: {

@@ -1,8 +1,9 @@
 import { API_URL } from '../data/constants';
 import { ApiUserInfo } from '../data/interfacesA';
+import decodeToken from './decodeToken';
 
-const getUser = async (id: string) => {
-  const token = localStorage.getItem('token') || '';
+const findCurrentUser = async () => {
+  const { token, id } = decodeToken();
   const defUser: ApiUserInfo = {
     login: '',
     id: '',
@@ -25,4 +26,4 @@ const getUser = async (id: string) => {
   return defUser;
 };
 
-export default getUser;
+export default findCurrentUser;

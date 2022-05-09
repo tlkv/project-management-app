@@ -4,6 +4,5 @@ export default function API_LOGIN_WITH_TOKEN(
   dispatchIsAuth: React.Dispatch<React.SetStateAction<boolean>>
 ): void {
   localStorage.setItem('token', token);
-  localStorage.setItem('login', login);
   dispatchIsAuth(true);
 }

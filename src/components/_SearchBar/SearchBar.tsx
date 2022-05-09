@@ -2,7 +2,7 @@ import { FormEvent, KeyboardEvent, useContext, useEffect, useState } from 'react
 import './SearchBar.scss';
 import logo from '../../assets/svg/logo.svg';
 import { AppContext } from '../../App';
-import fetchFlickr from '../../api/flickr';
+import fetchFlickr from '../../api/_flickr';
 import {
   API_QUERY,
   SORT_TYPES,
