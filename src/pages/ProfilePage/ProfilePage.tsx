@@ -135,7 +135,7 @@ function ProfilePage() {
         </button>
       </div>
       <button type="button" onClick={() => showModal(true)}>
-        showModalBottomTest
+        showModalBottom(Test)
       </button>
       {isModalOpen && (
         <ModalConfirm
