@@ -6,6 +6,7 @@ import './sass/normalize.scss';
 import { ROUTES_LIST } from './utils/router';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
+import ConfirmModal from './components/ConfirmModal/ConfirmModal';
 import { AppContextData } from './data/interfaces';
 import {
   RESP_DEFAULT,
@@ -13,8 +14,10 @@ import {
   PAGINATION_DEFAULT,
   SEARCH_INFO_DEFAULT,
   LANG_RU,
+  CONFIRM_MODAL_DEFAULT,
 } from './data/constants';
 import {
+  confirmReducer,
   boardsReducer,
   apiReducer,
   paginationReducer,
@@ -28,6 +31,7 @@ function App() {
   const [lang, switchLang] = useState(LANG_RU);
   const [boards, dispatchBoards] = useReducer(boardsReducer, []);
   const [isAuth, setIsAuth] = useState(false);
+  const [confirm, dispatchConfirm] = useReducer(confirmReducer, CONFIRM_MODAL_DEFAULT);
   // old search page data
   const [apiPhotos, dispatchApiQuery] = useReducer(apiReducer, RESP_DEFAULT);
   const [sort, dispatchSort] = useReducer(sortReducer, API_SORT_DEFAULT);
@@ -50,8 +54,10 @@ function App() {
       setIsAuth,
       boards,
       dispatchBoards,
+      confirm,
+      dispatchConfirm,
     }),
-    [apiPhotos, sort, pagination, searchInfo, lang, isAuth, boards]
+    [apiPhotos, sort, pagination, searchInfo, lang, isAuth, boards, confirm]
   );
 
   return (
@@ -67,6 +73,7 @@ function App() {
         </main>
         <Footer />
       </BrowserRouter>
+      {confirm.isOpen && <ConfirmModal />}
     </AppContext.Provider>
   );
 }
