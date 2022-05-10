@@ -1,9 +1,10 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import { MouseEvent } from 'react';
 import { createPortal } from 'react-dom';
 import { ModalConfirmation } from '../../data/interfacesA';
 import './ModalConfirm.scss';
 
-export default function ModalConfirm({ showModal, message }: ModalConfirmation) {
+export default function ModalConfirm({ modalCallback, showModal, message }: ModalConfirmation) {
   return createPortal(
     <div
       className="modal-overlay"
@@ -12,7 +13,6 @@ export default function ModalConfirm({ showModal, message }: ModalConfirmation) 
       role="button"
       tabIndex={0}
     >
-      {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
       <div
         className="modal-content"
         onKeyDown={() => {}}
@@ -37,7 +37,7 @@ export default function ModalConfirm({ showModal, message }: ModalConfirmation) 
           >
             Cancel
           </button>
-          <button className="ok-button modal-button" type="button">
+          <button className="ok-button modal-button" type="button" onClick={modalCallback}>
             OK
           </button>
         </div>

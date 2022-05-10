@@ -20,9 +20,6 @@ const findCurrentUser = async () => {
     const user: ApiUserInfo = await res.json();
     return user;
   }
-  if (res.status >= 400) {
-    // logout
-  }
   return defUser;
 };
 

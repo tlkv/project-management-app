@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import './ProfilePage.scss';
 
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AppContext } from '../../App';
@@ -13,22 +13,6 @@ import ModalConfirm from '../../components/ModalConfirm/ModalConfirm';
 import deleteUser from '../../api/deleteUser';
 import API_LOGOUT from '../../api/logout';
 
-/* 
-const updateUser = async () => {
-  const all = await getAllUsers();
-  const match = all.find((i) => i.login === loginLs);
-  console.log('this user', match);
-};
-
-export const apiHello = async () => {
-  const res = await fetch(API_URL);
-  const data = await res.text();
-  console.log(data);
-  if (res.ok) {
-    updateUser();
-  }
-}; */
-
 function ProfilePage() {
   const { setIsAuth } = useContext(AppContext);
   const [isModalOpen, showModal] = useState(false);
@@ -37,37 +21,23 @@ function ProfilePage() {
   const {
     register,
     handleSubmit,
-    reset,
-    getValues,
     setValue,
     formState: { errors },
   } = useForm<ApiUserQuery>();
   const navigate = useNavigate();
 
-  const { isAuth } = useContext(AppContext);
   const handleCurrentUser = async () => {
     const res = await findCurrentUser();
-    console.log('findCurrentUser', res);
     setValue('name', res.name);
     setValue('login', res.login);
     setCurrName(res.name);
     setCurrLogin(res.login);
-    // setValue
   };
   useEffect(() => {
-    /* if (!isAuth) {
-      navigate('/welcome');
-    } */
     handleCurrentUser();
   }, []);
 
-  /* useEffect(() => {
-    if (!isAuth) {
-      navigate('/welcome');
-    }
-  }, [isAuth]); */
   const onSubmit = handleSubmit(async ({ name, login, password }) => {
-    console.log({ name, login, password });
     await updateUser(name, login, password);
     setCurrName(name);
     setCurrLogin(login);
@@ -96,55 +66,53 @@ function ProfilePage() {
             </div>
           </div>
         </div>
-        <h3>Edit profile</h3>
-        <form onSubmit={onSubmit} className="user-controls">
-          <div className="profile-field">
-            <label htmlFor="form-name">
-              Name
-              <input
-                id="form-name"
-                type="text"
-                className="form-name  user-edit-input"
-                {...register('name', { required: true, pattern: /^[A-Za-z0-9]\w{3,}$/ })}
-              />
-            </label>
-            {errors.name && <div className="valid-err">Name should be at least 4 symbols</div>}
-          </div>
-          <div className="profile-field">
-            <label htmlFor="form-login">
-              Login
-              <input
-                id="form-login"
-                type="text"
-                className="form-login user-edit-input"
-                {...register('login', { required: true, pattern: /^[A-Za-z0-9]\w{3,}$/ })}
-              />
-            </label>
-            {errors.login && <div className="valid-err">Login should be at least 4 symbols</div>}
-          </div>
-          <div className="profile-field">
-            <label htmlFor="form-password">
-              Password
-              <input
-                id="form-password"
-                type="password"
-                className="form-password  user-edit-input"
-                autoComplete="on"
-                {...register('password', { required: true, pattern: /^[A-Za-z0-9]\w{7,}$/ })}
-              />
-            </label>
-            {errors.password && (
-              <div className="valid-err">Password should be at least 8 symbols</div>
-            )}
-          </div>
-          <input type="submit" value="Save" className="save-button" />
-        </form>
-        <h3>Delete profile</h3>
-        {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-        <button type="button" className="delete-profile" onClick={onDelete} />
-        <br />
-        <button type="button" onClick={() => showModal(true)}>
-          Trigger Modal
+        <div className="form-wrapper">
+          <h3>Edit profile</h3>
+          <form onSubmit={onSubmit} className="user-controls">
+            <div className="profile-field">
+              <label htmlFor="form-name">
+                Name
+                <input
+                  id="form-name"
+                  type="text"
+                  className="form-name  user-edit-input"
+                  {...register('name', { required: true, pattern: /^[A-Za-z0-9]\w{3,}$/ })}
+                />
+              </label>
+              {errors.name && <div className="valid-err">Name should be at least 4 symbols</div>}
+            </div>
+            <div className="profile-field">
+              <label htmlFor="form-login">
+                Login
+                <input
+                  id="form-login"
+                  type="text"
+                  className="form-login user-edit-input"
+                  {...register('login', { required: true, pattern: /^[A-Za-z0-9]\w{3,}$/ })}
+                />
+              </label>
+              {errors.login && <div className="valid-err">Login should be at least 4 symbols</div>}
+            </div>
+            <div className="profile-field">
+              <label htmlFor="form-password">
+                Password
+                <input
+                  id="form-password"
+                  type="password"
+                  className="form-password  user-edit-input"
+                  autoComplete="on"
+                  {...register('password', { required: true, pattern: /^[A-Za-z0-9]\w{7,}$/ })}
+                />
+              </label>
+              {errors.password && (
+                <div className="valid-err">Password should be at least 8 symbols</div>
+              )}
+            </div>
+            <input type="submit" value="Save" className="save-button" />
+          </form>
+        </div>
+        <button type="button" className="delete-profile" onClick={() => showModal(true)}>
+          Delete my account
         </button>
       </div>
       {isModalOpen && (
@@ -152,7 +120,7 @@ function ProfilePage() {
           showModal={showModal}
           message={
             <>
-              Remove this user? <br /> This action is irreversible!
+              Are you sure? <br /> This action is irreversible!
             </>
           }
           modalCallback={onDelete}

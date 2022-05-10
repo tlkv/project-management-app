@@ -1,5 +1,4 @@
 import { ReactElement } from 'react';
-import { JsxElement } from 'typescript';
 
 export interface ApiUserInfo {
   login: string;
