@@ -130,17 +130,21 @@ function ProfilePage() {
           <input type="submit" value="Save" className="save-button" />
         </form>
         <h3>Delete profile</h3>
-        <button type="button" onClick={onDelete}>
+        {/* <button type="button" onClick={onDelete}>
           Delete User
+        </button> */}
+        <button type="button" onClick={() => showModal(true)}>
+          Delete Modal
         </button>
       </div>
-      <button type="button" onClick={() => showModal(true)}>
-        showModalBottom(Test)
-      </button>
       {isModalOpen && (
         <ModalConfirm
           showModal={showModal}
-          message="Remove this user? This action is irreversible!"
+          message={
+            <>
+              Remove this user? <br /> This action is irreversible!
+            </>
+          }
           modalCallback={onDelete}
         />
       )}

@@ -1,3 +1,6 @@
+import { ReactElement } from 'react';
+import { JsxElement } from 'typescript';
+
 export interface ApiUserInfo {
   login: string;
   id: string;
@@ -18,6 +21,6 @@ export interface JwtToken {
 
 export interface ModalConfirmation {
   showModal: React.Dispatch<React.SetStateAction<boolean>>;
-  message: string;
+  message: ReactElement;
   modalCallback: () => Promise<void>;
 }
