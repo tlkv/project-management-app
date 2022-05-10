@@ -30,7 +30,11 @@ export default function ModalConfirm({ showModal, message }: ModalConfirmation) 
           />
         </div>
         <div className="modal-buttons-container">
-          <button className="cancel-button modal-button" type="button">
+          <button
+            className="cancel-button modal-button"
+            type="button"
+            onClick={() => showModal(false)}
+          >
             Cancel
           </button>
           <button className="ok-button modal-button" type="button">

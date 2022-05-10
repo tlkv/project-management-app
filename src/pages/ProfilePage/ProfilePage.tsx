@@ -83,18 +83,28 @@ function ProfilePage() {
     <>
       <div className="narrow-container profile-container">
         <h1 className="title">Profile</h1>
-        <img src="./assets/img/userIcon.png" alt="user icon" className="user-img" />
-        <div>Name: {currName}!</div>
-        <div>Login: {currLogin}</div>
+        <div className="profile-description">
+          <div className="prof-descr-item">
+            <img src="./assets/img/userIcon.png" alt="user icon" className="user-img" />
+          </div>
+          <div className="prof-descr-item">
+            <div className="prof-descr-text">
+              <span>Name:</span> {currName}
+            </div>
+            <div className="prof-descr-text">
+              <span>Login:</span> {currLogin}
+            </div>
+          </div>
+        </div>
         <h3>Edit profile</h3>
         <form onSubmit={onSubmit} className="user-controls">
           <div className="profile-field">
             <label htmlFor="form-name">
-              Name:
+              Name
               <input
                 id="form-name"
                 type="text"
-                className="form-name"
+                className="form-name  user-edit-input"
                 {...register('name', { required: true, pattern: /^[A-Za-z0-9]\w{3,}$/ })}
               />
             </label>
@@ -102,11 +112,11 @@ function ProfilePage() {
           </div>
           <div className="profile-field">
             <label htmlFor="form-login">
-              Login:
+              Login
               <input
                 id="form-login"
                 type="text"
-                className="form-login"
+                className="form-login user-edit-input"
                 {...register('login', { required: true, pattern: /^[A-Za-z0-9]\w{3,}$/ })}
               />
             </label>
@@ -114,11 +124,11 @@ function ProfilePage() {
           </div>
           <div className="profile-field">
             <label htmlFor="form-password">
-              Password:
+              Password
               <input
                 id="form-password"
                 type="password"
-                className="form-password"
+                className="form-password  user-edit-input"
                 autoComplete="on"
                 {...register('password', { required: true, pattern: /^[A-Za-z0-9]\w{7,}$/ })}
               />
@@ -130,11 +140,11 @@ function ProfilePage() {
           <input type="submit" value="Save" className="save-button" />
         </form>
         <h3>Delete profile</h3>
-        {/* <button type="button" onClick={onDelete}>
-          Delete User
-        </button> */}
+        {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+        <button type="button" className="delete-profile" onClick={onDelete} />
+        <br />
         <button type="button" onClick={() => showModal(true)}>
-          Delete Modal
+          Trigger Modal
         </button>
       </div>
       {isModalOpen && (
