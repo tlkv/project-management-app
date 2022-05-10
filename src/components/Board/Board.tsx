@@ -15,7 +15,7 @@ function Board({ id, title }: BoardsResponse) {
   const handleDeleteBoard = async () => {
     const confirmed = await isConfirmed(`You sure about that?`);
     if (confirmed) {
-      deleteBoard(id);
+      await deleteBoard(id);
       const updatedBoards = await getBoards();
       dispatchBoards({ type: SET_BOARDS, payload: updatedBoards });
     }
