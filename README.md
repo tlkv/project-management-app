@@ -7,6 +7,10 @@
 ![Webpack](https://img.shields.io/badge/-Webpack-0D1117?style=for-the-badge&logo=Webpack)
 ![ESLint](https://img.shields.io/badge/-ESLint-0D1117?style=for-the-badge&logo=ESLint)
 
+## Deploy
+
+https://pm-app-34team.netlify.app/
+
 ## Downloading
 
 `git clone https://github.com/tlkv/project-management-app`
