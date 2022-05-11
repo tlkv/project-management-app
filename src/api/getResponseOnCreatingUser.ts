@@ -1,6 +1,6 @@
 import { API_URL } from '../data/constants';
 
-export default async function API_GET_RESPONSE_ON_CREATING_USER(
+export default async function getResponseOnCreatingUser(
   name: string,
   login: string,
   password: string

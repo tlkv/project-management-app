@@ -2,7 +2,7 @@ import { API_URL } from '../data/constants';
 
 export default async function deleteBoard(id: string) {
   const url = `${API_URL}/boards/${id}`;
-  const token = localStorage.getItem('token') || '';
+  const token = localStorage.getItem('pmapp34-token') || '';
 
   try {
     await fetch(url, {

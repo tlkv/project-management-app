@@ -1,4 +1,4 @@
-import { createContext, useMemo, useReducer, useState } from 'react';
+import { createContext, useEffect, useMemo, useReducer, useState } from 'react';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import './sass/App.scss';
 import './sass/index.scss';
@@ -8,46 +8,25 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import ConfirmModal from './components/ConfirmModal/ConfirmModal';
 import { AppContextData } from './data/interfaces';
-import {
-  RESP_DEFAULT,
-  API_SORT_DEFAULT,
-  PAGINATION_DEFAULT,
-  SEARCH_INFO_DEFAULT,
-  LANG_RU,
-  CONFIRM_MODAL_DEFAULT,
-} from './data/constants';
-import {
-  confirmReducer,
-  boardsReducer,
-  apiReducer,
-  paginationReducer,
-  searchInfoReducer,
-  sortReducer,
-} from './utils/reducers';
+import { LANG_RU, CONFIRM_MODAL_DEFAULT } from './data/constants';
+import { confirmReducer, boardsReducer } from './utils/reducers';
 
 export const AppContext = createContext({} as AppContextData);
 
 function App() {
+  const [isAuth, setIsAuth] = useState(false);
   const [lang, switchLang] = useState(LANG_RU);
   const [boards, dispatchBoards] = useReducer(boardsReducer, []);
-  const [isAuth, setIsAuth] = useState(false);
   const [confirm, dispatchConfirm] = useReducer(confirmReducer, CONFIRM_MODAL_DEFAULT);
-  // old search page data
-  const [apiPhotos, dispatchApiQuery] = useReducer(apiReducer, RESP_DEFAULT);
-  const [sort, dispatchSort] = useReducer(sortReducer, API_SORT_DEFAULT);
-  const [pagination, dispatchPagination] = useReducer(paginationReducer, PAGINATION_DEFAULT);
-  const [searchInfo, dispatchSearchInfo] = useReducer(searchInfoReducer, SEARCH_INFO_DEFAULT);
+
+  useEffect(() => {
+    if (localStorage.getItem('pmapp34-token')) {
+      setIsAuth(true);
+    }
+  }, []);
 
   const store = useMemo(
     () => ({
-      apiPhotos,
-      dispatchApiQuery,
-      sort,
-      dispatchSort,
-      pagination,
-      dispatchPagination,
-      searchInfo,
-      dispatchSearchInfo,
       lang,
       switchLang,
       isAuth,
@@ -57,7 +36,7 @@ function App() {
       confirm,
       dispatchConfirm,
     }),
-    [apiPhotos, sort, pagination, searchInfo, lang, isAuth, boards, confirm]
+    [lang, isAuth, boards, confirm]
   );
 
   return (

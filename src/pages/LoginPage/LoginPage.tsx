@@ -3,9 +3,9 @@ import { useLocation, useNavigate, NavLink } from 'react-router-dom';
 import './LoginPage.scss';
 import { AppContext } from '../../App';
 import AuthPopup from './AuthPopup/AuthPopup';
-import API_GET_TOKEN from '../../api/getToken';
-import API_LOGIN_WITH_TOKEN from '../../api/loginWithToken';
-import API_GET_RESPONSE_ON_CREATING_USER from '../../api/getResponseOnCreatingUser';
+import getToken from '../../api/getToken';
+import loginWithToken from '../../api/loginWithToken';
+import getResponseOnCreatingUser from '../../api/getResponseOnCreatingUser';
 import IS_PASSWORD_VALID from '../../utils/isPasswordValid';
 import IS_NAME_OR_LOGIN_VALID from '../../utils/isNameOrLoginValid';
 
@@ -44,10 +44,10 @@ function LoginPage() {
       setIsPasswordValid(IS_PASSWORD_VALID(password));
       return;
     }
-    const response = await API_GET_RESPONSE_ON_CREATING_USER(name, login, password);
+    const response = await getResponseOnCreatingUser(name, login, password);
     if (response.status === 201) {
-      const token = await API_GET_TOKEN(login, password);
-      API_LOGIN_WITH_TOKEN(token as string, login, context.setIsAuth);
+      const token = await getToken(login, password);
+      loginWithToken(token as string, login, context.setIsAuth);
       navigate('/');
       return;
     }
@@ -65,9 +65,9 @@ function LoginPage() {
       setIsPasswordValid(IS_PASSWORD_VALID(password));
       return;
     }
-    const token = await API_GET_TOKEN(login, password);
+    const token = await getToken(login, password);
     if (token) {
-      API_LOGIN_WITH_TOKEN(token, login, context.setIsAuth);
+      loginWithToken(token, login, context.setIsAuth);
       navigate('/');
       return;
     }

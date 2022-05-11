@@ -3,7 +3,7 @@ import { BoardsResponse } from '../data/interfaces';
 
 export default async function createBoard(title: string) {
   const url = `${API_URL}/boards`;
-  const token = localStorage.getItem('token') || '';
+  const token = localStorage.getItem('pmapp34-token') || '';
   const board = {
     title,
   };

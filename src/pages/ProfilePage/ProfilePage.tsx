@@ -11,7 +11,7 @@ import { ApiUserQuery } from '../../data/interfacesA';
 import updateUser from '../../api/updateUser';
 import ModalConfirm from '../../components/ModalConfirm/ModalConfirm';
 import deleteUser from '../../api/deleteUser';
-import API_LOGOUT from '../../api/logout';
+import logout from '../../api/logout';
 
 function ProfilePage() {
   const { setIsAuth } = useContext(AppContext);
@@ -45,7 +45,7 @@ function ProfilePage() {
 
   const onDelete = async () => {
     await deleteUser();
-    API_LOGOUT(setIsAuth);
+    logout(setIsAuth);
     navigate('/welcome');
   };
 
