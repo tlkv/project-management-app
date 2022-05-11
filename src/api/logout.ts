@@ -1,7 +1,6 @@
-export default function API_LOGOUT(
+export default function logout(
   dispatchIsAuth: React.Dispatch<React.SetStateAction<boolean>>
 ): void {
-  localStorage.removeItem('login');
-  localStorage.removeItem('token');
+  localStorage.removeItem('pmapp34-token');
   dispatchIsAuth(false);
 }

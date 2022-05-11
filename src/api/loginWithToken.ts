@@ -1,9 +1,8 @@
-export default function API_LOGIN_WITH_TOKEN(
+export default function loginWithToken(
   token: string,
   login: string,
   dispatchIsAuth: React.Dispatch<React.SetStateAction<boolean>>
 ): void {
-  localStorage.setItem('token', token);
-  localStorage.setItem('login', login);
+  localStorage.setItem('pmapp34-token', token);
   dispatchIsAuth(true);
 }

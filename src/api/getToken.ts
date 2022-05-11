@@ -1,9 +1,6 @@
 import { API_URL } from '../data/constants';
 
-export default async function API_GET_TOKEN(
-  login: string,
-  password: string
-): Promise<string | false> {
+export default async function getToken(login: string, password: string): Promise<string | false> {
   const options = {
     method: 'POST',
     headers: {
