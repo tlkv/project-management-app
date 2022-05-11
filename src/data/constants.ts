@@ -11,6 +11,8 @@ export const NEXT_PAGE = 'NEXT_PAGE';
 export const DEF_PAGE = 'DEF_PAGE';
 export const SEARCH_INFO = 'SEARCH_INFO';
 
+export const SET_BOARDS = 'SET_BOARDS';
+
 export const API_PAGE_DEFAULT = 1;
 export const API_PAGES_AMOUNT_DEFAULT = 0;
 export const API_PER_PAGE_DEFAULT = 24;
@@ -73,3 +75,12 @@ export const SEARCH_INFO_DEFAULT: SearchInfo = {
 };
 
 export const API_URL = 'https://rs-team-34.herokuapp.com';
+
+export const CONFIRM_MODAL_DEFAULT = {
+  question: '',
+  isOpen: false,
+  proceed: null,
+  cancel: null,
+};
+export const CONFIRM_MODAL_INIT = 'CONFIRM_MODAL_INIT';
+export const CONFIRM_MODAL_CLOSE = 'CONFIRM_MODAL_CLOSE';

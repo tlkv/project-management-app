@@ -55,6 +55,28 @@ export interface SearchInfoAction {
   payload: SearchInfo;
 }
 
+export interface BoardsResponse {
+  id: string;
+  title: string;
+}
+
+export interface BoardsAction {
+  type: string;
+  payload: BoardsResponse[];
+}
+
+export interface ConfirmStatus {
+  question: string;
+  isOpen: boolean;
+  proceed: null | ((value?: unknown) => void);
+  cancel: null | ((reason?: unknown) => void);
+}
+
+export interface ConfirmAction {
+  type: string;
+  payload: Partial<ConfirmStatus>;
+}
+
 export interface AppContextData {
   lang: string;
   switchLang: Dispatch<React.SetStateAction<string>>;
@@ -66,8 +88,12 @@ export interface AppContextData {
   dispatchPagination: Dispatch<PaginationAction>;
   searchInfo: SearchInfo;
   dispatchSearchInfo: Dispatch<SearchInfoAction>;
+  boards: BoardsResponse[];
+  dispatchBoards: Dispatch<BoardsAction>;
   isAuth: boolean;
   setIsAuth: Dispatch<React.SetStateAction<boolean>>;
+  confirm: ConfirmStatus;
+  dispatchConfirm: Dispatch<ConfirmAction>;
 }
 
 export interface AuthPopupData {
