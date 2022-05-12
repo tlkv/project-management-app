@@ -1,5 +1,7 @@
 import { createContext, useEffect, useMemo, useReducer, useState } from 'react';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './sass/App.scss';
 import './sass/index.scss';
 import './sass/normalize.scss';
@@ -41,6 +43,7 @@ function App() {
 
   return (
     <AppContext.Provider value={store}>
+      <ToastContainer />
       <BrowserRouter>
         <Header />
         <main className="main-container">
