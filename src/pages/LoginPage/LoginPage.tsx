@@ -8,6 +8,7 @@ import loginWithToken from '../../api/loginWithToken';
 import getResponseOnCreatingUser from '../../api/getResponseOnCreatingUser';
 import IS_PASSWORD_VALID from '../../utils/isPasswordValid';
 import IS_NAME_OR_LOGIN_VALID from '../../utils/isNameOrLoginValid';
+import { toastErrorDark } from '../../utils/toast';
 
 function LoginPage() {
   const context = useContext(AppContext);
@@ -52,8 +53,9 @@ function LoginPage() {
       return;
     }
     if (response.status === 409) {
-      setPopupMessage('This login already exists');
-      setIsPopupShown(true);
+      toastErrorDark('This login already exists');
+      /* setPopupMessage('This login already exists');
+      setIsPopupShown(true); */
     }
   };
 
@@ -71,8 +73,9 @@ function LoginPage() {
       navigate('/');
       return;
     }
-    setPopupMessage('Wrong login or password');
-    setIsPopupShown(true);
+    toastErrorDark('Wrong login or password');
+    /* setPopupMessage('Wrong login or password');
+    setIsPopupShown(true); */
   };
 
   return (

@@ -43,7 +43,6 @@ export default function ModalConfirm({ modalCallback, showModal, message }: Moda
         </div>
       </div>
     </div>,
-
     document.getElementById('modal') as Element
   );
 }

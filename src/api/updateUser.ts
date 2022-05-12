@@ -1,7 +1,7 @@
 import { API_URL } from '../data/constants';
 import { ApiUserInfo } from '../data/interfacesA';
 import decodeToken from './decodeToken';
-import { toastErrorDark, toastSuccessDark, toastWarnDark } from '../utils/toast';
+import { toastErrorDark, toastInfoDark, toastWarnDark } from '../utils/toast';
 
 const updateUser = async (name: string, login: string, password: string) => {
   const { token, id } = decodeToken();
@@ -25,7 +25,7 @@ const updateUser = async (name: string, login: string, password: string) => {
   }
   if (res.ok) {
     const user: ApiUserInfo = await res.json();
-    toastSuccessDark('Successfully saved');
+    toastInfoDark('User info updated');
     return user;
   }
   if (res.status >= 400 && res.status <= 499) {
