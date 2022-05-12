@@ -1,7 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react-hooks/exhaustive-deps */
 import './ProfilePage.scss';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -14,6 +15,7 @@ import deleteUser from '../../api/deleteUser';
 import logout from '../../api/logout';
 
 function ProfilePage() {
+  const notify = () => toast('Wow so easy!');
   const { setIsAuth } = useContext(AppContext);
   const [isModalOpen, showModal] = useState(false);
   const [currName, setCurrName] = useState('');
@@ -52,6 +54,12 @@ function ProfilePage() {
   return (
     <>
       <div className="narrow-container profile-container">
+        <div>
+          <button type="button" onClick={notify}>
+            Notify!
+          </button>
+          <ToastContainer />
+        </div>
         <h1 className="title">Profile</h1>
         <div className="profile-description">
           <div className="prof-descr-item">
