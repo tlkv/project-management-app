@@ -31,11 +31,18 @@
 
 .board-item__title {
   display: -webkit-box;
-  height: 38px;
-  -webkit-line-clamp: 2;
+  height: 19px;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
   font-weight: 100;
+}
+
+.board-item__title-desc {
+  height: 32px;
+  -webkit-line-clamp: 2;
+  font-size: 14px;
+  color: gainsboro;
 }
 
 .board-item__delete-btn {

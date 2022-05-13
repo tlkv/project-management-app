@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../App';
-import { CONFIRM_MODAL_CLOSE, CONFIRM_MODAL_INIT } from '../data/constants';
+import { CONFIRM_MODAL_CLOSE, CONFIRM_MODAL_INIT } from '../data/constantsV';
 
 export default function useConfirm() {
   const { confirm, dispatchConfirm } = useContext(AppContext);

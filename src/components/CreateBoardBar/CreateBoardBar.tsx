@@ -1,15 +1,32 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/self-closing-comp */
+/* eslint-disable react/jsx-props-no-spreading */
 import './CreateBoardBar.scss';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { Dispatch, useContext, useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { AppContext } from '../../App';
-import { SET_BOARDS } from '../../data/constants';
+import { SET_BOARDS } from '../../data/constantsV';
 import getBoards from '../../api/getBoards';
 import createBoard from '../../api/createBoard';
+import { NewBoard } from '../../data/interfacesV';
 
-function CreateBoardBar() {
-  const { boards, dispatchBoards } = useContext(AppContext);
-  const [boardName, setBoardName] = useState('');
+function CreateBoardBar({
+  setIsCreateBoardOpen,
+}: {
+  setIsCreateBoardOpen: Dispatch<React.SetStateAction<boolean>>;
+}) {
+  const { dispatchBoards } = useContext(AppContext);
   const [boardIsCreating, setBoardIsCreating] = useState(false);
-  const [isValidationError, setIsValidationError] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    setFocus,
+    clearErrors,
+    formState: { errors, isDirty },
+  } = useForm<NewBoard>({ mode: 'onSubmit', reValidateMode: 'onSubmit' });
+  const Container = document.getElementById('modal') as HTMLElement;
 
   const loadBoards = async () => {
     const data = await getBoards();
@@ -17,59 +34,103 @@ function CreateBoardBar() {
   };
 
   useEffect(() => {
-    if (!boards.length) {
-      loadBoards();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setFocus('title');
+  }, [setFocus]);
+
+  useEffect(() => {
+    const handleKeydown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsCreateBoardOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeydown);
+    return () => window.removeEventListener('keydown', handleKeydown);
   }, []);
 
-  const validate = () => {
-    if (!boardName) {
-      setIsValidationError(true);
-      return false;
-    }
-    return true;
+  const onSubmit: SubmitHandler<NewBoard> = async (data) => {
+    setBoardIsCreating(true);
+    await createBoard(data.title, data.description);
+    await loadBoards();
+    setBoardIsCreating(false);
+    setIsCreateBoardOpen(false);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setBoardName(e.target.value);
-    setIsValidationError(false);
-  };
+  return ReactDOM.createPortal(
+    <div
+      className="modal-wrapper"
+      role="button"
+      onClick={() => setIsCreateBoardOpen(false)}
+      tabIndex={0}
+    >
+      <div className="create-board" role="presentation" onClick={(e) => e.stopPropagation()}>
+        <h3>Create board</h3>
+        <button
+          className="create-board__close-btn"
+          type="button"
+          aria-label="toggle"
+          onClick={() => setIsCreateBoardOpen(false)}
+        ></button>
+        <form className="create-board__form" onSubmit={handleSubmit(onSubmit)} noValidate>
+          <div className="create-board__field">
+            <label htmlFor="title">
+              {errors.title ? (
+                <span className="create-board__invalid">{errors.title.message}</span>
+              ) : (
+                <span>Board title:</span>
+              )}
 
-  const handleCreateBoard = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const isValid = validate();
+              <input
+                className="create-board__input"
+                type="text"
+                placeholder="Homework"
+                disabled={boardIsCreating}
+                {...register('title', {
+                  required: 'Enter a board name',
+                  pattern: {
+                    value: /[a-zA-Z0-9]{2,20}/,
+                    message: 'should be at least 2 and max 20 symbols',
+                  },
+                  onChange: () => clearErrors('title'),
+                })}
+              />
+            </label>
+          </div>
+          <div className="create-board__field">
+            <label htmlFor="description">
+              {errors.description ? (
+                <span className="create-board__invalid">{errors.description.message}</span>
+              ) : (
+                <span>Board description:</span>
+              )}
 
-    if (isValid && !boardIsCreating) {
-      setBoardIsCreating(true);
-      await createBoard(boardName);
-      loadBoards();
-      setBoardName('');
-      setBoardIsCreating(false);
-    }
-  };
-
-  return (
-    <form className="create-board" onSubmit={handleCreateBoard}>
-      <label htmlFor="create-board">
-        Create new board:
-        <input
-          name="create-board"
-          className="create-board__input"
-          type="text"
-          placeholder="Homework"
-          disabled={boardIsCreating}
-          value={boardName}
-          onChange={handleChange}
-        />
-      </label>
-      <button className="create-board__create-btn" type="submit">
-        Create
-      </button>
-      {isValidationError && (
-        <span className="create-board__invalid">Board name must not be empty</span>
-      )}
-    </form>
+              <input
+                className="create-board__input"
+                type="text"
+                placeholder="Needs to buy for home"
+                disabled={boardIsCreating}
+                {...register('description', {
+                  required: 'Enter a board description',
+                  pattern: {
+                    value: /[a-zA-Z0-9]{4,30}/,
+                    message: 'should be at least 4 and max 30 symbols',
+                  },
+                  onChange: () => clearErrors('description'),
+                })}
+              />
+            </label>
+          </div>
+          <button
+            className="create-board__create-btn"
+            type="submit"
+            disabled={!isDirty || !!Object.keys(errors).length}
+          >
+            Create
+          </button>
+        </form>
+      </div>
+    </div>,
+    Container
   );
 }
 

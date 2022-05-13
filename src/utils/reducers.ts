@@ -1,5 +1,5 @@
 import { BoardsResponse, BoardsAction, ConfirmStatus, ConfirmAction } from '../data/interfaces';
-import { SET_BOARDS, CONFIRM_MODAL_INIT, CONFIRM_MODAL_CLOSE } from '../data/constants';
+import { SET_BOARDS, CONFIRM_MODAL_INIT, CONFIRM_MODAL_CLOSE } from '../data/constantsV';
 
 export const boardsReducer = (state: BoardsResponse[], { type, payload }: BoardsAction) => {
   switch (type) {
