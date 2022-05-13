@@ -1,12 +1,14 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { AppContext } from '../../App';
 import { LANG_EN, LANG_RU } from '../../data/constants';
 import './Header.scss';
 import logout from '../../api/logout';
+import CreateBoardBar from '../CreateBoardBar/CreateBoardBar';
 
 function Header() {
   const { lang, switchLang, setIsAuth, isAuth } = useContext(AppContext);
+  const [isCreateBoardOpen, setIsCreateBoardOpen] = useState(false);
   const navigate = useNavigate();
 
   const changeLang = () => {
@@ -23,9 +25,14 @@ function Header() {
         <ul className="nav-wrapper ">
           {isAuth && (
             <li className="nav-item">
-              <button type="button" className="header-button">
+              <button
+                type="button"
+                className="header-button"
+                onClick={() => setIsCreateBoardOpen(true)}
+              >
                 New Board
               </button>
+              {isCreateBoardOpen && <CreateBoardBar setIsCreateBoardOpen={setIsCreateBoardOpen} />}
             </li>
           )}
           {isAuth && (
