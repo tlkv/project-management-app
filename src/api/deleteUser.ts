@@ -4,6 +4,10 @@ import decodeToken from './decodeToken';
 
 const deleteUser = async () => {
   const { token, id } = decodeToken();
+  if (!token) {
+    toastErrorDark('Invalid token');
+    return false;
+  }
   const options = {
     method: 'DELETE',
     headers: {

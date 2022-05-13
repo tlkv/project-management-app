@@ -5,6 +5,10 @@ import { toastErrorDark, toastInfoDark, toastWarnDark } from '../utils/toast';
 
 const updateUser = async (name: string, login: string, password: string) => {
   const { token, id } = decodeToken();
+  if (!token) {
+    toastErrorDark('Invalid token');
+    return false;
+  }
   const options = {
     method: 'PUT',
     headers: {
@@ -14,9 +18,7 @@ const updateUser = async (name: string, login: string, password: string) => {
     },
     body: JSON.stringify({ name, login, password }),
   };
-
   let res = {} as Response;
-
   try {
     res = await fetch(`${API_URL}/users/${id}`, options);
   } catch (err) {

@@ -3,8 +3,11 @@ import { ApiUserInfo } from '../data/interfacesA';
 import decodeToken from './decodeToken';
 
 const getAllUsers = async () => {
-  const { token } = decodeToken();
   const defData: ApiUserInfo[] = [];
+  const { token } = decodeToken();
+  if (!token) {
+    return defData;
+  }
   const options = {
     headers: {
       Accept: 'application/json',
