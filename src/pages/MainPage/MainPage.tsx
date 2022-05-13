@@ -1,10 +1,9 @@
 import BoardList from '../../components/BoardList/BoardList';
-import CreateBoardBar from '../../components/CreateBoardBar/CreateBoardBar';
 
 function MainPage() {
   return (
     <div className="narrow-container">
-      <CreateBoardBar />
+      <h1>YOUR WORKSPACE</h1>
       <BoardList />
     </div>
   );
