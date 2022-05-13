@@ -3,6 +3,7 @@ import React, { Dispatch, SetStateAction } from 'react';
 export interface BoardsResponse {
   id: string;
   title: string;
+  description: string;
 }
 
 export interface BoardsAction {
