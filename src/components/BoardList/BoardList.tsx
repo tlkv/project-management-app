@@ -1,13 +1,28 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { AppContext } from '../../App';
+import { SET_BOARDS } from '../../data/constantsV';
+import getBoards from '../../api/getBoards';
 import Board from '../Board/Board';
 import './BoardList.scss';
 
 function BoardList() {
-  const { boards } = useContext(AppContext);
+  const { boards, dispatchBoards } = useContext(AppContext);
+  const loadBoards = async () => {
+    const data = await getBoards();
+    dispatchBoards({ type: SET_BOARDS, payload: data });
+  };
+
+  useEffect(() => {
+    if (!boards.length) {
+      loadBoards();
+    }
+  }, []);
+
   const boardsArray =
     boards.length &&
-    boards.map((board) => <Board key={board.id} id={board.id} title={board.title} />);
+    boards.map((board) => (
+      <Board key={board.id} id={board.id} title={board.title} description={board.description} />
+    ));
 
   return (
     <div className="board-list">

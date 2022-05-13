@@ -4,6 +4,7 @@ import { Languages } from './interfacesA';
 export interface BoardsResponse {
   id: string;
   title: string;
+  description: string;
 }
 
 export interface BoardsAction {

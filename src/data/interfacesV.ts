@@ -1,2 +1,4 @@
-const some = 1;
-export default some;
+export interface NewBoard {
+  title: string;
+  description: string;
+}

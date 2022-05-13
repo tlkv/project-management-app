@@ -4,7 +4,7 @@ import { BoardsResponse } from '../data/interfaces';
 export default async function getBoards() {
   const url = `${API_URL}/boards`;
   const token = localStorage.getItem('pmapp34-token') || '';
-  let data: BoardsResponse[] = [{ id: '', title: '' }];
+  let data: BoardsResponse[] = [{ id: '', title: '', description: '' }];
   try {
     const res = await fetch(url, {
       method: 'GET',

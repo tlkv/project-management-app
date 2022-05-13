@@ -10,7 +10,8 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import ConfirmModal from './components/ConfirmModal/ConfirmModal';
 import { AppContextData } from './data/interfaces';
-import { CONFIRM_MODAL_DEFAULT, LANG_EN } from './data/constants';
+import { LANG_EN } from './data/constants';
+import { CONFIRM_MODAL_DEFAULT } from './data/constantsV';
 import { confirmReducer, boardsReducer } from './utils/reducers';
 
 export const AppContext = createContext({} as AppContextData);
