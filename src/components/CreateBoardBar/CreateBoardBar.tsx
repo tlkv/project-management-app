@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable react/jsx-props-no-spreading */
@@ -56,8 +57,13 @@ function CreateBoardBar({
   };
 
   return ReactDOM.createPortal(
-    <div className="modal-wrapper">
-      <div className="create-board">
+    <div
+      className="modal-wrapper"
+      role="button"
+      onClick={() => setIsCreateBoardOpen(false)}
+      tabIndex={0}
+    >
+      <div className="create-board" role="presentation" onClick={(e) => e.stopPropagation()}>
         <h3>Create board</h3>
         <button
           className="create-board__close-btn"
