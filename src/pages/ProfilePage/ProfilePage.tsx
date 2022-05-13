@@ -86,7 +86,7 @@ function ProfilePage() {
               </label>
               {errors.name && (
                 <div className="valid-err">
-                  At least 4 letters or numbers, no spaces or special symbols
+                  At least 4 letters (eng) or numbers, no spaces or special symbols
                 </div>
               )}
             </div>
@@ -102,7 +102,7 @@ function ProfilePage() {
               </label>
               {errors.login && (
                 <div className="valid-err">
-                  At least 4 letters or numbers, no spaces or special symbols
+                  At least 4 letters (eng) or numbers, no spaces or special symbols
                 </div>
               )}
             </div>
@@ -119,7 +119,7 @@ function ProfilePage() {
               </label>
               {errors.password && (
                 <div className="valid-err">
-                  At least 8 letters or numbers, no spaces or special symbols
+                  At least 8 letters (eng) or numbers, no spaces or special symbols
                 </div>
               )}
             </div>

@@ -10,14 +10,14 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import ConfirmModal from './components/ConfirmModal/ConfirmModal';
 import { AppContextData } from './data/interfaces';
-import { LANG_RU, CONFIRM_MODAL_DEFAULT } from './data/constants';
+import { CONFIRM_MODAL_DEFAULT, LANG_EN } from './data/constants';
 import { confirmReducer, boardsReducer } from './utils/reducers';
 
 export const AppContext = createContext({} as AppContextData);
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
-  const [lang, switchLang] = useState(LANG_RU);
+  const [lang, switchLang] = useState(LANG_EN);
   const [boards, dispatchBoards] = useReducer(boardsReducer, []);
   const [confirm, dispatchConfirm] = useReducer(confirmReducer, CONFIRM_MODAL_DEFAULT);
 

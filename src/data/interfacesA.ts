@@ -23,3 +23,5 @@ export interface ModalConfirmation {
   message: ReactElement;
   modalCallback: () => Promise<void>;
 }
+
+export type Languages = 'EN' | 'RU';
