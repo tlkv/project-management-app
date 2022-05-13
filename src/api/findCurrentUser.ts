@@ -7,8 +7,11 @@ const findCurrentUser = async () => {
   const defUser: ApiUserInfo = {
     login: '',
     id: '',
-    name: 'name',
+    name: '',
   };
+  if (!token) {
+    return defUser;
+  }
   const options = {
     headers: {
       Accept: 'application/json',

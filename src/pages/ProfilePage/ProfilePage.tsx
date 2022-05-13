@@ -12,6 +12,7 @@ import updateUser from '../../api/updateUser';
 import ModalConfirm from '../../components/ModalConfirm/ModalConfirm';
 import deleteUser from '../../api/deleteUser';
 import logout from '../../api/logout';
+import { passRegExp, userRegExp } from '../../data/constantsA';
 
 function ProfilePage() {
   const { setIsAuth } = useContext(AppContext);
@@ -38,15 +39,19 @@ function ProfilePage() {
   }, []);
 
   const onSubmit = handleSubmit(async ({ name, login, password }) => {
-    await updateUser(name, login, password);
-    setCurrName(name);
-    setCurrLogin(login);
+    const result = await updateUser(name, login, password);
+    if (result) {
+      setCurrName(name);
+      setCurrLogin(login);
+    }
   });
 
   const onDelete = async () => {
-    await deleteUser();
-    logout(setIsAuth);
-    navigate('/welcome');
+    const result = await deleteUser();
+    if (result) {
+      logout(setIsAuth);
+      navigate('/welcome');
+    }
   };
 
   return (
@@ -79,7 +84,11 @@ function ProfilePage() {
                   {...register('name', { required: true, pattern: /^[A-Za-z0-9]\w{3,}$/ })}
                 />
               </label>
-              {errors.name && <div className="valid-err">Name should be at least 4 symbols</div>}
+              {errors.name && (
+                <div className="valid-err">
+                  At least 4 letters (eng) or numbers, no spaces or special symbols
+                </div>
+              )}
             </div>
             <div className="profile-field">
               <label htmlFor="form-login">
@@ -88,10 +97,14 @@ function ProfilePage() {
                   id="form-login"
                   type="text"
                   className="form-login user-edit-input"
-                  {...register('login', { required: true, pattern: /^[A-Za-z0-9]\w{3,}$/ })}
+                  {...register('login', { required: true, pattern: userRegExp })}
                 />
               </label>
-              {errors.login && <div className="valid-err">Login should be at least 4 symbols</div>}
+              {errors.login && (
+                <div className="valid-err">
+                  At least 4 letters (eng) or numbers, no spaces or special symbols
+                </div>
+              )}
             </div>
             <div className="profile-field">
               <label htmlFor="form-password">
@@ -101,11 +114,13 @@ function ProfilePage() {
                   type="password"
                   className="form-password  user-edit-input"
                   autoComplete="on"
-                  {...register('password', { required: true, pattern: /^[A-Za-z0-9]\w{7,}$/ })}
+                  {...register('password', { required: true, pattern: passRegExp })}
                 />
               </label>
               {errors.password && (
-                <div className="valid-err">Password should be at least 8 symbols</div>
+                <div className="valid-err">
+                  At least 8 letters (eng) or numbers, no spaces or special symbols
+                </div>
               )}
             </div>
             <input type="submit" value="Save" className="save-button" />

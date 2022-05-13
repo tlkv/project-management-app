@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
+import { Languages } from './interfacesA';
 
 export interface BoardsResponse {
   id: string;
@@ -26,8 +27,8 @@ export interface ConfirmAction {
 export interface AppContextData {
   isAuth: boolean;
   setIsAuth: Dispatch<React.SetStateAction<boolean>>;
-  lang: string;
-  switchLang: Dispatch<React.SetStateAction<string>>;
+  lang: Languages;
+  switchLang: Dispatch<React.SetStateAction<Languages>>;
   boards: BoardsResponse[];
   dispatchBoards: Dispatch<BoardsAction>;
   confirm: ConfirmStatus;
