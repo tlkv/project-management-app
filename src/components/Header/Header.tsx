@@ -15,8 +15,10 @@ function Header() {
   const changeLang = () => {
     if (lang === LANG_RU) {
       switchLang(LANG_EN);
-    } else {
+      localStorage.setItem('pmapp34-lang', LANG_EN);
+    } else if (lang === LANG_EN) {
       switchLang(LANG_RU);
+      localStorage.setItem('pmapp34-lang', LANG_RU);
     }
   };
 
@@ -94,7 +96,13 @@ function Header() {
             </li>
           )}
           <li className="nav-item">
-            <button type="button" className="header-button" onClick={changeLang}>
+            <button
+              type="button"
+              className={
+                lang === LANG_EN ? 'header-button lang-button' : 'header-button lang-button-red'
+              }
+              onClick={changeLang}
+            >
               {lang}
             </button>
           </li>
