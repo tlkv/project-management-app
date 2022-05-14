@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { AppContext } from '../../App';
 import { LANG_EN, LANG_RU } from '../../data/constants';
@@ -9,6 +9,7 @@ import CreateBoardBar from '../CreateBoardBar/CreateBoardBar';
 function Header() {
   const { lang, switchLang, setIsAuth, isAuth } = useContext(AppContext);
   const [isCreateBoardOpen, setIsCreateBoardOpen] = useState(false);
+  const [isFixed, setFixed] = useState(false);
   const navigate = useNavigate();
 
   const changeLang = () => {
@@ -19,8 +20,23 @@ function Header() {
     }
   };
 
+  const handleScroll = () => {
+    if (window.pageYOffset <= 20) {
+      setFixed(false);
+    } else if (window.pageYOffset > 20) {
+      setFixed(true);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <header className="header" id="header">
+    <header className={!isFixed ? 'header' : 'header header-fixed'} id="header">
       <nav className="narrow-container">
         <ul className="nav-wrapper ">
           {isAuth && (
