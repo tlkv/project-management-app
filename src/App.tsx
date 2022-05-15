@@ -27,10 +27,18 @@ function App() {
     if (localStorage.getItem('pmapp34-token')) {
       setIsAuth(true);
     }
+  }, [isAuth]);
+
+  useEffect(() => {
     if (localStorage.getItem('pmapp34-lang')) {
       switchLang(localStorage.getItem('pmapp34-lang') as Languages);
     }
   }, []);
+
+  const logoutUser = () => {
+    localStorage.removeItem('pmapp34-token');
+    setIsAuth(false);
+  };
 
   const store = useMemo(
     () => ({
@@ -42,6 +50,7 @@ function App() {
       dispatchBoards,
       confirm,
       dispatchConfirm,
+      logoutUser,
     }),
     [lang, isAuth, boards, confirm]
   );
