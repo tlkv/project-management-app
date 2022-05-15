@@ -3,16 +3,12 @@ import { ApiUserInfo } from '../data/interfacesA';
 import { toastErrorDark, toastWarnDark } from '../utils/toast';
 import decodeToken from './decodeToken';
 
-const findCurrentUser = async () => {
-  const { token, id } = decodeToken();
-  const defUser: ApiUserInfo = {
-    login: '',
-    id: '',
-    name: '',
-  };
+const getAllUsers = async () => {
+  const defData: ApiUserInfo[] = [];
+  const { token } = decodeToken();
   if (!token) {
     toastErrorDark('Invalid token');
-    return defUser;
+    return defData;
   }
   const options = {
     headers: {
@@ -21,16 +17,16 @@ const findCurrentUser = async () => {
     },
   };
   let res = {} as Response;
-  let user = { ...defUser };
+  let users: ApiUserInfo[] = [];
   try {
-    res = await fetch(`${API_URL}/users/${id}`, options);
-    user = await res.json();
+    res = await fetch(`${API_URL}/users`, options);
+    users = await res.json();
   } catch (err) {
     toastErrorDark('No response from server');
-    return defUser;
+    return defData;
   }
   if (res.ok) {
-    return user;
+    return users;
   }
   if (res.status >= 400 && res.status <= 499) {
     toastErrorDark('Not authorized or query error');
@@ -38,7 +34,7 @@ const findCurrentUser = async () => {
   if (res.status >= 500) {
     toastWarnDark('Server Error');
   }
-  return defUser;
+  return defData;
 };
 
-export default findCurrentUser;
+export default getAllUsers;

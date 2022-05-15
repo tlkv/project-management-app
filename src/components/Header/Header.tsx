@@ -67,6 +67,13 @@ function Header() {
               </NavLink>
             </li>
           )}
+          {isAuth && (
+            <li className="nav-item">
+              <NavLink to="/stats" className="nav-inner">
+                Stats
+              </NavLink>
+            </li>
+          )}
           {!isAuth && (
             <li className="nav-item">
               <NavLink to="/login" className="nav-inner">

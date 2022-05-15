@@ -1,6 +1,7 @@
+import { ApiUserInfo } from '../../data/interfacesA';
 import s from './UserInfo.module.scss';
 
-export default function UserInfo({ name, login }: { name: string; login: string }) {
+export default function UserInfo({ name, login }: ApiUserInfo) {
   return (
     <div className={s.ProfDescr}>
       <div className={s.ProfDescrItem}>

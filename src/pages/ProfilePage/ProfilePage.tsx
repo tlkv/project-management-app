@@ -19,6 +19,7 @@ function ProfilePage() {
   const [isModalOpen, showModal] = useState(false);
   const [currName, setCurrName] = useState('');
   const [currLogin, setCurrLogin] = useState('');
+  const [currId, setCurrId] = useState('');
   const {
     register,
     handleSubmit,
@@ -33,6 +34,7 @@ function ProfilePage() {
     setValue('login', res.login);
     setCurrName(res.name);
     setCurrLogin(res.login);
+    setCurrId(res.id);
   };
   useEffect(() => {
     handleCurrentUser();
@@ -58,7 +60,7 @@ function ProfilePage() {
     <>
       <div className="narrow-container profile-container">
         <h1 className="title">Profile</h1>
-        <UserInfo name={currName} login={currLogin} />
+        <UserInfo name={currName} login={currLogin} id={currId} />
         <div className="form-wrapper">
           <h3>Edit profile</h3>
           <form onSubmit={onSubmit} className="user-controls">
