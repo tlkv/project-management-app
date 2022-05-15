@@ -1,23 +1,42 @@
 import { API_URL } from '../data/constants';
 import { BoardsResponse } from '../data/interfaces';
+import { toastErrorDark, toastWarnDark } from '../utils/toast';
 
 export default async function getBoards() {
   const url = `${API_URL}/boards`;
   const token = localStorage.getItem('pmapp34-token') || '';
-  let data: BoardsResponse[] = [{ id: '', title: '', description: '' }];
+
+  if (!token) {
+    toastErrorDark('Invalid token');
+    return false;
+  }
+
+  let res = {} as Response;
+
   try {
-    const res = await fetch(url, {
+    res = await fetch(url, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
     });
-    data = await res.json();
-  } catch (err) {
-    if (err instanceof Error) {
-      throw new Error(err.message);
-    }
+  } catch {
+    toastErrorDark('No response from server');
+    return false;
   }
-  return data;
+
+  if (res.ok) {
+    const boards: BoardsResponse[] = await res.json();
+    return boards;
+  }
+
+  if (res.status >= 400 && res.status <= 499) {
+    toastErrorDark('Boards not found');
+  }
+
+  if (res.status >= 500) {
+    toastWarnDark('Server Error');
+  }
+  return false;
 }
