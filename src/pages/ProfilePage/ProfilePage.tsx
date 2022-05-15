@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react-hooks/exhaustive-deps */
 import './ProfilePage.scss';
-
 import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -13,6 +12,7 @@ import ModalConfirm from '../../components/ModalConfirm/ModalConfirm';
 import deleteUser from '../../api/deleteUser';
 import logout from '../../api/logout';
 import { passRegExp, userRegExp } from '../../data/constantsA';
+import UserInfo from '../../components/UserInfo/UserInfo';
 
 function ProfilePage() {
   const { setIsAuth } = useContext(AppContext);
@@ -58,19 +58,7 @@ function ProfilePage() {
     <>
       <div className="narrow-container profile-container">
         <h1 className="title">Profile</h1>
-        <div className="profile-description">
-          <div className="prof-descr-item">
-            <img src="./assets/img/userIcon.png" alt="user icon" className="user-img" />
-          </div>
-          <div className="prof-descr-item">
-            <div className="prof-descr-text">
-              <span>Name:</span> {currName}
-            </div>
-            <div className="prof-descr-text">
-              <span>Login:</span> {currLogin}
-            </div>
-          </div>
-        </div>
+        <UserInfo name={currName} login={currLogin} />
         <div className="form-wrapper">
           <h3>Edit profile</h3>
           <form onSubmit={onSubmit} className="user-controls">
