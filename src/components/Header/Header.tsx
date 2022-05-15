@@ -1,15 +1,14 @@
 import { useContext, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { AppContext } from '../../App';
 import { LANG_EN, LANG_RU } from '../../data/constants';
 import './Header.scss';
-import logout from '../../api/logout';
+import Logout from '../../api/logout';
 import CreateBoardBar from '../CreateBoardBar/CreateBoardBar';
 
 function Header() {
   const { lang, switchLang, setIsAuth, isAuth } = useContext(AppContext);
   const [isCreateBoardOpen, setIsCreateBoardOpen] = useState(false);
-  const navigate = useNavigate();
 
   const changeLang = () => {
     if (lang === LANG_RU) {
@@ -69,8 +68,7 @@ function Header() {
                 type="button"
                 className="header-button"
                 onClick={() => {
-                  logout(setIsAuth);
-                  navigate('/welcome');
+                  Logout(setIsAuth);
                 }}
               >
                 Sign Out

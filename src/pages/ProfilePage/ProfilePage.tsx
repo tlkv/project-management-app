@@ -11,11 +11,11 @@ import { ApiUserQuery } from '../../data/interfacesA';
 import updateUser from '../../api/updateUser';
 import ModalConfirm from '../../components/ModalConfirm/ModalConfirm';
 import deleteUser from '../../api/deleteUser';
-import logout from '../../api/logout';
+import Logout from '../../api/logout';
 import { passRegExp, userRegExp } from '../../data/constantsA';
 
 function ProfilePage() {
-  const { setIsAuth } = useContext(AppContext);
+  const { isAuth, setIsAuth } = useContext(AppContext);
   const [isModalOpen, showModal] = useState(false);
   const [currName, setCurrName] = useState('');
   const [currLogin, setCurrLogin] = useState('');
@@ -36,6 +36,9 @@ function ProfilePage() {
   };
   useEffect(() => {
     handleCurrentUser();
+    if (!isAuth) {
+      navigate('/welcome');
+    }
   }, []);
 
   const onSubmit = handleSubmit(async ({ name, login, password }) => {
@@ -49,8 +52,7 @@ function ProfilePage() {
   const onDelete = async () => {
     const result = await deleteUser();
     if (result) {
-      logout(setIsAuth);
-      navigate('/welcome');
+      Logout(setIsAuth);
     }
   };
 
