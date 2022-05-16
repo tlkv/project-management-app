@@ -2,9 +2,6 @@
 
 .profile-container {
   text-align: center;
-  .user-img {
-    max-height: 100px;
-  }
   h3 {
     text-transform: uppercase;
   }
@@ -20,31 +17,6 @@
     text-transform: uppercase;
     &:hover {
       filter: brightness(0.9);
-    }
-  }
-  .profile-description {
-    font-size: 18px;
-    display: flex;
-    max-width: 600px;
-    margin: auto;
-    justify-content: center;
-    flex-wrap: wrap;
-    span {
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-    .prof-descr-item {
-      align-items: center;
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      @media (max-width: 600px) {
-        width: 100%;
-      }
-    }
-    .prof-descr-text {
-      padding: 6px;
     }
   }
   .delete-profile {

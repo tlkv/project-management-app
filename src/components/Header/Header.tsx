@@ -1,26 +1,42 @@
-import { useContext, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { AppContext } from '../../App';
 import { LANG_EN, LANG_RU } from '../../data/constants';
 import './Header.scss';
-import logout from '../../api/logout';
 import CreateBoardBar from '../CreateBoardBar/CreateBoardBar';
 
 function Header() {
-  const { lang, switchLang, setIsAuth, isAuth } = useContext(AppContext);
+  const { lang, switchLang, isAuth, logoutUser } = useContext(AppContext);
   const [isCreateBoardOpen, setIsCreateBoardOpen] = useState(false);
-  const navigate = useNavigate();
+  const [isFixed, setFixed] = useState(false);
 
   const changeLang = () => {
     if (lang === LANG_RU) {
       switchLang(LANG_EN);
-    } else {
+      localStorage.setItem('pmapp34-lang', LANG_EN);
+    } else if (lang === LANG_EN) {
       switchLang(LANG_RU);
+      localStorage.setItem('pmapp34-lang', LANG_RU);
     }
   };
 
+  const handleScroll = () => {
+    if (window.pageYOffset <= 20) {
+      setFixed(false);
+    } else if (window.pageYOffset > 20) {
+      setFixed(true);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <header className="header" id="header">
+    <header className={!isFixed ? 'header' : 'header header-fixed'} id="header">
       <nav className="narrow-container">
         <ul className="nav-wrapper ">
           {isAuth && (
@@ -49,6 +65,13 @@ function Header() {
               </NavLink>
             </li>
           )}
+          {isAuth && (
+            <li className="nav-item">
+              <NavLink to="/stats" className="nav-inner">
+                Stats
+              </NavLink>
+            </li>
+          )}
           {!isAuth && (
             <li className="nav-item">
               <NavLink to="/login" className="nav-inner">
@@ -69,8 +92,7 @@ function Header() {
                 type="button"
                 className="header-button"
                 onClick={() => {
-                  logout(setIsAuth);
-                  navigate('/welcome');
+                  logoutUser();
                 }}
               >
                 Sign Out
@@ -78,7 +100,13 @@ function Header() {
             </li>
           )}
           <li className="nav-item">
-            <button type="button" className="header-button" onClick={changeLang}>
+            <button
+              type="button"
+              className={
+                lang === LANG_EN ? 'header-button lang-button' : 'header-button lang-button-red'
+              }
+              onClick={changeLang}
+            >
               {lang}
             </button>
           </li>
