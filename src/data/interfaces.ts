@@ -33,6 +33,7 @@ export interface AppContextData {
   dispatchBoards: Dispatch<BoardsAction>;
   confirm: ConfirmStatus;
   dispatchConfirm: Dispatch<ConfirmAction>;
+  logoutUser: () => void;
 }
 
 export interface AuthPopupData {

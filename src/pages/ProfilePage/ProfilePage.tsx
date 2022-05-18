@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react-hooks/exhaustive-deps */
 import './ProfilePage.scss';
-
 import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -11,14 +10,15 @@ import { ApiUserQuery } from '../../data/interfacesA';
 import updateUser from '../../api/updateUser';
 import ModalConfirm from '../../components/ModalConfirm/ModalConfirm';
 import deleteUser from '../../api/deleteUser';
-import logout from '../../api/logout';
 import { passRegExp, userRegExp } from '../../data/constantsA';
+import UserInfo from '../../components/UserInfo/UserInfo';
 
 function ProfilePage() {
-  const { setIsAuth } = useContext(AppContext);
+  const { logoutUser, isAuth } = useContext(AppContext);
   const [isModalOpen, showModal] = useState(false);
   const [currName, setCurrName] = useState('');
   const [currLogin, setCurrLogin] = useState('');
+  const [currId, setCurrId] = useState('');
   const {
     register,
     handleSubmit,
@@ -28,18 +28,24 @@ function ProfilePage() {
   const navigate = useNavigate();
 
   const handleCurrentUser = async () => {
-    const res = await findCurrentUser();
+    const res = await findCurrentUser(logoutUser);
     setValue('name', res.name);
     setValue('login', res.login);
     setCurrName(res.name);
     setCurrLogin(res.login);
+    setCurrId(res.id);
   };
+
   useEffect(() => {
-    handleCurrentUser();
-  }, []);
+    if (!isAuth && !localStorage.getItem('pmapp34-token')) {
+      navigate('/welcome');
+    } else {
+      handleCurrentUser();
+    }
+  }, [isAuth]);
 
   const onSubmit = handleSubmit(async ({ name, login, password }) => {
-    const result = await updateUser(name, login, password);
+    const result = await updateUser(name, login, password, logoutUser);
     if (result) {
       setCurrName(name);
       setCurrLogin(login);
@@ -47,30 +53,14 @@ function ProfilePage() {
   });
 
   const onDelete = async () => {
-    const result = await deleteUser();
-    if (result) {
-      logout(setIsAuth);
-      navigate('/welcome');
-    }
+    await deleteUser(logoutUser);
   };
 
   return (
     <>
       <div className="narrow-container profile-container">
         <h1 className="title">Profile</h1>
-        <div className="profile-description">
-          <div className="prof-descr-item">
-            <img src="./assets/img/userIcon.png" alt="user icon" className="user-img" />
-          </div>
-          <div className="prof-descr-item">
-            <div className="prof-descr-text">
-              <span>Name:</span> {currName}
-            </div>
-            <div className="prof-descr-text">
-              <span>Login:</span> {currLogin}
-            </div>
-          </div>
-        </div>
+        <UserInfo name={currName} login={currLogin} id={currId} />
         <div className="form-wrapper">
           <h3>Edit profile</h3>
           <form onSubmit={onSubmit} className="user-controls">

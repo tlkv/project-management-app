@@ -13,6 +13,7 @@ import { AppContextData } from './data/interfaces';
 import { LANG_EN } from './data/constants';
 import { CONFIRM_MODAL_DEFAULT } from './data/constantsV';
 import { confirmReducer, boardsReducer } from './utils/reducers';
+import { Languages } from './data/interfacesA';
 
 export const AppContext = createContext({} as AppContextData);
 
@@ -26,7 +27,18 @@ function App() {
     if (localStorage.getItem('pmapp34-token')) {
       setIsAuth(true);
     }
+  }, [isAuth]);
+
+  useEffect(() => {
+    if (localStorage.getItem('pmapp34-lang')) {
+      switchLang(localStorage.getItem('pmapp34-lang') as Languages);
+    }
   }, []);
+
+  const logoutUser = () => {
+    localStorage.removeItem('pmapp34-token');
+    setIsAuth(false);
+  };
 
   const store = useMemo(
     () => ({
@@ -38,6 +50,7 @@ function App() {
       dispatchBoards,
       confirm,
       dispatchConfirm,
+      logoutUser,
     }),
     [lang, isAuth, boards, confirm]
   );

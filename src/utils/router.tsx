@@ -5,6 +5,7 @@ import MainPage from '../pages/MainPage/MainPage';
 import BoardPage from '../pages/BoardPage/BoardPage';
 import ProfilePage from '../pages/ProfilePage/ProfilePage';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
+import StatsPage from '../pages/StatsPage/StatsPage';
 
 export const ROUTES_LIST = [
   {
@@ -41,6 +42,12 @@ export const ROUTES_LIST = [
     path: '/profile',
     element: <ProfilePage />,
     navbarText: 'Edit Profile',
+    onNavbar: false,
+  },
+  {
+    path: '/stats',
+    element: <StatsPage />,
+    navbarText: 'Statistics',
     onNavbar: false,
   },
   {
