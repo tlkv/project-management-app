@@ -1,0 +1,14 @@
+.create-task-input {
+  margin-bottom: 10px;
+}
+
+.label-done {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 10px;
+
+  input {
+    width: 20px;
+    height: 20px;
+  }
+}
