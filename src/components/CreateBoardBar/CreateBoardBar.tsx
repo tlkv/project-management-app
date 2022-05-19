@@ -6,6 +6,7 @@ import './CreateBoardBar.scss';
 import React, { Dispatch, useContext, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../App';
 import { SET_BOARDS } from '../../data/constantsV';
 import getBoards from '../../api/getBoards';
@@ -17,6 +18,7 @@ function CreateBoardBar({
 }: {
   setIsCreateBoardOpen: Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const navigate = useNavigate();
   const { dispatchBoards } = useContext(AppContext);
   const [boardIsCreating, setBoardIsCreating] = useState(false);
   const {
@@ -52,8 +54,12 @@ function CreateBoardBar({
 
   const onSubmit: SubmitHandler<NewBoard> = async (data) => {
     setBoardIsCreating(true);
-    await createBoard(data.title, data.description);
-    await loadBoards();
+    const res = await createBoard(data.title, data.description);
+    if (res) {
+      await loadBoards();
+      navigate(`/board/${res.id}`);
+    }
+
     setBoardIsCreating(false);
     setIsCreateBoardOpen(false);
   };
