@@ -22,22 +22,13 @@ function CreateTaskModal({
   const Container = document.getElementById('modal') as HTMLElement;
   const [isDisabled, setIsDisabled] = useState(false);
   const taskTitle = createRef<HTMLInputElement>();
-  const taskDesc = createRef<HTMLInputElement>();
-  const taskDone = createRef<HTMLInputElement>();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsDisabled(true);
 
-    if (taskTitle.current && taskDesc.current && taskDone.current) {
-      const res = await createTask(
-        boardId,
-        columnId,
-        taskTitle.current.value,
-        taskDone.current.checked,
-        order,
-        taskDesc.current.value
-      );
+    if (taskTitle.current) {
+      const res = await createTask(boardId, columnId, taskTitle.current.value, false, order, ' ');
       if (res) {
         loadBoard();
       }
@@ -85,17 +76,6 @@ function CreateTaskModal({
             ref={taskTitle}
             placeholder="title"
           />
-          <input
-            className="board__add-list create-task-input"
-            pattern="[a-zA-Z0-9 ]{2,240}"
-            required
-            ref={taskDesc}
-            placeholder="description"
-          />
-          <label htmlFor="done" className="label-done">
-            <input type="checkbox" name="done" className="" ref={taskDone} />
-            Done?
-          </label>
           <button className="create-board__create-btn" type="submit" disabled={isDisabled}>
             Add
           </button>
