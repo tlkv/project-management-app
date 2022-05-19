@@ -22,6 +22,8 @@ function BoardPage() {
     const data = await getBoard(boardId);
     if (data) {
       setBoard(data);
+    } else {
+      navigate('/');
     }
   };
 
