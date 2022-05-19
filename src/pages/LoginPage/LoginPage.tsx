@@ -9,6 +9,8 @@ import getResponseOnCreatingUser from '../../api/getResponseOnCreatingUser';
 import IS_PASSWORD_VALID from '../../utils/isPasswordValid';
 import IS_NAME_OR_LOGIN_VALID from '../../utils/isNameOrLoginValid';
 import { toastErrorDark } from '../../utils/toast';
+import { userRegExp, passRegExp, nameRegExp } from '../../data/constantsA';
+import AuthValidationError from './AuthValidationError/AuthValidationError';
 
 function LoginPage() {
   const context = useContext(AppContext);
@@ -38,11 +40,13 @@ function LoginPage() {
   const createUser = async (e: React.MouseEvent<HTMLInputElement>) => {
     e.preventDefault();
     const isInputDataValid =
-      IS_NAME_OR_LOGIN_VALID(name) && IS_NAME_OR_LOGIN_VALID(login) && IS_PASSWORD_VALID(password);
+      IS_NAME_OR_LOGIN_VALID(name, nameRegExp) &&
+      IS_NAME_OR_LOGIN_VALID(login, userRegExp) &&
+      IS_PASSWORD_VALID(password, passRegExp);
     if (!isInputDataValid) {
-      setIsNameValid(IS_NAME_OR_LOGIN_VALID(name));
-      setIsLoginValid(IS_NAME_OR_LOGIN_VALID(login));
-      setIsPasswordValid(IS_PASSWORD_VALID(password));
+      setIsNameValid(IS_NAME_OR_LOGIN_VALID(name, nameRegExp));
+      setIsLoginValid(IS_NAME_OR_LOGIN_VALID(login, userRegExp));
+      setIsPasswordValid(IS_PASSWORD_VALID(password, passRegExp));
       return;
     }
     const response = await getResponseOnCreatingUser(name, login, password);
@@ -61,10 +65,11 @@ function LoginPage() {
 
   const logIn = async (e: React.MouseEvent<HTMLInputElement>) => {
     e.preventDefault();
-    const isInputDataValid = IS_NAME_OR_LOGIN_VALID(login) && IS_PASSWORD_VALID(password);
+    const isInputDataValid =
+      IS_NAME_OR_LOGIN_VALID(login, userRegExp) && IS_PASSWORD_VALID(password, passRegExp);
     if (!isInputDataValid) {
-      setIsLoginValid(IS_NAME_OR_LOGIN_VALID(login));
-      setIsPasswordValid(IS_PASSWORD_VALID(password));
+      setIsLoginValid(IS_NAME_OR_LOGIN_VALID(login, userRegExp));
+      setIsPasswordValid(IS_PASSWORD_VALID(password, passRegExp));
       return;
     }
     const token = await getToken(login, password);
@@ -98,9 +103,7 @@ function LoginPage() {
                 onInput={handleNameInput}
               />
             </label>
-            {isNameValid ? null : (
-              <div className="login__invalid-field">Name must be at least 4 symbols</div>
-            )}
+            {isNameValid ? null : <AuthValidationError field="name" input={name} />}
           </div>
         )}
         <div className="login__form-field login__form-field_text">
@@ -114,9 +117,7 @@ function LoginPage() {
               onInput={handleLoginInput}
             />
           </label>
-          {isLoginValid ? null : (
-            <div className="login__invalid-field">Login must be at least 4 symbols</div>
-          )}
+          {isLoginValid ? null : <AuthValidationError field="login" input={login} />}
         </div>
         <div className="login__form-field login__form-field_text">
           <label htmlFor="password">
@@ -129,9 +130,7 @@ function LoginPage() {
               onInput={handlePasswordInput}
             />
           </label>
-          {isPasswordValid ? null : (
-            <div className="login__invalid-field">Password must contain at least 8 characters</div>
-          )}
+          {isPasswordValid ? null : <AuthValidationError field="password" input={password} />}
         </div>
         {isLogin ? (
           <input
