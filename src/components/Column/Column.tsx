@@ -1,22 +1,23 @@
 import { useState } from 'react';
+import deleteColumn from '../../api/deleteColumn';
 import { TaskResponse } from '../../data/interfacesV';
 import CreateTaskModal from '../CreateTaskModal/CreateTaskModal';
+import ModalConfirm from '../ModalConfirm/ModalConfirm';
 
 function Column({
   columnId,
   title,
   boardId,
   tasks,
-  handleDelete,
   loadBoard,
 }: {
   columnId: string;
   title: string;
   boardId: string;
   tasks: TaskResponse[];
-  handleDelete: () => void;
   loadBoard: () => Promise<void>;
 }) {
+  const [isModalOpen, showModal] = useState(false);
   const [isTaskCreateOpen, setIsTaskCreateOpen] = useState(false);
   const newTaskOrder = tasks.length ? [...tasks].sort((a, b) => b.order - a.order)[0].order + 1 : 1;
 
@@ -31,12 +32,19 @@ function Column({
     </div>
   ));
 
+  const onDelete = async () => {
+    const res = await deleteColumn(boardId, columnId);
+    if (res) {
+      loadBoard();
+    }
+  };
+
   return (
     <div className="list-wrapper">
       <div className="list">
         <div className="list__header">
           <h3 className="list__title">{title}</h3>
-          <button className="list__delete-btn" type="button" onClick={handleDelete}>
+          <button className="list__delete-btn" type="button" onClick={() => showModal(true)}>
             <i className="fa-solid fa-xmark"> </i>
           </button>
         </div>
@@ -48,6 +56,13 @@ function Column({
           </button>
         </div>
       </div>
+      {isModalOpen && (
+        <ModalConfirm
+          showModal={showModal}
+          message={<p>Are you sure? Column will be deleted along with all tasks.</p>}
+          modalCallback={onDelete}
+        />
+      )}
       {isTaskCreateOpen && (
         <CreateTaskModal
           columnId={columnId}
