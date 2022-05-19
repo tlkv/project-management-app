@@ -36,7 +36,7 @@ function BoardPage() {
   }, [isAuth]);
 
   return (
-    <div>
+    <>
       <div className="board-header">
         <Link className="board-header__btn" to="/">
           <i className="fa-solid fa-angle-left"> </i> Back
@@ -50,7 +50,7 @@ function BoardPage() {
       <div className="board">
         <ColumnList boardId={boardId} columns={board.columns} loadBoard={loadBoard} />
       </div>
-    </div>
+    </>
   );
 }
 
