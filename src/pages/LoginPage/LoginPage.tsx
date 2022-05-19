@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate, NavLink } from 'react-router-dom';
 import './LoginPage.scss';
 import { AppContext } from '../../App';
@@ -23,6 +23,15 @@ function LoginPage() {
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [isPopupShown, setIsPopupShown] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
+  const { isAuth } = useContext(AppContext);
+
+  useEffect(() => {
+    if (isAuth && localStorage.getItem('pmapp34-token')) {
+      navigate('/');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuth]);
+
   const handleNameInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
     setIsNameValid(true);
@@ -80,6 +89,9 @@ function LoginPage() {
 
   return (
     <div className="narrow-container">
+      <div>
+        <NavLink to="/welcom">Go Back</NavLink>
+      </div>
       <h1 className="login__title">
         {isLogin ? 'Already with us?' : 'Sign up in project management app'}
       </h1>

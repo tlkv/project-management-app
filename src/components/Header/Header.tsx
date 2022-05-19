@@ -37,9 +37,19 @@ function Header() {
 
   return (
     <header className={!isFixed ? 'header' : 'header header-fixed'} id="header">
-      <nav className="narrow-container">
-        <ul className="nav-wrapper ">
-          {isAuth && (
+      {isAuth && (
+        <nav className="narrow-container">
+          <ul className="nav-wrapper ">
+            <li className="nav-item">
+              <NavLink to="/welcome" className="nav-inner">
+                Welcome
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink to="/" className="nav-inner">
+                Boards
+              </NavLink>
+            </li>
             <li className="nav-item">
               <button
                 type="button"
@@ -50,43 +60,16 @@ function Header() {
               </button>
               {isCreateBoardOpen && <CreateBoardBar setIsCreateBoardOpen={setIsCreateBoardOpen} />}
             </li>
-          )}
-          {isAuth && (
-            <li className="nav-item">
-              <NavLink to="/" className="nav-inner">
-                Go to Main Page
-              </NavLink>
-            </li>
-          )}
-          {isAuth && (
             <li className="nav-item">
               <NavLink to="/profile" className="nav-inner">
                 Edit Profile
               </NavLink>
             </li>
-          )}
-          {isAuth && (
             <li className="nav-item">
               <NavLink to="/stats" className="nav-inner">
                 Stats
               </NavLink>
             </li>
-          )}
-          {!isAuth && (
-            <li className="nav-item">
-              <NavLink to="/login" className="nav-inner">
-                Sign In
-              </NavLink>
-            </li>
-          )}
-          {!isAuth && (
-            <li className="nav-item">
-              <NavLink to="/registration" className="nav-inner">
-                Sign up
-              </NavLink>
-            </li>
-          )}
-          {isAuth && (
             <li className="nav-item">
               <button
                 type="button"
@@ -98,20 +81,20 @@ function Header() {
                 Sign Out
               </button>
             </li>
-          )}
-          <li className="nav-item">
-            <button
-              type="button"
-              className={
-                lang === LANG_EN ? 'header-button lang-button' : 'header-button lang-button-red'
-              }
-              onClick={changeLang}
-            >
-              {lang}
-            </button>
-          </li>
-        </ul>
-      </nav>
+            <li className="nav-item">
+              <button
+                type="button"
+                className={
+                  lang === LANG_EN ? 'header-button lang-button' : 'header-button lang-button-red'
+                }
+                onClick={changeLang}
+              >
+                {lang}
+              </button>
+            </li>
+          </ul>
+        </nav>
+      )}
     </header>
   );
 }
