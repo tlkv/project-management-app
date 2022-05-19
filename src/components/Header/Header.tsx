@@ -66,6 +66,11 @@ function Header() {
               </NavLink>
             </li>
             <li className="nav-item">
+              <NavLink to="/search" className="nav-inner">
+                Search
+              </NavLink>
+            </li>
+            <li className="nav-item">
               <NavLink to="/stats" className="nav-inner">
                 Stats
               </NavLink>
