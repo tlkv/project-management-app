@@ -1,14 +1,31 @@
 import { API_URL } from '../data/constants';
-import { BoardsResponse } from '../data/interfaces';
-import { toastErrorDark, toastSuccessDark, toastWarnDark } from '../utils/toast';
+import { TaskResponse } from '../data/interfacesV';
+import { toastErrorDark, toastWarnDark } from '../utils/toast';
+import decodeToken from './decodeToken';
 
-export default async function createBoard(title: string, description: string) {
-  const url = `${API_URL}/boards`;
+export default async function createTask(
+  boardId: string,
+  columnId: string,
+  title: string,
+  done: boolean,
+  order: number,
+  description: string
+) {
+  const url = `${API_URL}/boards/${boardId}/columns/${columnId}/tasks`;
   const token = localStorage.getItem('pmapp34-token') || '';
+  const { id } = decodeToken();
   if (!token) {
     toastErrorDark('Invalid token');
     return false;
   }
+
+  const newTask = {
+    title,
+    done,
+    order,
+    description,
+    userId: id,
+  };
 
   let res = {} as Response;
 
@@ -19,10 +36,7 @@ export default async function createBoard(title: string, description: string) {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        title,
-        description,
-      }),
+      body: JSON.stringify(newTask),
     });
   } catch {
     toastErrorDark('No response from server');
@@ -30,9 +44,8 @@ export default async function createBoard(title: string, description: string) {
   }
 
   if (res.ok) {
-    const board: BoardsResponse = await res.json();
-    toastSuccessDark('Board was created');
-    return board;
+    const task: TaskResponse = await res.json();
+    return task;
   }
 
   if (res.status >= 400 && res.status <= 499) {

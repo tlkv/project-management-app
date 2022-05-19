@@ -1,8 +1,8 @@
 import { API_URL } from '../data/constants';
 import { toastErrorDark, toastSuccessDark, toastWarnDark } from '../utils/toast';
 
-export default async function deleteBoard(id: string) {
-  const url = `${API_URL}/boards/${id}`;
+export default async function deleteColumn(boardId: string, colId: string) {
+  const url = `${API_URL}/boards/${boardId}/columns/${colId}`;
   const token = localStorage.getItem('pmapp34-token') || '';
   if (!token) {
     toastErrorDark('Invalid token');
@@ -24,7 +24,7 @@ export default async function deleteBoard(id: string) {
   }
 
   if (res.ok) {
-    toastSuccessDark('Board was successfully removed');
+    toastSuccessDark('Column was successfully removed');
     return res;
   }
 

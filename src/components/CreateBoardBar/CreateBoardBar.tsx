@@ -30,7 +30,9 @@ function CreateBoardBar({
 
   const loadBoards = async () => {
     const data = await getBoards();
-    dispatchBoards({ type: SET_BOARDS, payload: data });
+    if (data) {
+      dispatchBoards({ type: SET_BOARDS, payload: data });
+    }
   };
 
   useEffect(() => {

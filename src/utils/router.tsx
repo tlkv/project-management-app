@@ -33,7 +33,7 @@ export const ROUTES_LIST = [
     onNavbar: true,
   },
   {
-    path: '/board',
+    path: '/board/:id',
     element: <BoardPage />,
     navbarText: 'Board',
     onNavbar: true,

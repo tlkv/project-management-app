@@ -1,0 +1,50 @@
+$board-header__title-color: #b0c4de;
+
+.board-header {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.board-header__btn {
+  padding: 6px 10px;
+  margin-left: 4px;
+
+  color: white;
+  text-decoration: none;
+  background-color: rgba(124, 172, 211, 0.4);
+  border-radius: 4px;
+
+  transition: background-color 150ms linear;
+
+  &:hover {
+    background-color: rgba(124, 172, 211, 0.3);
+  }
+}
+
+.board-header-title-wrapper {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+
+  .board-header__title {
+    margin: 0;
+    color: $board-header__title-color;
+  }
+
+  .board-header__title:first-child {
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .board-header__title:last-child {
+    font-weight: 400;
+  }
+}
+
+.board {
+  padding-bottom: 15px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
