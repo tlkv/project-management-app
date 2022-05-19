@@ -8,8 +8,36 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-  .course-logo {
-    max-width: 60px;
+  padding: 90px 0;
+}
+.footer {
+  width: 100%;
+}
+.course-logo {
+  width: 160px;
+}
+.footer__wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 40px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.footer__social {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+.footer__social-icon {
+  transition-duration: .3s;
+  &:hover {
+    fill: #fc5c65;
+    cursor: pointer;
+  }
+}
+@media (max-width: 468px) {
+  .footer__wrapper {
+    justify-content: center;
   }
 }
