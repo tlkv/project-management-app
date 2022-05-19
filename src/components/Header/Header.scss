@@ -43,6 +43,13 @@
   }
 }
 
+.nav-app-logo {
+  width: 30px;
+  height: 30px;
+  background: url('../../assets/svg/app_logo.svg') center / cover no-repeat;
+  margin-top: 10px;
+}
+
 .header {
   background-color: $blue-trello;
 }

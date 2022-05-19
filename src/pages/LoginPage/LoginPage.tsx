@@ -90,7 +90,9 @@ function LoginPage() {
   return (
     <div className="narrow-container">
       <div>
-        <NavLink to="/welcom">Go Back</NavLink>
+        <NavLink to="/welcom" className="main-nav-btn">
+          Go Back
+        </NavLink>
       </div>
       <h1 className="login__title">
         {isLogin ? 'Already with us?' : 'Sign up in project management app'}

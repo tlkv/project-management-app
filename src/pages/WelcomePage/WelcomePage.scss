@@ -1,0 +1,17 @@
+.main-nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #fff;
+  &:visited,
+  &:hover,
+  &:active {
+    color: #fff;
+  }
+  width: 80px;
+  height: 30px;
+  border: 1px solid white;
+  margin: 5px;
+  border-radius: 5px;
+}

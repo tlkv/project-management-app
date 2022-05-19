@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { AppContext } from '../../App';
 import { LANG_EN, LANG_RU } from '../../data/constants';
 import './Header.scss';
@@ -41,9 +41,7 @@ function Header() {
         <nav className="narrow-container">
           <ul className="nav-wrapper ">
             <li className="nav-item">
-              <NavLink to="/welcome" className="nav-inner">
-                Welcome
-              </NavLink>
+              <Link to="/welcome" className="nav-inner nav-app-logo" />
             </li>
             <li className="nav-item">
               <NavLink to="/" className="nav-inner">
