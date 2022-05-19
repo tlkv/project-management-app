@@ -48,6 +48,10 @@
   height: 30px;
   background: url('../../assets/svg/app_logo.svg') center / cover no-repeat;
   margin-top: 10px;
+  transition: all 0.3s;
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 .header {

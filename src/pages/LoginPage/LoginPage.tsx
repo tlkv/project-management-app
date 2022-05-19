@@ -89,9 +89,9 @@ function LoginPage() {
 
   return (
     <div className="narrow-container">
-      <div>
+      <div className="buttons-head-top">
         <NavLink to="/welcom" className="main-nav-btn">
-          Go Back
+          To Welcome Page
         </NavLink>
       </div>
       <h1 className="login__title">

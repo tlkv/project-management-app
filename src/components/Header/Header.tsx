@@ -44,11 +44,6 @@ function Header() {
               <Link to="/welcome" className="nav-inner nav-app-logo" />
             </li>
             <li className="nav-item">
-              <NavLink to="/" className="nav-inner">
-                Boards
-              </NavLink>
-            </li>
-            <li className="nav-item">
               <button
                 type="button"
                 className="header-button"
@@ -59,8 +54,8 @@ function Header() {
               {isCreateBoardOpen && <CreateBoardBar setIsCreateBoardOpen={setIsCreateBoardOpen} />}
             </li>
             <li className="nav-item">
-              <NavLink to="/profile" className="nav-inner">
-                Edit Profile
+              <NavLink to="/" className="nav-inner">
+                Boards
               </NavLink>
             </li>
             <li className="nav-item">
@@ -71,6 +66,11 @@ function Header() {
             <li className="nav-item">
               <NavLink to="/stats" className="nav-inner">
                 Stats
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink to="/profile" className="nav-inner">
+                Edit Profile
               </NavLink>
             </li>
             <li className="nav-item">

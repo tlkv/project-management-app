@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { AppContext } from '../../App';
 import dict from '../../data/dict';
 import './NotFoundPage.scss';
@@ -19,6 +19,9 @@ function NotFoundPage() {
     <div className="narrow-container">
       <h1 className="title">404</h1>
       <p className="not-found-text">{dict[lang].notFoundPage.notFoundMessage}</p>
+      <NavLink to="/" className="main-nav-btn">
+        To Main Page
+      </NavLink>
     </div>
   );
 }
