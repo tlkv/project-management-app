@@ -1,4 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../App';
 import { SET_BOARDS } from '../../data/constantsV';
 import getBoards from '../../api/getBoards';
@@ -6,7 +8,9 @@ import Board from '../Board/Board';
 import './BoardList.scss';
 
 function BoardList() {
-  const { boards, dispatchBoards } = useContext(AppContext);
+  const { isAuth, boards, dispatchBoards } = useContext(AppContext);
+  const navigate = useNavigate();
+
   const loadBoards = async () => {
     const data = await getBoards();
     if (data) {
@@ -15,10 +19,12 @@ function BoardList() {
   };
 
   useEffect(() => {
-    if (!boards.length) {
+    if (!isAuth && !localStorage.getItem('pmapp34-token')) {
+      navigate('/welcome');
+    } else if (!boards.length) {
       loadBoards();
     }
-  }, []);
+  }, [isAuth]);
 
   const boardsArray =
     boards.length &&
