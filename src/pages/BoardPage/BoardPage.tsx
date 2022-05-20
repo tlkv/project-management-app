@@ -33,7 +33,7 @@ function BoardPage() {
     } else {
       loadBoard();
     }
-  }, [isAuth]);
+  }, [isAuth, window.location.href]);
 
   return (
     <>
