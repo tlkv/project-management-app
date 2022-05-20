@@ -5,7 +5,7 @@
   position: fixed;
   width: 100%;
   top: 0;
-  transition: background 1s ease 0s, box-shadow 1s ease 0s;
+  transition: background 0.7s ease 0s, box-shadow 0.7s ease 0s;
 }
 
 .nav-item {
@@ -28,9 +28,9 @@
   .lang-button {
     font-weight: bold;
     padding: 0;
-    width: 32px;
-    margin-top: 9px;
-    height: 32px;
+    width: 35px;
+    margin-top: 7px;
+    height: 35px;
     color: $blue-trello;
     background-color: #fff;
     border-radius: 100px;
@@ -39,14 +39,24 @@
     }
   }
   .lang-button-red {
-    color: red;
+    color: #ab2328;
   }
+}
+
+.header-menu-container {
+  display: flex;
+  justify-content: space-between;
+  min-height: 50px;
 }
 
 .nav-wrapper {
   display: flex;
   margin: 0 auto;
   justify-content: space-evenly;
+  width: 100%;
+  @media (max-width: 1000px) {
+    display: none;
+  }
 }
 
 .nav-inner {
@@ -85,21 +95,34 @@
 }
 
 .nav-app-logo {
-  width: 36px;
-  height: 36px;
-  background: url('../../assets/svg/app_logo.svg') center / cover no-repeat;
-  margin-top: 7px;
+  font-size: 10px;
+  width: 120px;
+  padding-left: 42px;
+  height: 40px;
+  background: url('../../assets/svg/app_logo.svg') left/contain no-repeat;
+  margin-top: 5px;
   transition: all 0.3s;
+  margin-left: 20px;
   &:hover {
-    transform: scale(1.15);
+    transform: scale(1.1);
   }
 }
 
-.header {
-  background-color: $blue-trello;
+.header-burger {
+  font-size: 32px;
+  margin-top: 7px;
+  margin-right: 20px;
+  background: none;
+  border: none;
+  outline: none;
+  color: #fff;
+  padding: 0;
+  @media (min-width: 1001px) {
+    display: none;
+  }
 }
 
 .header-fixed {
-  background-color: #0747a6;
+  background-color: $blue-trello;
   box-shadow: inset 0 0 10px rgb(0 0 0 / 50%);
 }

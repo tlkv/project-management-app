@@ -91,7 +91,8 @@ function LoginPage() {
     <div className="narrow-container">
       <div className="buttons-head-top">
         <NavLink to="/welcom" className="main-nav-btn">
-          To Welcome Page
+          <i className="fa-solid fa-circle-arrow-left" />
+          Back
         </NavLink>
       </div>
       <h1 className="login__title">

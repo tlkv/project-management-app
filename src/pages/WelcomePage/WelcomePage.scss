@@ -1,20 +1,43 @@
 .main-nav-btn {
+  box-shadow: 0 0 20px rgb(0 0 0 / 70%);
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
+  color: #000;
+  &:visited,
+  &:hover,
+  &:active {
+    color: #000;
+  }
+  &:hover {
+    background-color: #ffffff;
+    background-image: linear-gradient(315deg, #ffffff 0%, #d7e1ec 74%);
+  }
+  i {
+    margin: 5px;
+  }
+  width: 120px;
+  height: 40px;
+  padding: 5px;
+  border: 0;
+  background-color: #b8c6db;
+  background-image: linear-gradient(315deg, #b8c6db 0%, #f5f7fa 74%);
+  margin: 10px 5px;
+  border-radius: 5px;
+  transition: all 0.3s ease-out;
+}
+
+.main-nav-btn-dark {
   color: #fff;
+  background: none;
   &:visited,
   &:hover,
   &:active {
     color: #fff;
+    background: none;
   }
-  width: 110px;
-  height: 50px;
-  padding: 5px;
-  border: 1px solid white;
-  margin: 10px 5px;
-  border-radius: 5px;
+  box-shadow: none;
 }
 
 .welc-buttons-container {
@@ -24,7 +47,7 @@
 }
 
 .buttons-head-top {
-  margin-top: -50px;
+  margin-top: -40px;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;

@@ -1,3 +1,4 @@
+/* eslint-disable react/self-closing-comp */
 import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AppContext } from '../../App';
@@ -12,17 +13,19 @@ function WelcomePage() {
       <div className="welc-buttons-container">
         {!isAuth && (
           <div className="buttons-head-top">
-            <NavLink to="/login" className="main-nav-btn">
+            <NavLink to="/login" className="main-nav-btn main-nav-btn-dark">
+              <i className="fa-solid fa-user-lock" />
               Sign In
             </NavLink>
             <NavLink to="/registration" className="main-nav-btn">
-              Sign up
+              <i className="fa-solid fa-user-check" /> Sign up
             </NavLink>
           </div>
         )}
         {isAuth && (
           <NavLink to="/" className="main-nav-btn">
-            To Main Page
+            <i className="fa-solid fa-circle-arrow-left" />
+            Main Page
           </NavLink>
         )}
       </div>

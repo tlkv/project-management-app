@@ -39,11 +39,11 @@ function Header() {
   return (
     <header className={!isFixed ? 'header' : 'header header-fixed'} id="header">
       {isAuth && (
-        <nav className="narrow-container">
+        <nav className="narrow-container header-menu-container">
+          <Link to="/welcome" className="nav-inner nav-app-logo">
+            Project Management App
+          </Link>
           <ul className="nav-wrapper ">
-            <li className="nav-item">
-              <Link to="/welcome" className="nav-inner nav-app-logo" />
-            </li>
             <li className="nav-item">
               <button
                 type="button"
@@ -51,7 +51,8 @@ function Header() {
                 onClick={() => setIsCreateBoardOpen(true)}
               >
                 <span>
-                  <i className="fa-solid fa-plus"></i>New Board
+                  <i className="fa-solid fa-plus" />
+                  New Board
                 </span>
               </button>
               {isCreateBoardOpen && <CreateBoardBar setIsCreateBoardOpen={setIsCreateBoardOpen} />}
@@ -59,28 +60,32 @@ function Header() {
             <li className="nav-item">
               <NavLink to="/" className="nav-inner">
                 <span>
-                  <i className="fa-solid fa-clipboard-check"></i>Boards
+                  <i className="fa-solid fa-clipboard-check" />
+                  Boards
                 </span>
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink to="/search" className="nav-inner">
                 <span>
-                  <i className="fa-solid fa-magnifying-glass"></i>Search
+                  <i className="fa-solid fa-magnifying-glass" />
+                  Search
                 </span>
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink to="/stats" className="nav-inner">
                 <span>
-                  <i className="fa-solid fa-star"></i>Stats
+                  <i className="fa-solid fa-star" />
+                  Stats
                 </span>
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink to="/profile" className="nav-inner">
                 <span>
-                  <i className="fa-solid fa-user"></i>Edit Profile
+                  <i className="fa-solid fa-user" />
+                  Edit Profile
                 </span>
               </NavLink>
             </li>
@@ -93,7 +98,8 @@ function Header() {
                 }}
               >
                 <span>
-                  <i className="fa-solid fa-right-from-bracket"></i>Sign Out
+                  <i className="fa-solid fa-right-from-bracket" />
+                  Sign Out
                 </span>
               </button>
             </li>
@@ -111,6 +117,9 @@ function Header() {
               </button>
             </li>
           </ul>
+          <button className="header-burger" type="button">
+            <i className="fa-solid fa-bars" />
+          </button>
         </nav>
       )}
     </header>
