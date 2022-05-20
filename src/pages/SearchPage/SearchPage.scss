@@ -1,0 +1,20 @@
+.search-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-form-wrapper {
+  box-shadow: 0 0 20px rgb(0 0 0 / 70%);
+  max-width: 600px;
+  background-color: #2f3640;
+  margin: 15px auto 0;
+  padding: 10px 30px 30px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.search-tasks-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 25px;
+}

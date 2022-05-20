@@ -6,6 +6,7 @@ import BoardPage from '../pages/BoardPage/BoardPage';
 import ProfilePage from '../pages/ProfilePage/ProfilePage';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
 import StatsPage from '../pages/StatsPage/StatsPage';
+import SearchPage from '../pages/SearchPage/SearchPage';
 
 export const ROUTES_LIST = [
   {
@@ -48,6 +49,12 @@ export const ROUTES_LIST = [
     path: '/stats',
     element: <StatsPage />,
     navbarText: 'Statistics',
+    onNavbar: false,
+  },
+  {
+    path: '/search',
+    element: <SearchPage />,
+    navbarText: 'Search',
     onNavbar: false,
   },
   {
