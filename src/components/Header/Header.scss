@@ -11,14 +11,32 @@
 .nav-item {
   display: block;
   .active {
-    font-weight: bold;
-    text-decoration: underline;
+    color: #ffd700;
+    &:hover {
+      span {
+        &:after {
+          transform: scaleX(0);
+        }
+      }
+    }
   }
   .header-button {
-    margin-top: 12px;
+    background: none;
+    border: none;
+    outline: none;
   }
   .lang-button {
+    font-weight: bold;
+    padding: 0;
+    width: 32px;
+    margin-top: 9px;
+    height: 32px;
     color: $blue-trello;
+    background-color: #fff;
+    border-radius: 100px;
+    &:hover {
+      color: $blue-trello;
+    }
   }
   .lang-button-red {
     color: red;
@@ -39,18 +57,41 @@
   height: $header-height;
   align-items: center;
   &:hover {
-    color: #fab117;
+    span {
+      &:after {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+    }
+  }
+  span {
+    position: relative;
+    i {
+      margin-right: 5px;
+    }
+    &:after {
+      position: absolute;
+      content: '';
+      top: 120%;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #fff;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.5s;
+    }
   }
 }
 
 .nav-app-logo {
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
   background: url('../../assets/svg/app_logo.svg') center / cover no-repeat;
-  margin-top: 10px;
+  margin-top: 7px;
   transition: all 0.3s;
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.15);
   }
 }
 

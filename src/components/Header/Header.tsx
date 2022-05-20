@@ -1,3 +1,4 @@
+/* eslint-disable react/self-closing-comp */
 import { useContext, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { AppContext } from '../../App';
@@ -46,49 +47,63 @@ function Header() {
             <li className="nav-item">
               <button
                 type="button"
-                className="header-button"
+                className="header-button nav-inner"
                 onClick={() => setIsCreateBoardOpen(true)}
               >
-                New Board
+                <span>
+                  <i className="fa-solid fa-plus"></i>New Board
+                </span>
               </button>
               {isCreateBoardOpen && <CreateBoardBar setIsCreateBoardOpen={setIsCreateBoardOpen} />}
             </li>
             <li className="nav-item">
               <NavLink to="/" className="nav-inner">
-                Boards
+                <span>
+                  <i className="fa-solid fa-clipboard-check"></i>Boards
+                </span>
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink to="/search" className="nav-inner">
-                Search
+                <span>
+                  <i className="fa-solid fa-magnifying-glass"></i>Search
+                </span>
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink to="/stats" className="nav-inner">
-                Stats
+                <span>
+                  <i className="fa-solid fa-star"></i>Stats
+                </span>
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink to="/profile" className="nav-inner">
-                Edit Profile
+                <span>
+                  <i className="fa-solid fa-user"></i>Edit Profile
+                </span>
               </NavLink>
             </li>
             <li className="nav-item">
               <button
                 type="button"
-                className="header-button"
+                className="header-button nav-inner"
                 onClick={() => {
                   logoutUser();
                 }}
               >
-                Sign Out
+                <span>
+                  <i className="fa-solid fa-right-from-bracket"></i>Sign Out
+                </span>
               </button>
             </li>
             <li className="nav-item">
               <button
                 type="button"
                 className={
-                  lang === LANG_EN ? 'header-button lang-button' : 'header-button lang-button-red'
+                  lang === LANG_EN
+                    ? 'header-button lang-button'
+                    : 'header-button lang-button lang-button-red'
                 }
                 onClick={changeLang}
               >
