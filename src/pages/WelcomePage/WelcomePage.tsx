@@ -106,6 +106,30 @@ function WelcomePage() {
           </div>
         </div>
       </section>
+      <section className="welcome__achievements">
+        <div className="welcome__achievements-left">
+          <h2>Our 5 years of achievements</h2>
+          <p>With our super powers we have achieved this</p>
+        </div>
+        <div className="welcome__achievements-right">
+          <div className="welcome__achievement">
+            <h3>10,000+</h3>
+            <p>Downloads per day</p>
+          </div>
+          <div className="welcome__achievement">
+            <h3>2 Million</h3>
+            <p>Users</p>
+          </div>
+          <div className="welcome__achievement">
+            <h3>500+</h3>
+            <p>Clients</p>
+          </div>
+          <div className="welcome__achievement">
+            <h3>140</h3>
+            <p>Countries</p>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

@@ -122,34 +122,6 @@
 .welcome__features-icon_6 {
   background-image: url('../../../public/assets/img/feature-6.png');
 }
-
-@media (max-width: 1100px) {
-  .welcome__clients-wrapper {
-    width: 80%;
-  }
-}
-@media (max-width: 800px) {
-  .welcome__clients-wrapper {
-    width: 80%;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-  }
-}
-@media (max-width: 520px) {
-  .welcome__features-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr ;
-    grid-template-rows: 1fr 1fr 1fr;
-  }
-}
-@media (max-width: 350px) {
-  .welcome__features-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr repeat(6);
-  }
-}
 .main-nav-btn {
   box-shadow: 0 0 20px rgb(0 0 0 / 70%);
   display: flex;
@@ -191,7 +163,6 @@
   }
   box-shadow: none;
 }
-
 .welc-buttons-container {
   display: flex;
   flex-wrap: wrap;
@@ -203,10 +174,91 @@
 .title {
   color: #18191f;
 } 
-
 .buttons-head-top {
   // margin-top: -40px;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
+}
+.welcome__achievements {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 60px 120px;
+  column-gap: 40px;
+  padding: 30px 60px;
+}
+.welcome__achievements-left {
+  color: #18191f;
+  h2 {
+    font-size: 40px;
+    line-height: 54px;
+    margin: 0;
+  }
+  p {
+    font-size: 14px;
+    margin: 0;
+    line-height: 28px;
+  }
+}
+.welcome__achievements-right {
+  color: #18191f;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 30px;
+  h3, p {
+    margin: 0;
+  }
+  .welcome__achievement {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+}
+@media (max-width: 1100px) {
+  .welcome__clients-wrapper {
+    width: 80%;
+  }
+}
+@media (max-width: 800px) {
+  .welcome__clients-wrapper {
+    width: 80%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  .welcome__achievements {
+    grid-template-columns: 1fr;
+    row-gap: 30px;
+    .welcome__achievements-left {
+      h2, p {
+        text-align: center;
+      }
+      h2 {
+        font-size: 30px;
+      }
+    }
+    .welcome__achievements-right {
+      justify-content: center;
+      align-items: center;
+      .welcome__achievement {
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
+@media (max-width: 520px) {
+  .welcome__features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
+    grid-template-rows: 1fr 1fr 1fr;
+  }
+}
+@media (max-width: 350px) {
+  .welcome__features-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr repeat(6);
+  }
 }
