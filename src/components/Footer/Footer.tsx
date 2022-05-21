@@ -5,12 +5,12 @@ function Footer() {
     <footer className="footer" id="footer">
       <div className="narrow-container footer">
         <div className="footer__wrapper">
-          <div className="footer__left">
+          <div>
             <a href="https://rs.school/js/" target="_blank" rel="noreferrer">
               <img src="./assets/svg/rs_school_js.svg" alt="rs school" className="course-logo" />
             </a>
           </div>
-          <div className="footer__right">
+          <div>
             <div className="footer__social">
               <a href="https://github.com/tlkv" className="footer__social-link">
                 <svg
