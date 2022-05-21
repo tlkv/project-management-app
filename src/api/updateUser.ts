@@ -43,7 +43,7 @@ const updateUser = async (
   }
 
   if (res.ok) {
-    toastInfoDark('User info updated');
+    toastInfoDark('User info was updated');
     return user;
   }
 

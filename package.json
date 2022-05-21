@@ -36,7 +36,8 @@
     "test-coverage": "react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.{js,jsx,ts,tsx} --max-warnings=10",
-    "prettier": "prettier --write src/**/*.{js,jsx,ts,tsx}"
+    "prettier": "prettier --write src/**/*.{js,jsx,ts,tsx}",
+    "netlify-build": "prettier --write src/**/*.{js,jsx,ts,tsx} && eslint src/**/*.{js,jsx,ts,tsx} --max-warnings=10 && react-scripts test --coverage --watchAll=false && react-scripts build"
   },
   "eslintConfig": {
     "extends": [

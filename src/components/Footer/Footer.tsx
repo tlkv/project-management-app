@@ -7,7 +7,7 @@ function Footer() {
         <div className="footer__wrapper">
           <div>
             <a href="https://rs.school/js/" target="_blank" rel="noreferrer">
-              <img src="./assets/svg/rs_school_js.svg" alt="rs school" className="course-logo" />
+              <img src="./assets/img/rs_school_js.svg" alt="rs school" className="course-logo" />
             </a>
           </div>
           <div>

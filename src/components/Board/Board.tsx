@@ -17,13 +17,15 @@ function Board({ id, title, description }: BoardsResponse) {
     if (confirmed) {
       await deleteBoard(id);
       const updatedBoards = await getBoards();
-      dispatchBoards({ type: SET_BOARDS, payload: updatedBoards });
+      if (updatedBoards) {
+        dispatchBoards({ type: SET_BOARDS, payload: updatedBoards });
+      }
     }
   };
 
   return (
     <div className="board-item">
-      <Link className="board-item__link" to={`/boards/${id}`} />
+      <Link className="board-item__link" to={`/board/${id}`} />
       <div className="board-item__info">
         <div className="board-item__title">{title}</div>
         <div className="board-item__title board-item__title-desc">{description}</div>
