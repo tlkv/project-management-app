@@ -5,30 +5,58 @@
   position: fixed;
   width: 100%;
   top: 0;
-  transition: background 1s ease 0s, box-shadow 1s ease 0s;
+  transition: background 0.7s ease 0s, box-shadow 0.7s ease 0s;
 }
 
 .nav-item {
   display: block;
   .active {
-    font-weight: bold;
-    text-decoration: underline;
+    color: #ffd700;
+    &:hover {
+      span {
+        &:after {
+          transform: scaleX(0);
+        }
+      }
+    }
   }
   .header-button {
-    margin-top: 12px;
+    background: none;
+    border: none;
+    outline: none;
   }
   .lang-button {
+    font-weight: bold;
+    padding: 0;
+    width: 35px;
+    margin-top: 7px;
+    height: 35px;
     color: $blue-trello;
+    background-color: #fff;
+    border-radius: 100px;
+    &:hover {
+      color: $blue-trello;
+    }
   }
   .lang-button-red {
-    color: red;
+    color: #ab2328;
   }
+}
+
+.header-menu-container {
+  display: flex;
+  justify-content: space-between;
+  min-height: 50px;
 }
 
 .nav-wrapper {
   display: flex;
   margin: 0 auto;
   justify-content: space-evenly;
+  width: 100%;
+  @media (max-width: 1000px) {
+    display: none;
+  }
 }
 
 .nav-inner {
@@ -39,15 +67,62 @@
   height: $header-height;
   align-items: center;
   &:hover {
-    color: #fab117;
+    span {
+      &:after {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+    }
+  }
+  span {
+    position: relative;
+    i {
+      margin-right: 5px;
+    }
+    &:after {
+      position: absolute;
+      content: '';
+      top: 120%;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #fff;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.5s;
+    }
   }
 }
 
-.header {
-  background-color: $blue-trello;
+.nav-app-logo {
+  font-size: 10px;
+  width: 120px;
+  padding-left: 42px;
+  height: 40px;
+  background: url('../../assets/svg/app_logo.svg') left/contain no-repeat;
+  margin-top: 5px;
+  transition: all 0.3s;
+  margin-left: 20px;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.header-burger {
+  font-size: 32px;
+  margin-top: 7px;
+  margin-right: 20px;
+  background: none;
+  border: none;
+  outline: none;
+  color: #fff;
+  padding: 0;
+  @media (min-width: 1001px) {
+    display: none;
+  }
 }
 
 .header-fixed {
-  background-color: #0747a6;
+  background-color: $blue-trello;
   box-shadow: inset 0 0 10px rgb(0 0 0 / 50%);
 }

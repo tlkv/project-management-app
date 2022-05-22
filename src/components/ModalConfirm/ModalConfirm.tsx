@@ -5,6 +5,11 @@ import { ModalConfirmation } from '../../data/interfacesA';
 import './ModalConfirm.scss';
 
 export default function ModalConfirm({ modalCallback, showModal, message }: ModalConfirmation) {
+  const runCallback = () => {
+    modalCallback();
+    showModal(false);
+  };
+
   return createPortal(
     <div
       className="modal-overlay"
@@ -30,15 +35,15 @@ export default function ModalConfirm({ modalCallback, showModal, message }: Moda
           />
         </div>
         <div className="modal-buttons-container">
+          <button className="ok-button modal-button" type="button" onClick={runCallback}>
+            OK
+          </button>
           <button
             className="cancel-button modal-button"
             type="button"
             onClick={() => showModal(false)}
           >
             Cancel
-          </button>
-          <button className="ok-button modal-button" type="button" onClick={modalCallback}>
-            OK
           </button>
         </div>
       </div>

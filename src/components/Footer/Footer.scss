@@ -10,6 +10,10 @@
   justify-content: center;
 
   .course-logo {
-    max-width: 60px;
+    width: 80px;
+    height: 40px;
+    font-size: 0;
+    display: block;
+    background: url('../../assets/svg/rs_school_js.svg') center / contain no-repeat;
   }
 }
