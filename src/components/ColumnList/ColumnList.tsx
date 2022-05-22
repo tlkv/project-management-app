@@ -20,10 +20,12 @@ function ColumnList({
   boardId,
   columns,
   loadBoard,
+  modifyColumns,
 }: {
   boardId: string;
   columns: ColumnsResponse[];
   loadBoard: () => Promise<void>;
+  modifyColumns: (sourceId: string, ordPrev: number, ordNext: number) => void;
 }) {
   const [isColCreateOpen, setIsColCreateOpen] = useState(false);
   const { isConfirmed } = useConfirm();
@@ -48,10 +50,13 @@ function ColumnList({
 
   const handleColumnDragEnd = async (results: DropResult) => {
     if (!results.destination) return;
+    modifyColumns(results.draggableId, results.source.index + 1, results.destination.index + 1);
     const res = await updateColumn(boardId, results.draggableId, results.destination.index + 1);
     if (res) {
-      loadBoard();
+      // loadBoard();
     }
+
+    console.log(results);
   };
 
   return (

@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -8,6 +9,7 @@ import ColumnList from '../../components/ColumnList/ColumnList';
 import './BoardPage.scss';
 
 function BoardPage() {
+  console.log('test rendering?');
   const { isAuth } = useContext(AppContext);
   const [board, setBoard] = useState<BoardResponse>({
     id: '',
@@ -25,6 +27,23 @@ function BoardPage() {
     } else {
       navigate('/');
     }
+  };
+
+  const modifyColumns = (sourceId: string, ordPrev: number, ordNext: number) => {
+    const updColumns = [...board.columns];
+    updColumns.forEach((item) => {
+      if (item.order !== ordPrev) {
+        if (item.order >= ordPrev && item.order <= ordNext) {
+          item.order -= 1;
+        } else if (item.order >= ordNext && item.order <= ordPrev) {
+          item.order += 1;
+        }
+      } else {
+        item.order = ordNext;
+      }
+    });
+    setBoard({ ...board, columns: updColumns });
+    console.log('updBoard', updColumns);
   };
 
   useEffect(() => {
@@ -48,7 +67,12 @@ function BoardPage() {
         </div>
       </div>
       <div className="board">
-        <ColumnList boardId={boardId} columns={board.columns} loadBoard={loadBoard} />
+        <ColumnList
+          boardId={boardId}
+          columns={board.columns}
+          loadBoard={loadBoard}
+          modifyColumns={modifyColumns}
+        />
       </div>
     </div>
   );
