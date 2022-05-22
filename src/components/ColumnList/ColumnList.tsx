@@ -42,34 +42,10 @@ function ColumnList({
 
   const handleColumnDragEnd = async (results: DropResult) => {
     if (!results.destination) return;
-    function sleep(ms: number) {
-      // eslint-disable-next-line no-promise-executor-return
-      return new Promise((resolve) => setTimeout(resolve, ms));
-    }
-    /* const res = await updateColumn(boardId, results.source.droppableId, results.destination.index); if (res) {
-      loadBoard();
-    } */
-    // const timer = await sleep(1500);
-    console.log(
-      'boardId',
-      boardId,
-      'colId',
-      results.draggableId,
-      'newOrd',
-      results.destination.index,
-      results
-    );
-
     const res = await updateColumn(boardId, results.draggableId, results.destination.index + 1);
     if (res) {
       loadBoard();
     }
-
-    /* const ind = results.source.index;
-
-    console.log('columnsSortedByOrder', columnsSortedByOrder[ind].order);
-    columnsSortedByOrder[ind].order = 1;
-    console.log('columnsSortedByOrder', columnsSortedByOrder[ind].order); */
   };
 
   return (
