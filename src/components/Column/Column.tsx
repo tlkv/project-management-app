@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
 import { TaskResponse } from '../../data/interfacesV';
 import CreateTaskModal from '../CreateTaskModal/CreateTaskModal';
@@ -9,6 +11,9 @@ function Column({
   tasks,
   handleDelete,
   loadBoard,
+  passedRef,
+  drProps,
+  drHandleProps,
 }: {
   columnId: string;
   title: string;
@@ -16,6 +21,9 @@ function Column({
   tasks: TaskResponse[];
   handleDelete: () => void;
   loadBoard: () => Promise<void>;
+  drProps: any; // fix
+  drHandleProps: any; // fix
+  passedRef: any; // fix
 }) {
   const [isTaskCreateOpen, setIsTaskCreateOpen] = useState(false);
   const newTaskOrder = tasks.length ? [...tasks].sort((a, b) => b.order - a.order)[0].order + 1 : 1;
@@ -32,7 +40,7 @@ function Column({
   ));
 
   return (
-    <div className="list-wrapper">
+    <div className="list-wrapper" ref={passedRef} {...drProps} {...drHandleProps}>
       <div className="list">
         <div className="list__header">
           <h3 className="list__title">{title}</h3>
