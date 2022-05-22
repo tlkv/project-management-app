@@ -16,9 +16,6 @@ function ColumnList({
   const [isColCreateOpen, setIsColCreateOpen] = useState(false);
 
   const columnsCopy = [...columns];
-  const newColOrder = columnsCopy.length
-    ? columnsCopy.sort((a, b) => b.order - a.order)[0].order + 1
-    : 1;
   const columnsSortedByOrder = columnsCopy.sort((a, b) => a.order - b.order);
 
   const columnArray = columnsSortedByOrder.map((col) => (
@@ -48,7 +45,6 @@ function ColumnList({
       {isColCreateOpen && (
         <CreateColumnModal
           boardId={boardId}
-          order={newColOrder}
           loadBoard={loadBoard}
           setIsColCreateOpen={setIsColCreateOpen}
         />
