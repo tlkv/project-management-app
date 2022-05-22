@@ -5,14 +5,13 @@ import { AppContext } from '../../App';
 import { SET_BOARDS } from '../../data/constantsV';
 import getBoards from '../../api/getBoards';
 import Board from '../Board/Board';
-import './BoardList.scss';
 
 function BoardList() {
-  const { isAuth, boards, dispatchBoards } = useContext(AppContext);
+  const { logoutUser, isAuth, boards, dispatchBoards } = useContext(AppContext);
   const navigate = useNavigate();
 
   const loadBoards = async () => {
-    const data = await getBoards();
+    const data = await getBoards(logoutUser);
     if (data) {
       dispatchBoards({ type: SET_BOARDS, payload: data });
     }

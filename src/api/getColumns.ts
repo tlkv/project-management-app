@@ -2,12 +2,13 @@ import { API_URL } from '../data/constants';
 import { ColumnsResponse } from '../data/interfacesV';
 import { toastErrorDark, toastWarnDark } from '../utils/toast';
 
-export default async function getColumns(id: string) {
+export default async function getColumns(id: string, logoutUser: () => void) {
   const url = `${API_URL}/boards/${id}/columns`;
   const token = localStorage.getItem('pmapp34-token') || '';
 
   if (!token) {
     toastErrorDark('Invalid token');
+    logoutUser();
     return false;
   }
 
