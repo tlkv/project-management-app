@@ -1,7 +1,13 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/jsx-props-no-spreading */
 import { useState } from 'react';
-import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+  DropResult,
+  DraggableProvidedDragHandleProps,
+} from 'react-beautiful-dnd';
 import { ColumnsResponse } from '../../data/interfacesV';
 import CreateColumnModal from '../CreateColumnModal/CreateColumnModal';
 import deleteColumn from '../../api/deleteColumn';
@@ -60,8 +66,10 @@ function ColumnList({
                     {(provColumn) => (
                       <Column
                         drProps={{ ...provColumn.draggableProps }}
-                        drHandleProps={{ ...provColumn.dragHandleProps }}
-                        passedRef={provColumn.innerRef}
+                        drHandleProps={
+                          { ...provColumn.dragHandleProps } as DraggableProvidedDragHandleProps
+                        }
+                        innerRef={provColumn.innerRef}
                         columnId={col.id}
                         boardId={boardId}
                         title={col.title}
