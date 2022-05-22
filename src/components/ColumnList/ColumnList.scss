@@ -21,13 +21,21 @@ $list-text-color: #282c34;
   padding: 10px 12px;
 
   .list__title {
+    display: -webkit-box;
+    overflow: hidden;
     margin: 0;
     color: $list-text-color;
     font-size: 16px;
+    font-weight: 500;
     user-select: none;
+    white-space: break-spaces;
+    word-break: break-word;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
   }
 
   .list__delete-btn {
+    align-self: baseline;
     background-color: transparent;
     border: none;
   }
@@ -41,6 +49,8 @@ $list-text-color: #282c34;
 }
 
 .list__task {
+  display: -webkit-box;
+  overflow: hidden;
   margin-bottom: 5px;
   margin-right: 6px;
   padding: 6px 8px;
@@ -51,6 +61,8 @@ $list-text-color: #282c34;
   border-radius: 2px;
   white-space: break-spaces;
   word-break: break-all;
+  -webkit-line-clamp: 10;
+  -webkit-box-orient: vertical;
 }
 
 .add-task-container {

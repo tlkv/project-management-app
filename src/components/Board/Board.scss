@@ -1,11 +1,11 @@
 .board-item {
   position: relative;
-  max-width: 200px;
+  max-width: 220px;
   width: 100%;
   margin: 0 1rem 1rem 0;
   padding: 15px;
 
-  background-color: rgb(119 136 153 / 80%);
+  background-color: rgb(126 151 175 / 60%);
   border-radius: 4px;
 
   &:hover .board-item__delete-btn {
@@ -36,6 +36,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   font-weight: 100;
+  word-break: break-all;
 }
 
 .board-item__title-desc {
