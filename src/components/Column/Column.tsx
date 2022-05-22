@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import deleteColumn from '../../api/deleteColumn';
+import { AppContext } from '../../App';
 import { TaskResponse } from '../../data/interfacesV';
 import CreateTaskModal from '../CreateTaskModal/CreateTaskModal';
 import ModalConfirm from '../ModalConfirm/ModalConfirm';
@@ -19,21 +20,16 @@ function Column({
 }) {
   const [isModalOpen, showModal] = useState(false);
   const [isTaskCreateOpen, setIsTaskCreateOpen] = useState(false);
-  const newTaskOrder = tasks.length ? [...tasks].sort((a, b) => b.order - a.order)[0].order + 1 : 1;
+  const { logoutUser } = useContext(AppContext);
 
   const tasksArray = tasks.map((task) => (
     <div key={task.id} className="list__task">
-      {task.done ? (
-        <i className="fa-regular fa-square-check"> </i>
-      ) : (
-        <i className="fa-regular fa-square"> </i>
-      )}
-      <span style={{ marginLeft: '5px' }}>{task.title}</span>
+      {task.title}
     </div>
   ));
 
   const onDelete = async () => {
-    const res = await deleteColumn(boardId, columnId);
+    const res = await deleteColumn(boardId, columnId, logoutUser);
     if (res) {
       loadBoard();
     }
@@ -67,7 +63,6 @@ function Column({
         <CreateTaskModal
           columnId={columnId}
           boardId={boardId}
-          order={newTaskOrder}
           loadBoard={loadBoard}
           setIsTaskCreateOpen={setIsTaskCreateOpen}
         />
