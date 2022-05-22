@@ -8,7 +8,7 @@ import ColumnList from '../../components/ColumnList/ColumnList';
 import './BoardPage.scss';
 
 function BoardPage() {
-  const { isAuth } = useContext(AppContext);
+  const { logoutUser, isAuth } = useContext(AppContext);
   const [board, setBoard] = useState<BoardResponse>({
     id: '',
     title: '',
@@ -19,7 +19,7 @@ function BoardPage() {
   const boardId = window.location.pathname.split('/board/').join('');
 
   const loadBoard = async () => {
-    const data = await getBoard(boardId);
+    const data = await getBoard(boardId, logoutUser);
     if (data) {
       setBoard(data);
     } else {
@@ -38,14 +38,15 @@ function BoardPage() {
   return (
     <>
       <div className="board-header">
-        <Link className="board-header__btn" to="/">
-          <i className="fa-solid fa-angle-left"> </i> Back
-        </Link>
         <div className="board-header-title-wrapper">
+          <Link className="board-header__btn" to="/">
+            <i className="fa-solid fa-angle-left"> </i> Back
+          </Link>
           <h1 className="board-header__title">{board.title}</h1>
-          <span>-</span>
-          <h3 className="board-header__title">{board.description}</h3>
         </div>
+        {board.description !== ' ' && (
+          <h3 className="board-header__title board-header__title-desc">{board.description}</h3>
+        )}
       </div>
       <div className="board">
         <ColumnList boardId={boardId} columns={board.columns} loadBoard={loadBoard} />
