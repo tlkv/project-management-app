@@ -7,22 +7,20 @@ export default async function createTask(
   boardId: string,
   columnId: string,
   title: string,
-  done: boolean,
-  order: number,
-  description: string
+  description: string,
+  logoutUser: () => void
 ) {
   const url = `${API_URL}/boards/${boardId}/columns/${columnId}/tasks`;
   const token = localStorage.getItem('pmapp34-token') || '';
   const { id } = decodeToken();
   if (!token) {
     toastErrorDark('Invalid token');
+    logoutUser();
     return false;
   }
 
   const newTask = {
     title,
-    done,
-    order,
     description,
     userId: id,
   };
