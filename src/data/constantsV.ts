@@ -9,3 +9,6 @@ export const CONFIRM_MODAL_DEFAULT = {
 
 export const CONFIRM_MODAL_INIT = 'CONFIRM_MODAL_INIT';
 export const CONFIRM_MODAL_CLOSE = 'CONFIRM_MODAL_CLOSE';
+
+export const FORM_INVALID_MESSAGE = 'should be at least one character';
+export const titleRegex = /^.*[^\s].*$/;

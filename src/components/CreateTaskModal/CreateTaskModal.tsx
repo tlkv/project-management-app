@@ -1,41 +1,52 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/self-closing-comp */
-import { createRef, useEffect, useState } from 'react';
+import { createRef, useContext, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import createTask from '../../api/createTask';
+import { AppContext } from '../../App';
+import { FORM_INVALID_MESSAGE, titleRegex } from '../../data/constantsV';
 import './CreateTaskModal.scss';
 
 function CreateTaskModal({
   columnId,
   boardId,
-  order,
   loadBoard,
   setIsTaskCreateOpen,
 }: {
   columnId: string;
   boardId: string;
-  order: number;
   loadBoard: () => Promise<void>;
   setIsTaskCreateOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const Container = document.getElementById('modal') as HTMLElement;
+  const { logoutUser } = useContext(AppContext);
+  const [hasError, setHasError] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const taskTitle = createRef<HTMLInputElement>();
+  const taskDesc = createRef<HTMLInputElement>();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsDisabled(true);
 
-    if (taskTitle.current) {
-      const res = await createTask(boardId, columnId, taskTitle.current.value, false, order, ' ');
-      if (res) {
-        loadBoard();
+    if (taskTitle.current && taskDesc.current) {
+      const isTitleValid = titleRegex.test(taskTitle.current.value);
+
+      if (!isTitleValid) {
+        setHasError(true);
+      } else if (!hasError) {
+        setIsDisabled(true);
+        const title = taskTitle.current.value.replace(/\s+/g, ' ').trim();
+        const desc = taskDesc.current.value ? taskDesc.current.value.replace(/\s+/g, ' ') : ' ';
+
+        const res = await createTask(boardId, columnId, title, desc, logoutUser);
+        if (res) {
+          loadBoard();
+        }
+        setIsTaskCreateOpen(false);
+        setIsDisabled(false);
       }
     }
-
-    setIsTaskCreateOpen(false);
-    setIsDisabled(false);
   };
 
   useEffect(() => {
@@ -58,9 +69,9 @@ function CreateTaskModal({
       className="modal-wrapper"
       role="button"
       tabIndex={0}
-      onClick={() => setIsTaskCreateOpen(false)}
+      onMouseDown={() => setIsTaskCreateOpen(false)}
     >
-      <div className="create-board" role="presentation" onClick={(e) => e.stopPropagation()}>
+      <div className="create-board" role="presentation" onMouseDown={(e) => e.stopPropagation()}>
         <h3>Add task</h3>
         <button
           className="create-board__close-btn"
@@ -68,15 +79,41 @@ function CreateTaskModal({
           aria-label="toggle"
           onClick={() => setIsTaskCreateOpen(false)}
         ></button>
-        <form onSubmit={handleSubmit}>
-          <input
-            className="board__add-list create-task-input"
-            pattern="[a-zA-Z0-9 ]{2,140}"
-            required
-            ref={taskTitle}
-            placeholder="title"
-          />
-          <button className="create-board__create-btn" type="submit" disabled={isDisabled}>
+        <form onSubmit={handleSubmit} className="create-board__form">
+          <div className="create-board__field">
+            <label htmlFor="task-title">
+              {hasError ? (
+                <span className="create-board__invalid">{FORM_INVALID_MESSAGE}</span>
+              ) : (
+                <span>Task title:</span>
+              )}
+
+              <input
+                className="create-board__input"
+                name="column-title"
+                placeholder="to Do"
+                ref={taskTitle}
+                onChange={() => setHasError(false)}
+              />
+            </label>
+          </div>
+          <div className="create-board__field">
+            <label htmlFor="desc-title">
+              <span>Task description:</span>
+
+              <input
+                className="create-board__input"
+                name="column-title"
+                placeholder="to Do"
+                ref={taskDesc}
+              />
+            </label>
+          </div>
+          <button
+            className="create-board__create-btn"
+            type="submit"
+            disabled={isDisabled || hasError}
+          >
             Add
           </button>
         </form>

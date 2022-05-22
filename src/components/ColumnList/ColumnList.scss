@@ -21,33 +21,48 @@ $list-text-color: #282c34;
   padding: 10px 12px;
 
   .list__title {
+    display: -webkit-box;
+    overflow: hidden;
     margin: 0;
     color: $list-text-color;
     font-size: 16px;
+    font-weight: 500;
     user-select: none;
+    white-space: break-spaces;
+    word-break: break-word;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
   }
 
   .list__delete-btn {
+    align-self: baseline;
     background-color: transparent;
     border: none;
   }
 }
 
 .list__tasks {
-  margin: 0 6px;
+  margin-left: 6px;
   overflow-y: auto;
   max-height: 550px;
   height: 100%;
 }
 
 .list__task {
+  display: -webkit-box;
+  overflow: hidden;
   margin-bottom: 5px;
+  margin-right: 6px;
   padding: 6px 8px;
 
   color: $list-text-color;
   box-shadow: 0 1px 1px rgba(9, 30, 66, 0.4);
   background-color: #fff;
   border-radius: 2px;
+  white-space: break-spaces;
+  word-break: break-all;
+  -webkit-line-clamp: 10;
+  -webkit-box-orient: vertical;
 }
 
 .add-task-container {

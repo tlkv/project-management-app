@@ -1,38 +1,45 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/self-closing-comp */
-import { createRef, useEffect, useState } from 'react';
+import { createRef, useContext, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import createColumn from '../../api/createColumn';
+import { FORM_INVALID_MESSAGE, titleRegex } from '../../data/constantsV';
+import { AppContext } from '../../App';
 
 function CreateColumnModal({
   boardId,
-  order,
   loadBoard,
   setIsColCreateOpen,
 }: {
   boardId: string;
-  order: number;
   loadBoard: () => Promise<void>;
   setIsColCreateOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const Container = document.getElementById('modal') as HTMLElement;
+  const { logoutUser } = useContext(AppContext);
   const colName = createRef<HTMLInputElement>();
   const [isDisabled, setIsDisabled] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsDisabled(true);
 
-    if (colName.current) {
-      const res = await createColumn(boardId, colName.current.value, order);
+    const isColNameValid = colName.current && titleRegex.test(colName.current.value);
+
+    if (!isColNameValid) {
+      setHasError(true);
+    } else if (!hasError) {
+      setIsDisabled(true);
+      const colname = colName.current.value.replace(/\s+/g, ' ').trim();
+      const res = await createColumn(boardId, colname, logoutUser);
       if (res) {
         loadBoard();
       }
-    }
 
-    setIsColCreateOpen(false);
-    setIsDisabled(false);
+      setIsColCreateOpen(false);
+      setIsDisabled(false);
+    }
   };
 
   useEffect(() => {
@@ -55,9 +62,9 @@ function CreateColumnModal({
       className="modal-wrapper"
       role="button"
       tabIndex={0}
-      onClick={() => setIsColCreateOpen(false)}
+      onMouseDown={() => setIsColCreateOpen(false)}
     >
-      <div className="create-board" role="presentation" onClick={(e) => e.stopPropagation()}>
+      <div className="create-board" role="presentation" onMouseDown={(e) => e.stopPropagation()}>
         <h3>Add list</h3>
         <button
           className="create-board__close-btn"
@@ -65,14 +72,29 @@ function CreateColumnModal({
           aria-label="toggle"
           onClick={() => setIsColCreateOpen(false)}
         ></button>
-        <form onSubmit={handleSubmit}>
-          <input
-            className="board__add-list create-task-input"
-            pattern="[a-zA-Z0-9 ]{2,14}"
-            required
-            ref={colName}
-          />
-          <button className="create-board__create-btn" type="submit" disabled={isDisabled}>
+        <form onSubmit={handleSubmit} className="create-board__form">
+          <div className="create-board__field">
+            <label htmlFor="column-title">
+              {hasError ? (
+                <span className="create-board__invalid">{FORM_INVALID_MESSAGE}</span>
+              ) : (
+                <span>Column title:</span>
+              )}
+
+              <input
+                className="create-board__input"
+                name="column-title"
+                placeholder="to Do"
+                ref={colName}
+                onChange={() => setHasError(false)}
+              />
+            </label>
+          </div>
+          <button
+            className="create-board__create-btn"
+            type="submit"
+            disabled={isDisabled || hasError}
+          >
             Add
           </button>
         </form>

@@ -1,11 +1,12 @@
 import { API_URL } from '../data/constants';
 import { toastErrorDark, toastSuccessDark, toastWarnDark } from '../utils/toast';
 
-export default async function deleteColumn(boardId: string, colId: string) {
+export default async function deleteColumn(boardId: string, colId: string, logoutUser: () => void) {
   const url = `${API_URL}/boards/${boardId}/columns/${colId}`;
   const token = localStorage.getItem('pmapp34-token') || '';
   if (!token) {
     toastErrorDark('Invalid token');
+    logoutUser();
     return false;
   }
 
