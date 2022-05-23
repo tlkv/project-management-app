@@ -13,6 +13,7 @@ $list-text-color: #282c34;
 .list {
   background-color: $list-color;
   border-radius: 4px;
+  transition: all 0.3s;
 }
 
 .list__header {

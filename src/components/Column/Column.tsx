@@ -1,9 +1,15 @@
-import { useContext, useState } from 'react';
+/* eslint-disable react/jsx-props-no-spreading */
+import { LegacyRef, useState, useContext } from 'react';
+import {
+  DraggableProvidedDraggableProps,
+  DraggableProvidedDragHandleProps,
+} from 'react-beautiful-dnd';
 import deleteColumn from '../../api/deleteColumn';
 import { AppContext } from '../../App';
 import { TaskResponse } from '../../data/interfacesV';
 import CreateTaskModal from '../CreateTaskModal/CreateTaskModal';
 import ColHeader from './ColHeader/ColHeader';
+import './Column.scss';
 
 function Column({
   columnId,
@@ -12,6 +18,10 @@ function Column({
   boardId,
   tasks,
   loadBoard,
+  innerRef,
+  drProps,
+  drHandleProps,
+  isDragging,
 }: {
   columnId: string;
   title: string;
@@ -19,6 +29,10 @@ function Column({
   boardId: string;
   tasks: TaskResponse[];
   loadBoard: () => Promise<void>;
+  drProps: DraggableProvidedDraggableProps;
+  drHandleProps: DraggableProvidedDragHandleProps;
+  innerRef: LegacyRef<HTMLDivElement> | undefined;
+  isDragging: boolean;
 }) {
   const [isTaskCreateOpen, setIsTaskCreateOpen] = useState(false);
   const { logoutUser } = useContext(AppContext);
@@ -37,8 +51,8 @@ function Column({
   };
 
   return (
-    <div className="list-wrapper">
-      <div className="list">
+    <div className="list-wrapper" ref={innerRef} {...drProps} {...drHandleProps}>
+      <div className={`list ${isDragging && 'list-dragging'}`}>
         <ColHeader
           columnId={columnId}
           boardId={boardId}
