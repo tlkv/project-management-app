@@ -32,19 +32,23 @@ function ColumnList({
   const columnsCopy = [...columns];
   const columnsSortedByOrder = columnsCopy.sort((a, b) => a.order - b.order);
 
-  const handleColumnDragEnd = async (results: DropResult) => {
+  const handleDragEnd = async (results: DropResult) => {
     if (!results.destination) return;
     if (
       results.destination.droppableId === results.source.droppableId &&
       results.destination.index === results.source.index
     )
       return;
-    reorderColumns(results.draggableId, results.source.index + 1, results.destination.index + 1);
+    if (results.type !== 'COLUMN') {
+      console.log('NOT column', results.type);
+      return;
+    }
+    reorderColumns(results.draggableId, results.source.index, results.destination.index);
     const currTitle = columns.find((i) => i.id === results.draggableId)?.title;
     await updateColumn(
       boardId,
       results.draggableId,
-      results.destination.index + 1,
+      results.destination.index,
       logoutUser,
       currTitle
     );
@@ -52,13 +56,13 @@ function ColumnList({
 
   return (
     <>
-      <DragDropContext onDragEnd={handleColumnDragEnd}>
-        <Droppable droppableId="columns-wrapper-id" direction="horizontal">
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <Droppable droppableId="columns-wrapper-id" direction="horizontal" type="COLUMN">
           {(provided) => (
             <div className="dnd-wrapper" {...provided.droppableProps} ref={provided.innerRef}>
               {columnsSortedByOrder.map((col, index) => {
                 return (
-                  <Draggable key={col.id} draggableId={col.id} index={index}>
+                  <Draggable key={col.id} draggableId={col.id} index={index + 1}>
                     {(provColumn, snapColumn) => (
                       <Column
                         drProps={{ ...provColumn.draggableProps }}
