@@ -55,16 +55,17 @@ function ColumnList({
       <DragDropContext onDragEnd={handleColumnDragEnd}>
         <Droppable droppableId="columns-wrapper-id" direction="horizontal">
           {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
+            <div className="dnd-wrapper" {...provided.droppableProps} ref={provided.innerRef}>
               {columnsSortedByOrder.map((col, index) => {
                 return (
                   <Draggable key={col.id} draggableId={col.id} index={index}>
-                    {(provColumn) => (
+                    {(provColumn, snapColumn) => (
                       <Column
                         drProps={{ ...provColumn.draggableProps }}
                         drHandleProps={
                           { ...provColumn.dragHandleProps } as DraggableProvidedDragHandleProps
                         }
+                        isDragging={snapColumn.isDragging}
                         innerRef={provColumn.innerRef}
                         columnId={col.id}
                         boardId={boardId}

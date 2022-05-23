@@ -9,6 +9,7 @@ import { AppContext } from '../../App';
 import { TaskResponse } from '../../data/interfacesV';
 import CreateTaskModal from '../CreateTaskModal/CreateTaskModal';
 import ModalConfirm from '../ModalConfirm/ModalConfirm';
+import './Column.scss';
 
 function Column({
   columnId,
@@ -19,6 +20,7 @@ function Column({
   innerRef,
   drProps,
   drHandleProps,
+  isDragging,
 }: {
   columnId: string;
   title: string;
@@ -28,6 +30,7 @@ function Column({
   drProps: DraggableProvidedDraggableProps;
   drHandleProps: DraggableProvidedDragHandleProps;
   innerRef: LegacyRef<HTMLDivElement> | undefined;
+  isDragging: boolean;
 }) {
   const [isModalOpen, showModal] = useState(false);
   const [isTaskCreateOpen, setIsTaskCreateOpen] = useState(false);
@@ -48,7 +51,7 @@ function Column({
 
   return (
     <div className="list-wrapper" ref={innerRef} {...drProps} {...drHandleProps}>
-      <div className="list">
+      <div className={`list ${isDragging && 'list-dragging'}`}>
         <div className="list__header">
           <h3 className="list__title">{title}</h3>
           <button className="list__delete-btn" type="button" onClick={() => showModal(true)}>
