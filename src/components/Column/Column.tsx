@@ -1,9 +1,15 @@
-import { useContext, useState } from 'react';
+/* eslint-disable react/jsx-props-no-spreading */
+import { LegacyRef, useState, useContext } from 'react';
+import {
+  DraggableProvidedDraggableProps,
+  DraggableProvidedDragHandleProps,
+} from 'react-beautiful-dnd';
 import deleteColumn from '../../api/deleteColumn';
 import { AppContext } from '../../App';
 import { TaskResponse } from '../../data/interfacesV';
 import CreateTaskModal from '../CreateTaskModal/CreateTaskModal';
 import ModalConfirm from '../ModalConfirm/ModalConfirm';
+import './Column.scss';
 
 function Column({
   columnId,
@@ -11,12 +17,20 @@ function Column({
   boardId,
   tasks,
   loadBoard,
+  innerRef,
+  drProps,
+  drHandleProps,
+  isDragging,
 }: {
   columnId: string;
   title: string;
   boardId: string;
   tasks: TaskResponse[];
   loadBoard: () => Promise<void>;
+  drProps: DraggableProvidedDraggableProps;
+  drHandleProps: DraggableProvidedDragHandleProps;
+  innerRef: LegacyRef<HTMLDivElement> | undefined;
+  isDragging: boolean;
 }) {
   const [isModalOpen, showModal] = useState(false);
   const [isTaskCreateOpen, setIsTaskCreateOpen] = useState(false);
@@ -36,8 +50,8 @@ function Column({
   };
 
   return (
-    <div className="list-wrapper">
-      <div className="list">
+    <div className="list-wrapper" ref={innerRef} {...drProps} {...drHandleProps}>
+      <div className={`list ${isDragging && 'list-dragging'}`}>
         <div className="list__header">
           <h3 className="list__title">{title}</h3>
           <button className="list__delete-btn" type="button" onClick={() => showModal(true)}>
