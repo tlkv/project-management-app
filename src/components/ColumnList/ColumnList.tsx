@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/jsx-props-no-spreading */
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   DragDropContext,
   Droppable,
@@ -15,20 +15,22 @@ import useConfirm from '../../utils/useConfirm';
 import './ColumnList.scss';
 import Column from '../Column/Column';
 import updateColumn from '../../api/updateColumn';
+import { AppContext } from '../../App';
 
 function ColumnList({
   boardId,
   columns,
   loadBoard,
-  modifyColumns,
+  reorderColumns,
 }: {
   boardId: string;
   columns: ColumnsResponse[];
   loadBoard: () => Promise<void>;
-  modifyColumns: (sourceId: string, ordPrev: number, ordNext: number) => void;
+  reorderColumns: (sourceId: string, ordPrev: number, ordNext: number) => void;
 }) {
   const [isColCreateOpen, setIsColCreateOpen] = useState(false);
   const { isConfirmed } = useConfirm();
+  const { logoutUser } = useContext(AppContext);
 
   const columnsCopy = [...columns];
   const newColOrder = columnsCopy.length
@@ -50,13 +52,18 @@ function ColumnList({
 
   const handleColumnDragEnd = async (results: DropResult) => {
     if (!results.destination) return;
-    modifyColumns(results.draggableId, results.source.index + 1, results.destination.index + 1);
-    const res = await updateColumn(boardId, results.draggableId, results.destination.index + 1);
+    reorderColumns(results.draggableId, results.source.index + 1, results.destination.index + 1);
+    const currTitle = columns.find((i) => i.id === results.draggableId)?.title;
+    const res = await updateColumn(
+      boardId,
+      results.draggableId,
+      results.destination.index + 1,
+      logoutUser,
+      currTitle
+    );
     if (res) {
-      // loadBoard();
+      loadBoard();
     }
-
-    console.log(results);
   };
 
   return (

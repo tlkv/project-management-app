@@ -1,43 +1,50 @@
 import { API_URL } from '../data/constants';
 import { ColumnsResponse } from '../data/interfacesV';
 import { toastErrorDark, toastWarnDark } from '../utils/toast';
+import decodeToken from './decodeToken';
 import getColumnSingle from './getColumnSingle';
 
 export default async function updateColumn(
   boardId: string,
   colId: string,
   order: number,
+  logoutUser: () => void,
   title?: string
 ) {
   const url = `${API_URL}/boards/${boardId}/columns/${colId}`;
-  const token = localStorage.getItem('pmapp34-token') || '';
+  const { token } = decodeToken();
   if (!token) {
     toastErrorDark('Invalid token');
+    logoutUser();
     return false;
   }
 
   let newTitle = ' ';
-  if (!title) {
+  if (title) {
+    newTitle = title;
+  } else if (!title) {
     const res = await getColumnSingle(boardId, colId);
     if (res) {
       newTitle = res.title;
     }
   }
 
+  const options = {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      title: newTitle,
+      order,
+    }),
+  };
+
   let res = {} as Response;
 
   try {
-    res = await fetch(url, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        title: newTitle,
-        order,
-      }),
-    });
+    res = await fetch(url, options);
   } catch {
     toastErrorDark('No response from server');
     return false;

@@ -9,7 +9,6 @@ import ColumnList from '../../components/ColumnList/ColumnList';
 import './BoardPage.scss';
 
 function BoardPage() {
-  console.log('test rendering?');
   const { isAuth } = useContext(AppContext);
   const [board, setBoard] = useState<BoardResponse>({
     id: '',
@@ -29,7 +28,7 @@ function BoardPage() {
     }
   };
 
-  const modifyColumns = (sourceId: string, ordPrev: number, ordNext: number) => {
+  const reorderColumns = (sourceId: string, ordPrev: number, ordNext: number) => {
     const updColumns = [...board.columns];
     updColumns.forEach((item) => {
       if (item.order !== ordPrev) {
@@ -43,7 +42,6 @@ function BoardPage() {
       }
     });
     setBoard({ ...board, columns: updColumns });
-    console.log('updBoard', updColumns);
   };
 
   useEffect(() => {
@@ -71,7 +69,7 @@ function BoardPage() {
           boardId={boardId}
           columns={board.columns}
           loadBoard={loadBoard}
-          modifyColumns={modifyColumns}
+          reorderColumns={reorderColumns}
         />
       </div>
     </div>
