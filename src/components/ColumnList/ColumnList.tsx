@@ -34,18 +34,20 @@ function ColumnList({
 
   const handleColumnDragEnd = async (results: DropResult) => {
     if (!results.destination) return;
+    if (
+      results.destination.droppableId === results.source.droppableId &&
+      results.destination.index === results.source.index
+    )
+      return;
     reorderColumns(results.draggableId, results.source.index + 1, results.destination.index + 1);
     const currTitle = columns.find((i) => i.id === results.draggableId)?.title;
-    const res = await updateColumn(
+    await updateColumn(
       boardId,
       results.draggableId,
       results.destination.index + 1,
       logoutUser,
       currTitle
     );
-    if (res) {
-      loadBoard();
-    }
   };
 
   return (
