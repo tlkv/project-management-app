@@ -13,6 +13,7 @@ export default async function updateColumn(
 ) {
   const url = `${API_URL}/boards/${boardId}/columns/${colId}`;
   const { token } = decodeToken();
+
   if (!token) {
     toastErrorDark('Invalid token');
     logoutUser();
@@ -23,9 +24,9 @@ export default async function updateColumn(
   if (title) {
     newTitle = title;
   } else if (!title) {
-    const res = await getColumnSingle(boardId, colId);
+    const res = await getColumnSingle(boardId, colId, logoutUser);
     if (res) {
-      newTitle = res.title;
+      newTitle = res.title || ' ';
     }
   }
 
