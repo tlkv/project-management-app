@@ -2,11 +2,16 @@ import { API_URL } from '../data/constants';
 import { BoardsResponse } from '../data/interfaces';
 import { toastErrorDark, toastSuccessDark, toastWarnDark } from '../utils/toast';
 
-export default async function createBoard(title: string, description: string) {
+export default async function createBoard(
+  title: string,
+  description: string,
+  logoutUser: () => void
+) {
   const url = `${API_URL}/boards`;
   const token = localStorage.getItem('pmapp34-token') || '';
   if (!token) {
     toastErrorDark('Invalid token');
+    logoutUser();
     return false;
   }
 

@@ -10,8 +10,6 @@ import {
 } from 'react-beautiful-dnd';
 import { ColumnsResponse } from '../../data/interfacesV';
 import CreateColumnModal from '../CreateColumnModal/CreateColumnModal';
-import deleteColumn from '../../api/deleteColumn';
-import useConfirm from '../../utils/useConfirm';
 import './ColumnList.scss';
 import Column from '../Column/Column';
 import updateColumn from '../../api/updateColumn';
@@ -29,16 +27,13 @@ function ColumnList({
   reorderColumns: (sourceId: string, ordPrev: number, ordNext: number) => void;
 }) {
   const [isColCreateOpen, setIsColCreateOpen] = useState(false);
-  const { isConfirmed } = useConfirm();
+  /* const { isConfirmed } = useConfirm(); */
   const { logoutUser } = useContext(AppContext);
 
   const columnsCopy = [...columns];
-  const newColOrder = columnsCopy.length
-    ? columnsCopy.sort((a, b) => b.order - a.order)[0].order + 1
-    : 1;
   const columnsSortedByOrder = columnsCopy.sort((a, b) => a.order - b.order);
 
-  const handleDelete = async (colId: string) => {
+  /*   const handleDelete = async (colId: string) => {
     const confirmed = await isConfirmed(
       `Are you sure? Column will be deleted along with all tasks`
     );
@@ -48,7 +43,7 @@ function ColumnList({
         loadBoard();
       }
     }
-  };
+  }; */
 
   const handleColumnDragEnd = async (results: DropResult) => {
     if (!results.destination) return;
@@ -85,7 +80,7 @@ function ColumnList({
                         columnId={col.id}
                         boardId={boardId}
                         title={col.title}
-                        handleDelete={() => handleDelete(col.id)}
+                        /* handleDelete={() => handleDelete(col.id)} */
                         tasks={col.tasks}
                         loadBoard={loadBoard}
                       />
@@ -111,7 +106,6 @@ function ColumnList({
       {isColCreateOpen && (
         <CreateColumnModal
           boardId={boardId}
-          order={newColOrder}
           loadBoard={loadBoard}
           setIsColCreateOpen={setIsColCreateOpen}
         />

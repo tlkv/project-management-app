@@ -2,11 +2,12 @@ import { API_URL } from '../data/constants';
 import { ColumnsResponse } from '../data/interfacesV';
 import { toastErrorDark, toastWarnDark } from '../utils/toast';
 
-export default async function createColumn(id: string, title: string, order: number) {
+export default async function createColumn(id: string, title: string, logoutUser: () => void) {
   const url = `${API_URL}/boards/${id}/columns`;
   const token = localStorage.getItem('pmapp34-token') || '';
   if (!token) {
     toastErrorDark('Invalid token');
+    logoutUser();
     return false;
   }
 
@@ -21,7 +22,6 @@ export default async function createColumn(id: string, title: string, order: num
       },
       body: JSON.stringify({
         title,
-        order,
       }),
     });
   } catch {

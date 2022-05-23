@@ -9,14 +9,14 @@ import useConfirm from '../../utils/useConfirm';
 import './Board.scss';
 
 function Board({ id, title, description }: BoardsResponse) {
-  const { dispatchBoards } = useContext(AppContext);
+  const { logoutUser, dispatchBoards } = useContext(AppContext);
   const { isConfirmed } = useConfirm();
 
   const handleDeleteBoard = async () => {
     const confirmed = await isConfirmed(`You sure about that?`);
     if (confirmed) {
-      await deleteBoard(id);
-      const updatedBoards = await getBoards();
+      await deleteBoard(id, logoutUser);
+      const updatedBoards = await getBoards(logoutUser);
       if (updatedBoards) {
         dispatchBoards({ type: SET_BOARDS, payload: updatedBoards });
       }

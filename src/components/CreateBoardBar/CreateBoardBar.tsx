@@ -6,8 +6,9 @@ import './CreateBoardBar.scss';
 import React, { Dispatch, useContext, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../App';
-import { SET_BOARDS } from '../../data/constantsV';
+import { FORM_INVALID_MESSAGE, SET_BOARDS, titleRegex } from '../../data/constantsV';
 import getBoards from '../../api/getBoards';
 import createBoard from '../../api/createBoard';
 import { NewBoard } from '../../data/interfacesV';
@@ -17,7 +18,8 @@ function CreateBoardBar({
 }: {
   setIsCreateBoardOpen: Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const { dispatchBoards } = useContext(AppContext);
+  const navigate = useNavigate();
+  const { logoutUser, dispatchBoards } = useContext(AppContext);
   const [boardIsCreating, setBoardIsCreating] = useState(false);
   const {
     register,
@@ -29,7 +31,7 @@ function CreateBoardBar({
   const Container = document.getElementById('modal') as HTMLElement;
 
   const loadBoards = async () => {
-    const data = await getBoards();
+    const data = await getBoards(logoutUser);
     if (data) {
       dispatchBoards({ type: SET_BOARDS, payload: data });
     }
@@ -52,8 +54,16 @@ function CreateBoardBar({
 
   const onSubmit: SubmitHandler<NewBoard> = async (data) => {
     setBoardIsCreating(true);
-    await createBoard(data.title, data.description);
-    await loadBoards();
+    const res = await createBoard(
+      data.title,
+      data.description ? data.description : ' ',
+      logoutUser
+    );
+    if (res) {
+      await loadBoards();
+      navigate(`/board/${res.id}`);
+    }
+
     setBoardIsCreating(false);
     setIsCreateBoardOpen(false);
   };
@@ -62,10 +72,10 @@ function CreateBoardBar({
     <div
       className="modal-wrapper"
       role="button"
-      onClick={() => setIsCreateBoardOpen(false)}
+      onMouseDown={() => setIsCreateBoardOpen(false)}
       tabIndex={0}
     >
-      <div className="create-board" role="presentation" onClick={(e) => e.stopPropagation()}>
+      <div className="create-board" role="presentation" onMouseDown={(e) => e.stopPropagation()}>
         <h3>Create board</h3>
         <button
           className="create-board__close-btn"
@@ -84,14 +94,13 @@ function CreateBoardBar({
 
               <input
                 className="create-board__input"
-                type="text"
-                placeholder="Homework"
+                placeholder="Project managment app"
                 disabled={boardIsCreating}
                 {...register('title', {
                   required: 'Enter a board name',
                   pattern: {
-                    value: /[a-zA-Z0-9]{2,20}/,
-                    message: 'should be at least 2 and max 20 symbols',
+                    value: titleRegex,
+                    message: FORM_INVALID_MESSAGE,
                   },
                   onChange: () => clearErrors('title'),
                 })}
@@ -108,17 +117,9 @@ function CreateBoardBar({
 
               <input
                 className="create-board__input"
-                type="text"
-                placeholder="Needs to buy for home"
+                placeholder="Final project on react"
                 disabled={boardIsCreating}
-                {...register('description', {
-                  required: 'Enter a board description',
-                  pattern: {
-                    value: /[a-zA-Z0-9]{4,30}/,
-                    message: 'should be at least 4 and max 30 symbols',
-                  },
-                  onChange: () => clearErrors('description'),
-                })}
+                {...register('description')}
               />
             </label>
           </div>
