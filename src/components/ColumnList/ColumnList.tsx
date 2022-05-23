@@ -27,23 +27,10 @@ function ColumnList({
   reorderColumns: (sourceId: string, ordPrev: number, ordNext: number) => void;
 }) {
   const [isColCreateOpen, setIsColCreateOpen] = useState(false);
-  /* const { isConfirmed } = useConfirm(); */
   const { logoutUser } = useContext(AppContext);
 
   const columnsCopy = [...columns];
   const columnsSortedByOrder = columnsCopy.sort((a, b) => a.order - b.order);
-
-  /*   const handleDelete = async (colId: string) => {
-    const confirmed = await isConfirmed(
-      `Are you sure? Column will be deleted along with all tasks`
-    );
-    if (confirmed) {
-      const res = await deleteColumn(boardId, colId);
-      if (res) {
-        loadBoard();
-      }
-    }
-  }; */
 
   const handleColumnDragEnd = async (results: DropResult) => {
     if (!results.destination) return;
@@ -80,7 +67,6 @@ function ColumnList({
                         columnId={col.id}
                         boardId={boardId}
                         title={col.title}
-                        /* handleDelete={() => handleDelete(col.id)} */
                         tasks={col.tasks}
                         loadBoard={loadBoard}
                       />
