@@ -90,8 +90,8 @@ function CreateTaskModal({
 
               <input
                 className="create-board__input"
-                name="column-title"
-                placeholder="to Do"
+                name="task-title"
+                placeholder="To learn React"
                 ref={taskTitle}
                 onChange={() => setHasError(false)}
               />
@@ -103,8 +103,8 @@ function CreateTaskModal({
 
               <input
                 className="create-board__input"
-                name="column-title"
-                placeholder="to Do"
+                name="task-description"
+                placeholder="Reactjs.org"
                 ref={taskDesc}
               />
             </label>

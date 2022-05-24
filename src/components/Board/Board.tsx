@@ -1,25 +1,22 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import deleteBoard from '../../api/deleteBoard';
 import getBoards from '../../api/getBoards';
 import { AppContext } from '../../App';
 import { SET_BOARDS } from '../../data/constantsV';
 import { BoardsResponse } from '../../data/interfaces';
-import useConfirm from '../../utils/useConfirm';
+import ModalConfirm from '../ModalConfirm/ModalConfirm';
 import './Board.scss';
 
 function Board({ id, title, description }: BoardsResponse) {
   const { logoutUser, dispatchBoards } = useContext(AppContext);
-  const { isConfirmed } = useConfirm();
+  const [isModalOpen, showModal] = useState(false);
 
   const handleDeleteBoard = async () => {
-    const confirmed = await isConfirmed(`You sure about that?`);
-    if (confirmed) {
-      await deleteBoard(id, logoutUser);
-      const updatedBoards = await getBoards(logoutUser);
-      if (updatedBoards) {
-        dispatchBoards({ type: SET_BOARDS, payload: updatedBoards });
-      }
+    await deleteBoard(id, logoutUser);
+    const updatedBoards = await getBoards(logoutUser);
+    if (updatedBoards) {
+      dispatchBoards({ type: SET_BOARDS, payload: updatedBoards });
     }
   };
 
@@ -29,10 +26,17 @@ function Board({ id, title, description }: BoardsResponse) {
       <div className="board-item__info">
         <div className="board-item__title">{title}</div>
         <div className="board-item__title board-item__title-desc">{description}</div>
-        <button type="button" className="board-item__delete-btn" onClick={handleDeleteBoard}>
-          Delete
+        <button type="button" className="board-item__btn" onClick={() => showModal(true)}>
+          <i className="fa-regular fa-trash-can"> </i>
         </button>
       </div>
+      {isModalOpen && (
+        <ModalConfirm
+          showModal={showModal}
+          message={<p>Are you sure? All board data will be deleted.</p>}
+          modalCallback={handleDeleteBoard}
+        />
+      )}
     </div>
   );
 }

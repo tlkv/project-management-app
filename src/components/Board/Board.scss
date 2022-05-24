@@ -7,11 +7,6 @@
 
   background-color: rgb(126 151 175 / 60%);
   border-radius: 4px;
-
-  &:hover .board-item__delete-btn {
-    opacity: 1;
-    transform: translate(0);
-  }
 }
 
 .board-item__link {
@@ -23,7 +18,7 @@
 }
 
 .board-item__info {
-  height: 80px;
+  height: 90px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -46,25 +41,25 @@
   color: gainsboro;
 }
 
-.board-item__delete-btn {
+.board-item__btn {
   position: relative;
   z-index: 1;
-  padding: 4px 6px;
-  height: 24px;
+  height: 30px;
+  width: 30px;
+  padding: 0;
   align-self: flex-end;
 
   color: #ffffff;
-  font-size: 14px;
-  font-weight: 100;
-  border-radius: 2px;
   border: none;
-  background-color: #d80000;
-  box-shadow: 0 0 2px #000;
-  opacity: 0;
-  transform: translate(15px);
-  transition: all 150ms ease-in;
+  border-radius: 50%;
+  background-color: transparent;
+  transition: all 100ms;
 
   &:hover {
-    background-color: #ff0000;
+    background-color: rgba(238, 238, 238, 0.1);
+  }
+
+  &:active {
+    background-color: rgba(238, 238, 238, 0.2);
   }
 }

@@ -8,12 +8,13 @@ import deleteColumn from '../../api/deleteColumn';
 import { AppContext } from '../../App';
 import { TaskResponse } from '../../data/interfacesV';
 import CreateTaskModal from '../CreateTaskModal/CreateTaskModal';
-import ModalConfirm from '../ModalConfirm/ModalConfirm';
+import ColHeader from './ColHeader/ColHeader';
 import './Column.scss';
 
 function Column({
   columnId,
   title,
+  order,
   boardId,
   tasks,
   loadBoard,
@@ -24,6 +25,7 @@ function Column({
 }: {
   columnId: string;
   title: string;
+  order: number;
   boardId: string;
   tasks: TaskResponse[];
   loadBoard: () => Promise<void>;
@@ -32,7 +34,6 @@ function Column({
   innerRef: LegacyRef<HTMLDivElement> | undefined;
   isDragging: boolean;
 }) {
-  const [isModalOpen, showModal] = useState(false);
   const [isTaskCreateOpen, setIsTaskCreateOpen] = useState(false);
   const { logoutUser } = useContext(AppContext);
 
@@ -52,12 +53,14 @@ function Column({
   return (
     <div className="list-wrapper" ref={innerRef} {...drProps} {...drHandleProps}>
       <div className={`list ${isDragging && 'list-dragging'}`}>
-        <div className="list__header">
-          <h3 className="list__title">{title}</h3>
-          <button className="list__delete-btn" type="button" onClick={() => showModal(true)}>
-            <i className="fa-solid fa-xmark"> </i>
-          </button>
-        </div>
+        <ColHeader
+          columnId={columnId}
+          boardId={boardId}
+          title={title}
+          order={order}
+          onDelete={onDelete}
+          loadBoard={loadBoard}
+        />
         <div className="list__tasks">{tasksArray}</div>
         <div className="add-task-container">
           <button className="add-task" type="button" onClick={() => setIsTaskCreateOpen(true)}>
@@ -66,13 +69,6 @@ function Column({
           </button>
         </div>
       </div>
-      {isModalOpen && (
-        <ModalConfirm
-          showModal={showModal}
-          message={<p>Are you sure? Column will be deleted along with all tasks.</p>}
-          modalCallback={onDelete}
-        />
-      )}
       {isTaskCreateOpen && (
         <CreateTaskModal
           columnId={columnId}
