@@ -11,7 +11,7 @@
 .nav-item {
   display: block;
   .active {
-    color: #ffd700;
+    font-weight: bold;
     &:hover {
       span {
         &:after {

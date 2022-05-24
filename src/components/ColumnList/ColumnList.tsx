@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/jsx-props-no-spreading */
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import {
   DragDropContext,
   Droppable,
@@ -12,53 +12,60 @@ import { ColumnsResponse } from '../../data/interfacesV';
 import CreateColumnModal from '../CreateColumnModal/CreateColumnModal';
 import './ColumnList.scss';
 import Column from '../Column/Column';
-import updateColumn from '../../api/updateColumn';
-import { AppContext } from '../../App';
 
 function ColumnList({
   boardId,
   columns,
   loadBoard,
   reorderColumns,
+  reorderTasks,
 }: {
   boardId: string;
   columns: ColumnsResponse[];
   loadBoard: () => Promise<void>;
-  reorderColumns: (sourceId: string, ordPrev: number, ordNext: number) => void;
+  reorderColumns: (columnId: string, ordPrev: number, ordNext: number) => void;
+  reorderTasks: (
+    taskId: string,
+    sourceId: string,
+    destId: string,
+    ordPrev: number,
+    ordNext: number
+  ) => void;
 }) {
   const [isColCreateOpen, setIsColCreateOpen] = useState(false);
-  const { logoutUser } = useContext(AppContext);
-
   const columnsCopy = [...columns];
-  const columnsSortedByOrder = columnsCopy.sort((a, b) => a.order - b.order);
+  columnsCopy.forEach((i) => i.tasks.sort((a, b) => a.order - b.order));
+  const columnsSorted = columnsCopy.sort((a, b) => a.order - b.order);
 
-  const handleColumnDragEnd = async (results: DropResult) => {
+  const handleDragEnd = async (results: DropResult) => {
     if (!results.destination) return;
     if (
       results.destination.droppableId === results.source.droppableId &&
       results.destination.index === results.source.index
     )
       return;
-    reorderColumns(results.draggableId, results.source.index + 1, results.destination.index + 1);
-    const currTitle = columns.find((i) => i.id === results.draggableId)?.title;
-    await updateColumn(
-      boardId,
-      results.draggableId,
-      results.destination.index + 1,
-      logoutUser,
-      currTitle
-    );
+    if (results.type === 'COLUMN') {
+      reorderColumns(results.draggableId, results.source.index, results.destination.index);
+    } else if (results.type === 'TASK') {
+      reorderTasks(
+        results.draggableId,
+        results.source.droppableId,
+        results.destination.droppableId,
+        results.source.index,
+        results.destination.index
+      );
+    }
   };
 
   return (
     <>
-      <DragDropContext onDragEnd={handleColumnDragEnd}>
-        <Droppable droppableId="columns-wrapper-id" direction="horizontal">
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <Droppable droppableId="columns-wrapper-id" direction="horizontal" type="COLUMN">
           {(provided) => (
             <div className="dnd-wrapper" {...provided.droppableProps} ref={provided.innerRef}>
-              {columnsSortedByOrder.map((col, index) => {
+              {columnsSorted.map((col, index) => {
                 return (
-                  <Draggable key={col.id} draggableId={col.id} index={index}>
+                  <Draggable key={col.id} draggableId={col.id} index={index + 1}>
                     {(provColumn, snapColumn) => (
                       <Column
                         drProps={{ ...provColumn.draggableProps }}

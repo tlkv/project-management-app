@@ -1,8 +1,10 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { LegacyRef, useState, useContext } from 'react';
 import {
+  Draggable,
   DraggableProvidedDraggableProps,
   DraggableProvidedDragHandleProps,
+  Droppable,
 } from 'react-beautiful-dnd';
 import deleteColumn from '../../api/deleteColumn';
 import { AppContext } from '../../App';
@@ -37,12 +39,6 @@ function Column({
   const [isTaskCreateOpen, setIsTaskCreateOpen] = useState(false);
   const { logoutUser } = useContext(AppContext);
 
-  const tasksArray = tasks.map((task) => (
-    <div key={task.id} className="list__task">
-      {task.title}
-    </div>
-  ));
-
   const onDelete = async () => {
     const res = await deleteColumn(boardId, columnId, logoutUser);
     if (res) {
@@ -52,7 +48,7 @@ function Column({
 
   return (
     <div className="list-wrapper" ref={innerRef} {...drProps} {...drHandleProps}>
-      <div className={`list ${isDragging && 'list-dragging'}`}>
+      <div className={`list ${isDragging ? 'list-dragging' : ''}`}>
         <ColHeader
           columnId={columnId}
           boardId={boardId}
@@ -61,7 +57,33 @@ function Column({
           onDelete={onDelete}
           loadBoard={loadBoard}
         />
-        <div className="list__tasks">{tasksArray}</div>
+        <Droppable droppableId={columnId} key={columnId} type="TASK">
+          {(providedTasks, snapTasks) => (
+            <div
+              className={`list__tasks ${snapTasks.isDraggingOver ? 'list-dragged-on' : ''}`}
+              {...providedTasks.droppableProps}
+              ref={providedTasks.innerRef}
+            >
+              {tasks.map((task, ind) => {
+                return (
+                  <Draggable key={task.id} draggableId={task.id} index={ind + 1}>
+                    {(provTask, snapTask) => (
+                      <div
+                        className={`list__task ${snapTask.isDragging ? 'task-dragging' : ''}`}
+                        {...provTask.draggableProps}
+                        {...provTask.dragHandleProps}
+                        ref={provTask.innerRef}
+                      >
+                        {task.title}
+                      </div>
+                    )}
+                  </Draggable>
+                );
+              })}
+              {providedTasks.placeholder}
+            </div>
+          )}
+        </Droppable>
         <div className="add-task-container">
           <button className="add-task" type="button" onClick={() => setIsTaskCreateOpen(true)}>
             <i className="fa-solid fa-plus"> </i>

@@ -1,4 +1,22 @@
+@import '../../sass/variables.scss';
+
+.list,
+.list__task {
+  transition: background 0.5s;
+}
+
+.list__task {
+  user-select: none;
+}
+
 .list-dragging {
-  background-color: #00c2e0;
-  transform: rotate(5deg);
+  background-color: rgb(222, 235, 255);
+}
+
+.task-dragging {
+  background-color: rgb(222, 235, 255);
+}
+
+.list-dragged-on {
+  background-color: rgb(208, 217, 231);
 }

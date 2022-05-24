@@ -71,6 +71,7 @@ $list-text-color: #282c34;
   overflow-y: auto;
   max-height: 550px;
   height: 100%;
+  min-height: 4px;
 }
 
 .list__task {
@@ -99,6 +100,7 @@ $list-text-color: #282c34;
     display: flex;
     align-items: center;
     gap: 5px;
+    user-select: none;
 
     font-weight: 100;
     background-color: transparent;
@@ -138,4 +140,8 @@ $list-text-color: #282c34;
   &:hover {
     background-color: rgba(173, 185, 189, 0.9);
   }
+}
+
+.dnd-wrapper {
+  margin: 15px 5px;
 }
