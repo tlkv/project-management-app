@@ -77,6 +77,7 @@ function ColumnList({
                         columnId={col.id}
                         boardId={boardId}
                         title={col.title}
+                        order={col.order}
                         tasks={col.tasks}
                         loadBoard={loadBoard}
                       />

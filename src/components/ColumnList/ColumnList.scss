@@ -19,12 +19,16 @@ $list-text-color: #282c34;
 .list__header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 10px 12px;
+  min-height: 50px;
 
   .list__title {
     display: -webkit-box;
     overflow: hidden;
     margin: 0;
+    width: 100%;
+
     color: $list-text-color;
     font-size: 16px;
     font-weight: 500;
@@ -33,12 +37,32 @@ $list-text-color: #282c34;
     word-break: break-word;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+    cursor: pointer;
   }
 
-  .list__delete-btn {
-    align-self: baseline;
+  .list__btn {
+    padding: 2px 6px;
     background-color: transparent;
     border: none;
+
+    &.accept {
+      color: green;
+    }
+
+    &.delete {
+      align-self: baseline;
+      color: red;
+    }
+  }
+
+  .list__title-input {
+    width: 100%;
+    margin-left: 4px;
+    padding: 4px 6px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid darkgray;
+    border-radius: 3px;
+    outline-color: #026aa7;
   }
 }
 
