@@ -38,12 +38,6 @@ function Column({
   const [isTaskCreateOpen, setIsTaskCreateOpen] = useState(false);
   const { logoutUser } = useContext(AppContext);
 
-  /*   const tasksArray = tasks.map((task) => (
-    <div key={task.id} className="list__task">
-      {task.title}
-    </div>
-  )); */
-
   const onDelete = async () => {
     const res = await deleteColumn(boardId, columnId, logoutUser);
     if (res) {

@@ -51,6 +51,9 @@ function BoardPage() {
     ordPrev: number,
     ordNext: number
   ) => {
+    if (ordNext === 0) {
+      ordNext += 1;
+    }
     const currTask = board.columns
       .find((i) => i.id === sourceId)
       ?.tasks.find((item) => item.id === taskId);
@@ -71,7 +74,6 @@ function BoardPage() {
       });
     } else {
       updColumns[sourceIndex].tasks = updColumns[sourceIndex].tasks.filter((i) => i.id !== taskId);
-
       updColumns[sourceIndex].tasks.forEach((item) => {
         if (item.order > ordPrev) {
           item.order -= 1;
