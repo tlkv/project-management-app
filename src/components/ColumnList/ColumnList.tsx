@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/jsx-props-no-spreading */
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import {
   DragDropContext,
   Droppable,
@@ -12,8 +12,6 @@ import { ColumnsResponse } from '../../data/interfacesV';
 import CreateColumnModal from '../CreateColumnModal/CreateColumnModal';
 import './ColumnList.scss';
 import Column from '../Column/Column';
-import updateColumn from '../../api/updateColumn';
-import { AppContext } from '../../App';
 
 function ColumnList({
   boardId,
@@ -25,7 +23,7 @@ function ColumnList({
   boardId: string;
   columns: ColumnsResponse[];
   loadBoard: () => Promise<void>;
-  reorderColumns: (ordPrev: number, ordNext: number) => void;
+  reorderColumns: (columnId: string, ordPrev: number, ordNext: number) => void;
   reorderTasks: (
     taskId: string,
     sourceId: string,
@@ -35,8 +33,6 @@ function ColumnList({
   ) => void;
 }) {
   const [isColCreateOpen, setIsColCreateOpen] = useState(false);
-  const { logoutUser } = useContext(AppContext);
-
   const columnsCopy = [...columns];
   columnsCopy.forEach((i) => i.tasks.sort((a, b) => a.order - b.order));
   const columnsSorted = columnsCopy.sort((a, b) => a.order - b.order);
@@ -49,16 +45,7 @@ function ColumnList({
     )
       return;
     if (results.type === 'COLUMN') {
-      reorderColumns(results.source.index, results.destination.index);
-      const currTitle = columns.find((i) => i.id === results.draggableId)?.title;
-      await updateColumn(
-        boardId,
-        results.draggableId,
-        results.destination.index,
-        logoutUser,
-        currTitle
-      );
-      loadBoard();
+      reorderColumns(results.draggableId, results.source.index, results.destination.index);
     } else if (results.type === 'TASK') {
       reorderTasks(
         results.draggableId,

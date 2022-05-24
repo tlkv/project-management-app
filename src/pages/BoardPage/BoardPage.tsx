@@ -7,6 +7,8 @@ import { BoardResponse, TaskResponse } from '../../data/interfacesV';
 import getBoard from '../../api/getBoard';
 import ColumnList from '../../components/ColumnList/ColumnList';
 import './BoardPage.scss';
+import updateColumn from '../../api/updateColumn';
+import updateTask from '../../api/updateTask';
 
 function BoardPage() {
   const { logoutUser, isAuth } = useContext(AppContext);
@@ -28,7 +30,8 @@ function BoardPage() {
     }
   };
 
-  const reorderColumns = (ordPrev: number, ordNext: number) => {
+  const reorderColumns = async (columnId: string, ordPrev: number, ordNext: number) => {
+    const currColumn = board.columns.find((i) => i.id === columnId);
     const updColumns = [...board.columns];
     updColumns.forEach((item) => {
       if (item.order !== ordPrev) {
@@ -42,24 +45,31 @@ function BoardPage() {
       }
     });
     setBoard({ ...board, columns: updColumns });
+    await updateColumn(boardId, columnId, ordNext, logoutUser, currColumn?.title);
+    loadBoard();
   };
 
-  const reorderTasks = (
+  const reorderTasks = async (
     taskId: string,
     sourceId: string,
     destId: string,
     ordPrev: number,
     ordNext: number
   ) => {
-    if (ordNext === 0) {
-      ordNext += 1;
-    }
     const currTask = board.columns
       .find((i) => i.id === sourceId)
       ?.tasks.find((item) => item.id === taskId);
+
+    console.log(currTask);
+
+    if (ordNext === 0) {
+      ordNext += 1;
+    }
+
     const updColumns = [...board.columns];
     const sourceIndex = updColumns.findIndex((i) => i.id === sourceId);
     const destIndex = updColumns.findIndex((i) => i.id === destId);
+
     if (sourceId === destId) {
       updColumns[sourceIndex].tasks.forEach((item) => {
         if (item.order !== ordPrev) {
@@ -86,10 +96,26 @@ function BoardPage() {
         }
       });
       currTask!.order = ordNext;
+      console.log(currTask);
 
       updColumns[destIndex].tasks = [...updColumns[destIndex].tasks, currTask as TaskResponse];
     }
     setBoard({ ...board, columns: updColumns });
+    await updateTask(
+      board.id,
+      sourceId,
+      taskId,
+      currTask?.title as string,
+      ordNext,
+      currTask?.description as string,
+      currTask?.userId as string,
+      board.id,
+      destId,
+      logoutUser
+    );
+    loadBoard();
+    /* await updateColumn(boardId, columnId, ordNext, logoutUser, currColumn?.title);
+    loadBoard(); */
   };
 
   useEffect(() => {
