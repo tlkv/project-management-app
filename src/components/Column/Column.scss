@@ -5,6 +5,10 @@
   transition: background 0.5s;
 }
 
+.list__task {
+  user-select: none;
+}
+
 .list-dragging {
   background-color: rgb(222, 235, 255);
 }
