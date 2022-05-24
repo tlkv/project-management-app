@@ -2,12 +2,11 @@
 
 .list,
 .list__task {
-  transition: all 0.5s;
+  transition: background 0.5s;
 }
 
 .list-dragging {
   background-color: rgb(222, 235, 255);
-  transform: rotate(5deg);
 }
 
 .task-dragging {

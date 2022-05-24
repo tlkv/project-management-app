@@ -63,8 +63,6 @@ function LoginPage() {
     }
     if (response.status === 409) {
       toastErrorDark('This login already exists');
-      /* setPopupMessage('This login already exists');
-      setIsPopupShown(true); */
     }
   };
 
@@ -83,8 +81,6 @@ function LoginPage() {
       return;
     }
     toastErrorDark('Wrong login or password');
-    /* setPopupMessage('Wrong login or password');
-    setIsPopupShown(true); */
   };
 
   return (

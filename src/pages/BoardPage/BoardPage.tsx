@@ -3,7 +3,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppContext } from '../../App';
-import { BoardResponse } from '../../data/interfacesV';
+import { BoardResponse, TaskResponse } from '../../data/interfacesV';
 import getBoard from '../../api/getBoard';
 import ColumnList from '../../components/ColumnList/ColumnList';
 import './BoardPage.scss';
@@ -28,7 +28,7 @@ function BoardPage() {
     }
   };
 
-  const reorderColumns = (sourceId: string, ordPrev: number, ordNext: number) => {
+  const reorderColumns = (ordPrev: number, ordNext: number) => {
     const updColumns = [...board.columns];
     updColumns.forEach((item) => {
       if (item.order !== ordPrev) {
@@ -41,6 +41,52 @@ function BoardPage() {
         item.order = ordNext;
       }
     });
+    setBoard({ ...board, columns: updColumns });
+  };
+
+  const reorderTasks = (
+    taskId: string,
+    sourceId: string,
+    destId: string,
+    ordPrev: number,
+    ordNext: number
+  ) => {
+    const currTask = board.columns
+      .find((i) => i.id === sourceId)
+      ?.tasks.find((item) => item.id === taskId);
+    const updColumns = [...board.columns];
+    const sourceIndex = updColumns.findIndex((i) => i.id === sourceId);
+    const destIndex = updColumns.findIndex((i) => i.id === destId);
+    if (sourceId === destId) {
+      updColumns[sourceIndex].tasks.forEach((item) => {
+        if (item.order !== ordPrev) {
+          if (item.order >= ordPrev && item.order <= ordNext) {
+            item.order -= 1;
+          } else if (item.order >= ordNext && item.order <= ordPrev) {
+            item.order += 1;
+          }
+        } else {
+          item.order = ordNext;
+        }
+      });
+    } else {
+      updColumns[sourceIndex].tasks = updColumns[sourceIndex].tasks.filter((i) => i.id !== taskId);
+
+      updColumns[sourceIndex].tasks.forEach((item) => {
+        if (item.order > ordPrev) {
+          item.order -= 1;
+        }
+      });
+
+      updColumns[destIndex].tasks.forEach((item) => {
+        if (item.order >= ordNext) {
+          item.order += 1;
+        }
+      });
+      currTask!.order = ordNext;
+
+      updColumns[destIndex].tasks = [...updColumns[destIndex].tasks, currTask as TaskResponse];
+    }
     setBoard({ ...board, columns: updColumns });
   };
 
@@ -71,6 +117,7 @@ function BoardPage() {
           columns={board.columns}
           loadBoard={loadBoard}
           reorderColumns={reorderColumns}
+          reorderTasks={reorderTasks}
         />
       </div>
     </>

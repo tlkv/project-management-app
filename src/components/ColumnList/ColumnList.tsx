@@ -20,40 +20,54 @@ function ColumnList({
   columns,
   loadBoard,
   reorderColumns,
+  reorderTasks,
 }: {
   boardId: string;
   columns: ColumnsResponse[];
   loadBoard: () => Promise<void>;
-  reorderColumns: (sourceId: string, ordPrev: number, ordNext: number) => void;
+  reorderColumns: (ordPrev: number, ordNext: number) => void;
+  reorderTasks: (
+    taskId: string,
+    sourceId: string,
+    destId: string,
+    ordPrev: number,
+    ordNext: number
+  ) => void;
 }) {
   const [isColCreateOpen, setIsColCreateOpen] = useState(false);
   const { logoutUser } = useContext(AppContext);
 
   const columnsCopy = [...columns];
-  const columnsSortedByOrder = columnsCopy.sort((a, b) => a.order - b.order);
+  columnsCopy.forEach((i) => i.tasks.sort((a, b) => a.order - b.order));
+  const columnsSorted = columnsCopy.sort((a, b) => a.order - b.order);
 
   const handleDragEnd = async (results: DropResult) => {
-    console.log('results.type', results.type);
-    console.log('results', results);
     if (!results.destination) return;
     if (
       results.destination.droppableId === results.source.droppableId &&
       results.destination.index === results.source.index
     )
       return;
-    if (results.type !== 'COLUMN') {
-      console.log('NOT column', results.type);
-      return;
+    if (results.type === 'COLUMN') {
+      reorderColumns(results.source.index, results.destination.index);
+      const currTitle = columns.find((i) => i.id === results.draggableId)?.title;
+      await updateColumn(
+        boardId,
+        results.draggableId,
+        results.destination.index,
+        logoutUser,
+        currTitle
+      );
+      loadBoard();
+    } else if (results.type === 'TASK') {
+      reorderTasks(
+        results.draggableId,
+        results.source.droppableId,
+        results.destination.droppableId,
+        results.source.index,
+        results.destination.index
+      );
     }
-    reorderColumns(results.draggableId, results.source.index, results.destination.index);
-    const currTitle = columns.find((i) => i.id === results.draggableId)?.title;
-    await updateColumn(
-      boardId,
-      results.draggableId,
-      results.destination.index,
-      logoutUser,
-      currTitle
-    );
   };
 
   return (
@@ -62,7 +76,7 @@ function ColumnList({
         <Droppable droppableId="columns-wrapper-id" direction="horizontal" type="COLUMN">
           {(provided) => (
             <div className="dnd-wrapper" {...provided.droppableProps} ref={provided.innerRef}>
-              {columnsSortedByOrder.map((col, index) => {
+              {columnsSorted.map((col, index) => {
                 return (
                   <Draggable key={col.id} draggableId={col.id} index={index + 1}>
                     {(provColumn, snapColumn) => (
