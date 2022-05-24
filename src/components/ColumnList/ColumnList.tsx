@@ -33,6 +33,8 @@ function ColumnList({
   const columnsSortedByOrder = columnsCopy.sort((a, b) => a.order - b.order);
 
   const handleDragEnd = async (results: DropResult) => {
+    console.log('results.type', results.type);
+    console.log('results', results);
     if (!results.destination) return;
     if (
       results.destination.droppableId === results.source.droppableId &&

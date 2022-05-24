@@ -1,4 +1,19 @@
+@import '../../sass/variables.scss';
+
+.list,
+.list__task {
+  transition: all 0.5s;
+}
+
 .list-dragging {
-  background-color: #00c2e0;
+  background-color: rgb(222, 235, 255);
   transform: rotate(5deg);
+}
+
+.task-dragging {
+  background-color: rgb(222, 235, 255);
+}
+
+.list-dragged-on {
+  background-color: rgb(208, 217, 231);
 }

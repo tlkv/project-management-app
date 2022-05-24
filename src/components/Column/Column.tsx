@@ -5,6 +5,7 @@ import {
   DraggableProvidedDraggableProps,
   DraggableProvidedDragHandleProps,
   Droppable,
+  DraggableStateSnapshot,
 } from 'react-beautiful-dnd';
 import deleteColumn from '../../api/deleteColumn';
 import { AppContext } from '../../App';
@@ -60,10 +61,10 @@ function Column({
             <i className="fa-solid fa-xmark"> </i>
           </button>
         </div>
-        <Droppable droppableId={columnId} key={columnId} type="TASK">
-          {(providedTasks) => (
+        <Droppable droppableId={`dr_${columnId}`} key={columnId} type="TASK">
+          {(providedTasks, snapTasks) => (
             <div
-              className="list__tasks"
+              className={`list__tasks ${snapTasks.isDraggingOver ? 'list-dragged-on' : ''}`}
               {...providedTasks.droppableProps}
               ref={providedTasks.innerRef}
             >
@@ -72,8 +73,7 @@ function Column({
                   <Draggable key={task.id} draggableId={task.id} index={ind + 1}>
                     {(provTask, snapTask) => (
                       <div
-                        /* key={task.id} */
-                        className="list__task"
+                        className={`list__task ${snapTask.isDragging ? 'task-dragging' : ''}`}
                         {...provTask.draggableProps}
                         {...provTask.dragHandleProps}
                         ref={provTask.innerRef}
