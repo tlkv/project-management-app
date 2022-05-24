@@ -3,15 +3,6 @@ import { TaskResponse } from '../data/interfacesV';
 import { toastErrorDark, toastWarnDark } from '../utils/toast';
 import decodeToken from './decodeToken';
 
-/* {
-  "title": "Task: pet the cat",
-  "order": 1,
-  "description": "Domestic cat needs to be stroked gently",
-  "userId": "40af606c-c0bb-47d1-bc20-a2857242cde3",
-  "boardId": "8d3bad56-ad8a-495d-9500-18ae4d1de8dc",
-  "columnId": "41344d09-b995-451f-93dc-2f17ae13a4a9"
-} */
-
 export default async function updateTask(
   boardId: string,
   columnId: string,
@@ -41,8 +32,6 @@ export default async function updateTask(
     boardId: newBoardId,
     columnId: newColumnId,
   };
-
-  console.log(updTask);
 
   const options = {
     method: 'PUT',

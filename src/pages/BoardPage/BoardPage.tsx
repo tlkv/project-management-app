@@ -59,9 +59,6 @@ function BoardPage() {
     const currTask = board.columns
       .find((i) => i.id === sourceId)
       ?.tasks.find((item) => item.id === taskId);
-
-    console.log(currTask);
-
     if (ordNext === 0) {
       ordNext += 1;
     }
@@ -95,8 +92,10 @@ function BoardPage() {
           item.order += 1;
         }
       });
-      currTask!.order = ordNext;
-      console.log(currTask);
+
+      if (currTask?.order) {
+        currTask.order = ordNext;
+      }
 
       updColumns[destIndex].tasks = [...updColumns[destIndex].tasks, currTask as TaskResponse];
     }
@@ -114,8 +113,6 @@ function BoardPage() {
       logoutUser
     );
     loadBoard();
-    /* await updateColumn(boardId, columnId, ordNext, logoutUser, currColumn?.title);
-    loadBoard(); */
   };
 
   useEffect(() => {

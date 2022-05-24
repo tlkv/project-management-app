@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate, NavLink } from 'react-router-dom';
 import './LoginPage.scss';
 import { AppContext } from '../../App';
-import AuthPopup from './AuthPopup/AuthPopup';
 import getToken from '../../api/getToken';
 import loginWithToken from '../../api/loginWithToken';
 import getResponseOnCreatingUser from '../../api/getResponseOnCreatingUser';
@@ -21,8 +20,6 @@ function LoginPage() {
   const [isLoginValid, setIsLoginValid] = useState(true);
   const [password, setPassword] = useState('');
   const [isPasswordValid, setIsPasswordValid] = useState(true);
-  const [isPopupShown, setIsPopupShown] = useState(false);
-  const [popupMessage, setPopupMessage] = useState('');
   const { isAuth } = useContext(AppContext);
 
   useEffect(() => {
@@ -177,7 +174,6 @@ function LoginPage() {
           </NavLink>
         </p>
       )}
-      {isPopupShown ? <AuthPopup message={popupMessage} setIsPopupShown={setIsPopupShown} /> : null}
     </div>
   );
 }
