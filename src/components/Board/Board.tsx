@@ -29,8 +29,8 @@ function Board({ id, title, description }: BoardsResponse) {
       <div className="board-item__info">
         <div className="board-item__title">{title}</div>
         <div className="board-item__title board-item__title-desc">{description}</div>
-        <button type="button" className="board-item__delete-btn" onClick={handleDeleteBoard}>
-          Delete
+        <button type="button" className="board-item__btn" onClick={handleDeleteBoard}>
+          <i className="fa-regular fa-trash-can"> </i>
         </button>
       </div>
     </div>
