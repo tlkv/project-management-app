@@ -17,13 +17,13 @@ export default function StatsPage() {
   };
 
   useEffect(() => {
-    if (!isAuth && !localStorage.getItem('pmapp34-token')) {
+    if (!localStorage.getItem('pmapp34-token')) {
       navigate('/welcome');
     } else {
       handleCurrentUsers();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuth]);
+  }, []);
 
   return (
     <div className="narrow-container">

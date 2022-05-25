@@ -9,11 +9,11 @@ function MainPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isAuth && !localStorage.getItem('pmapp34-token')) {
+    if (!localStorage.getItem('pmapp34-token')) {
       navigate('/welcome');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuth]);
+  }, []);
 
   return (
     <div className="narrow-container">

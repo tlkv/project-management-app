@@ -82,12 +82,12 @@ function LoginPage() {
 
   return (
     <div className="narrow-container">
-      <div className="buttons-head-top">
+      {/* <div className="buttons-head-top">
         <NavLink to="/welcom" className="main-nav-btn">
           <i className="fa-solid fa-circle-arrow-left" />
           Back
         </NavLink>
-      </div>
+      </div> */}
       <h1 className="login__title">{isLogin ? 'Already with us?' : 'Create new account'}</h1>
       <p className="login__description">
         {isLogin ? 'Sign in to Project Management App' : 'Sign up to Project Management App'}

@@ -10,8 +10,8 @@ const updateUser = async (
   password: string,
   logoutUser: () => void
 ) => {
-  const thisUser = await findCurrentUser(logoutUser);
-  console.log('thisUser', thisUser);
+  /* const thisUser = await findCurrentUser(logoutUser);
+  console.log('thisUser', thisUser); */
   const { token, id } = decodeToken();
 
   if (!token) {
