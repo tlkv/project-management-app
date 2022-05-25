@@ -7,7 +7,7 @@ export default async function getBoards(logoutUser: () => void) {
   const token = localStorage.getItem('pmapp34-token') || '';
 
   if (!token) {
-    toastErrorDark('Invalid token');
+    toastErrorDark('Invalid token. Please, sign in again');
     logoutUser();
     return false;
   }

@@ -6,7 +6,7 @@ const deleteUser = async (logoutUser: () => void) => {
   const { token, id } = decodeToken();
 
   if (!token) {
-    toastErrorDark('Invalid token');
+    toastErrorDark('Invalid token. Please, sign in again');
     logoutUser();
     return false;
   }

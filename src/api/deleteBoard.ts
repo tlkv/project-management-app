@@ -5,7 +5,7 @@ export default async function deleteBoard(id: string, logoutUser: () => void) {
   const url = `${API_URL}/boards/${id}`;
   const token = localStorage.getItem('pmapp34-token') || '';
   if (!token) {
-    toastErrorDark('Invalid token');
+    toastErrorDark('Invalid token. Please, sign in again');
     logoutUser();
     return false;
   }

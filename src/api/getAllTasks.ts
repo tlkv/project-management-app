@@ -8,7 +8,7 @@ const getAllTasks = async (logoutUser: () => void) => {
   const defData: TaskResponse[] = [];
 
   if (!token) {
-    toastErrorDark('Invalid token');
+    toastErrorDark('Invalid token. Please, sign in again');
     logoutUser();
     return defData;
   }

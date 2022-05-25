@@ -19,7 +19,7 @@ export default async function updateTask(
   const { token } = decodeToken();
 
   if (!token) {
-    toastErrorDark('Invalid token');
+    toastErrorDark('Invalid token. Please, sign in again');
     logoutUser();
     return false;
   }

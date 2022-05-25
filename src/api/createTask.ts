@@ -14,7 +14,7 @@ export default async function createTask(
   const token = localStorage.getItem('pmapp34-token') || '';
   const { id } = decodeToken();
   if (!token) {
-    toastErrorDark('Invalid token');
+    toastErrorDark('Invalid token. Please, sign in again');
     logoutUser();
     return false;
   }

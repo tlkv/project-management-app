@@ -2,6 +2,7 @@ import { API_URL } from '../data/constants';
 import { ApiUserInfo } from '../data/interfacesA';
 import decodeToken from './decodeToken';
 import { toastErrorDark, toastInfoDark, toastWarnDark } from '../utils/toast';
+import findCurrentUser from './findCurrentUser';
 
 const updateUser = async (
   name: string,
@@ -9,10 +10,12 @@ const updateUser = async (
   password: string,
   logoutUser: () => void
 ) => {
+  const thisUser = await findCurrentUser(logoutUser);
+  console.log('thisUser', thisUser);
   const { token, id } = decodeToken();
 
   if (!token) {
-    toastErrorDark('Invalid token');
+    toastErrorDark('Invalid token. Please, sign in again');
     logoutUser();
     return false;
   }

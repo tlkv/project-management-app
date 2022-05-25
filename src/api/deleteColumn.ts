@@ -5,7 +5,7 @@ export default async function deleteColumn(boardId: string, colId: string, logou
   const url = `${API_URL}/boards/${boardId}/columns/${colId}`;
   const token = localStorage.getItem('pmapp34-token') || '';
   if (!token) {
-    toastErrorDark('Invalid token');
+    toastErrorDark('Invalid token. Please, sign in again');
     logoutUser();
     return false;
   }
@@ -25,7 +25,7 @@ export default async function deleteColumn(boardId: string, colId: string, logou
   }
 
   if (res.ok) {
-    toastSuccessDark('Bad query or conflict with another user session');
+    toastSuccessDark('Successfully removed column');
     return res;
   }
 

@@ -6,7 +6,7 @@ export default async function createColumn(id: string, title: string, logoutUser
   const url = `${API_URL}/boards/${id}/columns`;
   const token = localStorage.getItem('pmapp34-token') || '';
   if (!token) {
-    toastErrorDark('Invalid token');
+    toastErrorDark('Invalid token. Please, sign in again');
     logoutUser();
     return false;
   }

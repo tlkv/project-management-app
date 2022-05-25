@@ -13,7 +13,7 @@ const findCurrentUser = async (logoutUser: () => void) => {
   };
 
   if (!token) {
-    toastErrorDark('Invalid token');
+    toastErrorDark('Invalid token. Please, sign in again');
     logoutUser();
     return defUser;
   }

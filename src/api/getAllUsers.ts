@@ -8,7 +8,7 @@ const getAllUsers = async (logoutUser: () => void) => {
   const defData: ApiUserInfo[] = [];
 
   if (!token) {
-    toastErrorDark('Invalid token');
+    toastErrorDark('Invalid token. Please, sign in again');
     logoutUser();
     return defData;
   }
