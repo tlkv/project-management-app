@@ -88,10 +88,10 @@ function LoginPage() {
           Back
         </NavLink>
       </div>
-      <h1 className="login__title">
-        {isLogin ? 'Already with us?' : 'Sign up in project management app'}
-      </h1>
-      <p className="login__description">{isLogin ? 'Sign in in project management app' : null}</p>
+      <h1 className="login__title">{isLogin ? 'Already with us?' : 'Create new account'}</h1>
+      <p className="login__description">
+        {isLogin ? 'Sign in to Project Management App' : 'Sign up to Project Management App'}
+      </p>
       <form className="login__form">
         {isLogin ? null : (
           <div className="login__form-field login__form-field_text">
@@ -161,16 +161,14 @@ function LoginPage() {
       </form>
       {isLogin ? (
         <p className="login__suggestion">
-          Not with us? So&nbsp;
           <NavLink className="login__link" to="/registration">
-            sign up!
+            Don&apos;t have an account? Sign up!
           </NavLink>
         </p>
       ) : (
         <p className="login__suggestion">
-          Already with us? So&nbsp;
           <NavLink className="login__link" to="/login">
-            sign in!
+            Already with us? Sign in!
           </NavLink>
         </p>
       )}

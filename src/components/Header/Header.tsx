@@ -22,9 +22,9 @@ function Header() {
   };
 
   const handleScroll = () => {
-    if (window.pageYOffset <= 20) {
+    if (window.pageYOffset <= 12) {
       setFixed(false);
-    } else if (window.pageYOffset > 20) {
+    } else if (window.pageYOffset > 12) {
       setFixed(true);
     }
   };

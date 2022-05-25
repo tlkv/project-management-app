@@ -8,12 +8,12 @@ function NotFoundPage() {
   const { lang, isAuth } = useContext(AppContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  /*   useEffect(() => {
     if (!isAuth && !localStorage.getItem('pmapp34-token')) {
       navigate('/welcome');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuth]);
+  }, [isAuth]); */
 
   return (
     <div className="narrow-container">

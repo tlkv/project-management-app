@@ -1,4 +1,6 @@
-.login__title, .login__description, .login__suggestion {
+.login__title,
+.login__description,
+.login__suggestion {
   text-align: center;
 }
 .login__form {
@@ -36,7 +38,9 @@
   }
 }
 .login__form_submit {
-  background-color: #86dc3d;
+  border-radius: 5px;
+  transition: all 0.3s;
+  background: linear-gradient(180deg, #4db544 0%, #389d2f 100%);
   margin-top: 8px;
   padding: 14px 0;
   width: 100%;
@@ -46,13 +50,28 @@
   color: #fff;
   text-transform: uppercase;
   &:hover {
-    background-color: #869c0d;
+    filter: brightness(1.1);
   }
   &:disabled {
-    background-color: #e84118;
+    background: #e84118;
   }
 }
 .login__invalid-field {
   color: #e84118;
   text-align: left;
+  font-size: 10px;
+}
+
+.login__link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.login__suggestion {
+  font-size: 18px;
+  transition: all 0.3s;
+  &:hover {
+    filter: brightness(0.9);
+  }
 }
