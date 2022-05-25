@@ -34,9 +34,7 @@ function App() {
 
   const logoutUser = () => {
     localStorage.removeItem('pmapp34-token');
-    localStorage.removeItem('pmapp34-lang');
     setIsAuth(false);
-    switchLang(LANG_EN);
   };
 
   const store = useMemo(

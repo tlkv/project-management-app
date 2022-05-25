@@ -116,12 +116,12 @@ function BoardPage() {
   };
 
   useEffect(() => {
-    if (!localStorage.getItem('pmapp34-token')) {
+    if (!isAuth && !localStorage.getItem('pmapp34-token')) {
       navigate('/welcome');
     } else {
       loadBoard();
     }
-  }, [window.location.href]);
+  }, [isAuth, window.location.href]);
 
   return (
     <>

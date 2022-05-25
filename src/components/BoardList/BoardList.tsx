@@ -18,12 +18,12 @@ function BoardList() {
   };
 
   useEffect(() => {
-    if (!localStorage.getItem('pmapp34-token')) {
+    if (!isAuth && !localStorage.getItem('pmapp34-token')) {
       navigate('/welcome');
     } else if (!boards.length) {
       loadBoards();
     }
-  }, []);
+  }, [isAuth]);
 
   const boardsArray =
     boards.length &&

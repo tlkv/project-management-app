@@ -37,12 +37,12 @@ function ProfilePage() {
   };
 
   useEffect(() => {
-    if (!localStorage.getItem('pmapp34-token')) {
+    if (!isAuth && !localStorage.getItem('pmapp34-token')) {
       navigate('/welcome');
     } else {
       handleCurrentUser();
     }
-  }, []);
+  }, [isAuth]);
 
   const onSubmit = handleSubmit(async ({ name, login, password }) => {
     const result = await updateUser(name, login, password, logoutUser);

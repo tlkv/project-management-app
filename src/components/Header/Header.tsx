@@ -47,7 +47,11 @@ function Header() {
         <Link to="/welcome" className="nav-inner nav-app-logo">
           Project Management App
         </Link>
-        <ul className={`nav-wrapper ${isNavOpen ? 'nav-show' : ''}`}>
+        <ul
+          className={`nav-wrapper ${isNavOpen ? 'nav-show' : ''} ${
+            isFixed ? 'header-colored' : ''
+          }`}
+        >
           {isAuth && (
             <li className="nav-item">
               <button
@@ -88,10 +92,10 @@ function Header() {
 
           {isAuth && (
             <li className="nav-item">
-              <NavLink to="/" className="nav-inner">
+              <NavLink to="/profile" className="nav-inner">
                 <span>
-                  <i className="fa-solid fa-clipboard-check" />
-                  Go to Main Page
+                  <i className="fa-solid fa-user" />
+                  Edit Profile
                 </span>
               </NavLink>
             </li>
@@ -99,10 +103,10 @@ function Header() {
 
           {isAuth && (
             <li className="nav-item">
-              <NavLink to="/profile" className="nav-inner">
+              <NavLink to="/" className="nav-inner">
                 <span>
-                  <i className="fa-solid fa-user" />
-                  Edit Profile
+                  <i className="fa-solid fa-clipboard-check" />
+                  Main Page
                 </span>
               </NavLink>
             </li>

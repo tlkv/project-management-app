@@ -10,9 +10,16 @@ function WelcomePage() {
 
   return (
     <div className="narrow-container">
-      <div className="welc-buttons-container">
+      <h1 className="title">Welcome to Project Management App</h1>
+      <div className="buttons-head-top">
+        {isAuth && (
+          <NavLink to="/" className="main-nav-btn">
+            <i className="fa-solid fa-circle-arrow-left" />
+            Main Page
+          </NavLink>
+        )}
         {!isAuth && (
-          <div className="buttons-head-top">
+          <>
             <NavLink to="/login" className="main-nav-btn main-nav-btn-dark">
               <i className="fa-solid fa-user-lock" />
               Sign In
@@ -20,16 +27,9 @@ function WelcomePage() {
             <NavLink to="/registration" className="main-nav-btn">
               <i className="fa-solid fa-user-check" /> Sign up
             </NavLink>
-          </div>
-        )}
-        {isAuth && (
-          <NavLink to="/" className="main-nav-btn">
-            <i className="fa-solid fa-circle-arrow-left" />
-            Main Page
-          </NavLink>
+          </>
         )}
       </div>
-      <h1 className="title">Welcome to Project Management App</h1>
       <p>{dict[lang].welcomePage.front}</p>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut

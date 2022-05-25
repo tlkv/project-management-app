@@ -12,11 +12,11 @@ export default function SearchPage() {
   const [tasks, setTasks] = useState<TaskResponse[]>([]);
 
   useEffect(() => {
-    if (!localStorage.getItem('pmapp34-token')) {
+    if (!isAuth && !localStorage.getItem('pmapp34-token')) {
       navigate('/welcome');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isAuth]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
