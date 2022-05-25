@@ -28,12 +28,14 @@ export default function StatsPage() {
   return (
     <div className="narrow-container">
       <h1 className="title">Statistics</h1>
-      <h2 className="title">Registered Users</h2>
-      <div className="stats-container">
-        {users.map((i) => (
-          <UserInfo name={i.name} login={i.login} id={i.id} key={i.id} />
-        ))}
-      </div>
+      <details>
+        <summary className="stats-summary">Registered Users ({users.length})</summary>
+        <div className="stats-container">
+          {users.map((i) => (
+            <UserInfo name={i.name} login={i.login} id={i.id} key={i.id} />
+          ))}
+        </div>
+      </details>
     </div>
   );
 }

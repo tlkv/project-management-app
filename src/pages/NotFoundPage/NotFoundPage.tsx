@@ -9,8 +9,7 @@ function NotFoundPage() {
 
   return (
     <div className="narrow-container">
-      <h1 className="title">404</h1>
-      <p className="not-found-text">{dict[lang].notFoundPage.notFoundMessage}</p>
+      <div className="not-found-vector" />
       <div className="not-found-button-wrapper">
         <NavLink to="/" className="main-nav-btn">
           <i className="fa-solid fa-circle-arrow-left" />
