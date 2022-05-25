@@ -46,11 +46,12 @@ export default async function createTask(
     return task;
   }
 
-  if (res.status >= 400 && res.status <= 499) {
+  if (res.status === 401) {
+    toastErrorDark('Not authorized or credentials expired. Please, log in again');
+    logoutUser();
+  } else if (res.status >= 400 && res.status <= 499) {
     toastErrorDark('Bad query or conflict with another user session');
-  }
-
-  if (res.status >= 500) {
+  } else if (res.status >= 500) {
     toastWarnDark('Server Error');
   }
 

@@ -43,12 +43,12 @@ const updateUser = async (
   }
 
   if (res.ok) {
-    toastInfoDark('User info was updated');
+    toastInfoDark('Successfully updated user info');
     return user;
   }
 
   if (res.status === 401) {
-    toastErrorDark('Not authorized or credentials expired');
+    toastErrorDark('Not authorized or credentials expired. Please, log in again');
     logoutUser();
   } else if (res.status >= 400 && res.status <= 499) {
     toastErrorDark('User not found or query error');

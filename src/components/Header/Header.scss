@@ -52,8 +52,9 @@
 .nav-wrapper {
   display: flex;
   margin: 0 auto;
-  justify-content: space-evenly;
+  justify-content: flex-end;
   width: 100%;
+  gap: 40px;
   @media (max-width: 1000px) {
     display: none;
   }
