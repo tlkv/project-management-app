@@ -161,14 +161,16 @@ function LoginPage() {
       </form>
       {isLogin ? (
         <p className="login__suggestion">
+          Don&apos;t have an account?
           <NavLink className="login__link" to="/registration">
-            Don&apos;t have an account? Sign up!
+            <span className="reg-underline">Sign up!</span>
           </NavLink>
         </p>
       ) : (
         <p className="login__suggestion">
+          Already with us?
           <NavLink className="login__link" to="/login">
-            Already with us? Sign in!
+            <span className="reg-underline">Sign in!</span>
           </NavLink>
         </p>
       )}

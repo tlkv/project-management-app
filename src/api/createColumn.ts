@@ -35,7 +35,7 @@ export default async function createColumn(id: string, title: string, logoutUser
   }
 
   if (res.status >= 400 && res.status <= 499) {
-    toastErrorDark('Board not found');
+    toastErrorDark('Bad query or conflict with another user session');
   }
 
   if (res.status >= 500) {

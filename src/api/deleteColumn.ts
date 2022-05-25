@@ -25,12 +25,12 @@ export default async function deleteColumn(boardId: string, colId: string, logou
   }
 
   if (res.ok) {
-    toastSuccessDark('Column was successfully removed');
+    toastSuccessDark('Bad query or conflict with another user session');
     return res;
   }
 
   if (res.status >= 400 && res.status <= 499) {
-    toastErrorDark('Board not found');
+    toastErrorDark('Bad query or conflict with another user session');
   }
 
   if (res.status >= 500) {

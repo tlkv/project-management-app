@@ -36,6 +36,7 @@ export default function ModalConfirm({ modalCallback, showModal, message }: Moda
         </div>
         <div className="modal-buttons-container">
           <button className="ok-button modal-button" type="button" onClick={runCallback}>
+            <i className="fa-solid fa-triangle-exclamation excl-red" />
             OK
           </button>
           <button

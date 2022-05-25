@@ -71,6 +71,11 @@
 .login__suggestion {
   font-size: 18px;
   transition: all 0.3s;
+}
+
+.reg-underline {
+  text-decoration: underline;
+  padding: 5px;
   &:hover {
     filter: brightness(0.9);
   }
