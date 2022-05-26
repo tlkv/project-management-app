@@ -10,7 +10,7 @@ function WelcomePage() {
 
   return (
     <div className="narrow-container">
-      <h1 className="title">Welcome to Project Management App</h1>
+      <h1 className="title">Welcome to RS Project Management App</h1>
       <div className="buttons-head-top">
         {isAuth && (
           <NavLink to="/" className="main-nav-btn">

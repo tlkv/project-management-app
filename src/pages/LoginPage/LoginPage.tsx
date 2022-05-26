@@ -84,7 +84,7 @@ function LoginPage() {
     <div className="narrow-container">
       <h1 className="login__title">{isLogin ? 'Already with us?' : 'Create new account'}</h1>
       <p className="login__description">
-        {isLogin ? 'Sign in to Project Management App' : 'Sign up to Project Management App'}
+        {isLogin ? 'Sign in to RS Project Management App' : 'Sign up to RS Project Management App'}
       </p>
       <form className="login__form">
         {isLogin ? null : (
