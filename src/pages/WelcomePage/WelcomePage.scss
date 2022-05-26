@@ -53,15 +53,73 @@
 }
 
 .front-sec-one {
-  background: darkblue;
+  background: linear-gradient(345deg, #026a8d, rgba(28, 5, 169, 0.3) 60%), #000;
+  .front-content-wrapper {
+    display: flex;
+    height: 680px;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+}
+
+.main-title-heading {
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.sec-one-left {
+  width: 45%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  flex-direction: column;
+  @media (max-width: 800px) {
+    width: 100%;
+    height: 55%;
+    .main-title-heading {
+      font-size: 26px;
+    }
+
+    .front-content-paragraph {
+      font-size: 16px;
+    }
+  }
+}
+
+.sec-one-right {
+  background: url('../../assets/img/kanban.png') center / contain no-repeat;
+  width: 55%;
+  padding: 15px;
+  @media (max-width: 800px) {
+    height: 40%;
+    width: 100%;
+    order: -1;
+    background: url('../../assets/img/kanban.png') center / contain no-repeat;
+  }
 }
 
 .front-sec-two {
-  background: darkgray;
+  background: linear-gradient(189deg, #026a8d, rgba(28, 5, 169, 0.3) 60%), #000;
+  height: 400px;
+}
+
+.front-sec-three {
+  background: linear-gradient(350deg, #026a8d, rgba(28, 5, 169, 0.3) 60%), #000;
+  height: 600px;
+}
+
+.front-sec-four {
+  background: linear-gradient(188deg, #026a8d, rgba(28, 5, 169, 0.3) 60%), #000;
+  height: 500px;
 }
 
 .front-content-wrapper {
   max-width: 1220px;
   margin: 0 auto;
   padding: 10px;
+}
+.front-content-paragraph {
+  font-size: 18px;
+  line-height: 1.5em;
 }
