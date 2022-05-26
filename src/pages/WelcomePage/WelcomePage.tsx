@@ -44,18 +44,16 @@ function WelcomePage() {
       </section>
       <section className="front-sec-two">
         <div className="front-content-wrapper">
-          <h2 className="front-sec-title">Advantages (4 cards grid)</h2>
+          <h2 className="front-sec-title">App Advantages (4 cards grid)</h2>
         </div>
       </section>
+
       <section className="front-sec-three">
-        <div className="front-content-wrapper">
-          <h2 className="front-sec-title">Parallax or scheme like asana.com</h2>
-          <img src="./assets/img/asana.png" alt="sheme"></img>
-        </div>
+        <div className="front-content-wrapper"></div>
       </section>
       <section className="front-sec-four">
         <div className="front-content-wrapper">
-          <h2 className="front-sec-title">About team</h2>
+          <h2 className="front-sec-title">About team (2 cards)</h2>
         </div>
       </section>
     </div>
