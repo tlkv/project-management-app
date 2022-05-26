@@ -54,6 +54,7 @@
   }
   &:disabled {
     background: #e84118;
+    cursor: not-allowed;
   }
 }
 .login__invalid-field {
