@@ -24,6 +24,7 @@
     background: none;
     border: none;
     outline: none;
+    padding: 0;
   }
   .lang-button {
     font-weight: bold;
@@ -52,6 +53,7 @@
   display: flex;
   justify-content: space-between;
   min-height: $header-height;
+  padding: 0;
 }
 
 .nav-wrapper {

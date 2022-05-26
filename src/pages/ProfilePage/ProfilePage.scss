@@ -49,6 +49,9 @@
   padding: 10px 30px 30px;
   border-radius: 8px;
   text-align: center;
+  @media (max-width: 600px) {
+    padding: 20px 15px;
+  }
 }
 
 .user-controls {

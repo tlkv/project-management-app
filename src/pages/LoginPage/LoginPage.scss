@@ -17,7 +17,9 @@
   flex-direction: column;
   gap: 10px;
   @media (max-width: 600px) {
-    padding: 15px;
+    width: 90%;
+    padding: 20px 15px;
+    margin: 5px auto;
   }
 }
 .login__form-field_text {
