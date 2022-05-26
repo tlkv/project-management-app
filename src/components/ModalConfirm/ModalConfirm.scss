@@ -34,7 +34,8 @@
   .modal-header {
     position: relative;
     min-height: 50px;
-    background: $blue-trello;
+    background-color: #990000;
+    background-image: linear-gradient(147deg, #990000 0%, #ff0000 74%);
     padding: 10px 40px 10px 10px;
     display: flex;
   }

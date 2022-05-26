@@ -57,11 +57,7 @@ function Header() {
           className={`nav-overlay ${isNavOpen ? 'show-nav-overlay' : ''} `}
           onClick={closeNavbar}
         >
-          <ul
-            className={`nav-wrapper ${isNavOpen ? 'nav-show' : ''} ${
-              isFixed ? 'header-colored' : ''
-            }`}
-          >
+          <ul className={`nav-wrapper ${isNavOpen ? 'nav-show' : ''}`}>
             {isAuth && (
               <li className="nav-item">
                 <button

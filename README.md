@@ -9,7 +9,7 @@
 
 ## Deploy
 
-https://pm-app-34team.netlify.app/
+https://pm-app-34.netlify.app
 
 ## Downloading
 

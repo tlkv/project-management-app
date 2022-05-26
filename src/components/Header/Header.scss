@@ -52,11 +52,11 @@
   display: flex;
   justify-content: space-between;
   min-height: 50px;
-  .header-colored {
+  /* .header-colored {
     @media (max-width: 1000px) {
       background-color: $blue-trello;
     }
-  }
+  } */
 }
 
 .nav-wrapper {
@@ -65,7 +65,7 @@
   justify-content: flex-end;
   width: 100%;
   gap: 30px;
-  transition: background 0.7s;
+  /*   transition: background 0.7s; */
 
   @media (max-width: 1000px) {
     transition: right 1s, background 0.7s;
@@ -79,7 +79,8 @@
     display: flex;
     right: 0;
     flex-direction: column;
-    background-color: $blue-trello;
+    background-color: #2a2a72;
+    background-image: linear-gradient(315deg, #2a2a72 0%, #009ffd 74%);
     gap: 5px;
     align-items: end;
     padding: 50px 15px 10px 10px;
@@ -100,6 +101,7 @@
 .nav-show {
   @media (max-width: 1000px) {
     right: 0;
+    box-shadow: 0 0 20px rgb(0 0 0 / 70%);
   }
 }
 
@@ -174,4 +176,5 @@
 
 .header-fixed {
   background-color: $blue-trello;
+  box-shadow: 0 0 20px rgb(0 0 0 / 70%);
 }
