@@ -59,10 +59,12 @@ function ProfilePage() {
   return (
     <>
       <div className="narrow-container profile-container">
-        <h1 className="title">Profile</h1>
         <UserInfo name={currName} login={currLogin} id={currId} />
         <div className="form-wrapper">
-          <h3>Edit profile</h3>
+          <h3>
+            <i className="fa-solid fa-pen-to-square prof-icon" />
+            Edit profile
+          </h3>
           <form onSubmit={onSubmit} className="user-controls">
             <div className="profile-field">
               <label htmlFor="form-name">
@@ -71,6 +73,7 @@ function ProfilePage() {
                   id="form-name"
                   type="text"
                   className="form-name  user-edit-input"
+                  placeholder="Enter your name"
                   {...register('name', { required: true, pattern: /^[A-Za-z0-9]\w{3,}$/ })}
                 />
               </label>
@@ -87,6 +90,7 @@ function ProfilePage() {
                   id="form-login"
                   type="text"
                   className="form-login user-edit-input"
+                  placeholder="Enter your login"
                   {...register('login', { required: true, pattern: userRegExp })}
                 />
               </label>
@@ -104,6 +108,7 @@ function ProfilePage() {
                   type="password"
                   className="form-password  user-edit-input"
                   autoComplete="on"
+                  placeholder="Enter your password"
                   {...register('password', { required: true, pattern: passRegExp })}
                 />
               </label>
@@ -124,9 +129,9 @@ function ProfilePage() {
         <ModalConfirm
           showModal={showModal}
           message={
-            <>
+            <p>
               Are you sure? <br /> This action is irreversible!
-            </>
+            </p>
           }
           modalCallback={onDelete}
         />

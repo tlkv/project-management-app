@@ -82,16 +82,10 @@ function LoginPage() {
 
   return (
     <div className="narrow-container">
-      <div className="buttons-head-top">
-        <NavLink to="/welcom" className="main-nav-btn">
-          <i className="fa-solid fa-circle-arrow-left" />
-          Back
-        </NavLink>
-      </div>
-      <h1 className="login__title">
-        {isLogin ? 'Already with us?' : 'Sign up in project management app'}
-      </h1>
-      <p className="login__description">{isLogin ? 'Sign in in project management app' : null}</p>
+      <h1 className="login__title">{isLogin ? 'Already with us?' : 'Create new account'}</h1>
+      <p className="login__description">
+        {isLogin ? 'Sign in to RS Project Management App' : 'Sign up to RS Project Management App'}
+      </p>
       <form className="login__form">
         {isLogin ? null : (
           <div className="login__form-field login__form-field_text">
@@ -161,16 +155,16 @@ function LoginPage() {
       </form>
       {isLogin ? (
         <p className="login__suggestion">
-          Not with us? So&nbsp;
+          Don&apos;t have an account?
           <NavLink className="login__link" to="/registration">
-            sign up!
+            <span className="reg-underline">Sign up!</span>
           </NavLink>
         </p>
       ) : (
         <p className="login__suggestion">
-          Already with us? So&nbsp;
+          Already with us?
           <NavLink className="login__link" to="/login">
-            sign in!
+            <span className="reg-underline">Sign in!</span>
           </NavLink>
         </p>
       )}

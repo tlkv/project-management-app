@@ -13,7 +13,7 @@ const findCurrentUser = async (logoutUser: () => void) => {
   };
 
   if (!token) {
-    toastErrorDark('Invalid token');
+    toastErrorDark('Invalid token. Please, sign in again');
     logoutUser();
     return defUser;
   }
@@ -41,7 +41,7 @@ const findCurrentUser = async (logoutUser: () => void) => {
   }
 
   if (res.status === 401) {
-    toastErrorDark('Not authorized or credentials expired');
+    toastErrorDark('Not authorized or credentials expired. Please, log in again');
     logoutUser();
   } else if (res.status >= 400 && res.status <= 499) {
     toastErrorDark('User not found or query error');

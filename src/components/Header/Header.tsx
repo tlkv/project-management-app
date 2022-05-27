@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/self-closing-comp */
 import { useContext, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
@@ -10,6 +12,7 @@ function Header() {
   const { lang, switchLang, isAuth, logoutUser } = useContext(AppContext);
   const [isCreateBoardOpen, setIsCreateBoardOpen] = useState(false);
   const [isFixed, setFixed] = useState(false);
+  const [isNavOpen, setNavOpen] = useState(false);
 
   const changeLang = () => {
     if (lang === LANG_RU) {
@@ -22,11 +25,19 @@ function Header() {
   };
 
   const handleScroll = () => {
-    if (window.pageYOffset <= 20) {
+    if (window.pageYOffset <= 12) {
       setFixed(false);
-    } else if (window.pageYOffset > 20) {
+    } else if (window.pageYOffset > 12) {
       setFixed(true);
     }
+  };
+
+  const toggleNavbar = () => {
+    setNavOpen(!isNavOpen);
+  };
+
+  const closeNavbar = () => {
+    setNavOpen(false);
   };
 
   useEffect(() => {
@@ -38,71 +49,111 @@ function Header() {
 
   return (
     <header className={!isFixed ? 'header' : 'header header-fixed'} id="header">
-      {isAuth && (
-        <nav className="narrow-container header-menu-container">
-          <Link to="/welcome" className="nav-inner nav-app-logo">
-            Project Management App
-          </Link>
-          <ul className="nav-wrapper ">
-            <li className="nav-item">
-              <button
-                type="button"
-                className="header-button nav-inner"
-                onClick={() => setIsCreateBoardOpen(true)}
-              >
-                <span>
-                  <i className="fa-solid fa-plus" />
-                  New Board
-                </span>
-              </button>
-              {isCreateBoardOpen && <CreateBoardBar setIsCreateBoardOpen={setIsCreateBoardOpen} />}
-            </li>
-            <li className="nav-item">
-              <NavLink to="/" className="nav-inner">
-                <span>
-                  <i className="fa-solid fa-clipboard-check" />
-                  Boards
-                </span>
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to="/search" className="nav-inner">
-                <span>
-                  <i className="fa-solid fa-magnifying-glass" />
-                  Search
-                </span>
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to="/stats" className="nav-inner">
-                <span>
-                  <i className="fa-solid fa-star" />
-                  Stats
-                </span>
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to="/profile" className="nav-inner">
-                <span>
-                  <i className="fa-solid fa-user" />
-                  Edit Profile
-                </span>
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <button
-                type="button"
-                className="header-button nav-inner"
-                onClick={() => {
-                  logoutUser();
-                }}
-              >
-                <span>
-                  <i className="fa-solid fa-right-from-bracket" />
-                  Sign Out
-                </span>
-              </button>
-            </li>
+      <nav className="narrow-container header-menu-container">
+        <Link to="/welcome" className="nav-inner nav-app-logo" onClick={closeNavbar}>
+          RS Project Management App
+        </Link>
+        <div
+          className={`nav-overlay ${isNavOpen ? 'show-nav-overlay' : ''} `}
+          onClick={closeNavbar}
+        >
+          <ul className={`nav-wrapper ${isNavOpen ? 'nav-show' : ''}`}>
+            {isAuth && (
+              <li className="nav-item">
+                <button
+                  type="button"
+                  className="header-button nav-inner"
+                  onClick={() => setIsCreateBoardOpen(true)}
+                >
+                  <span>
+                    <i className="fa-solid fa-plus" />
+                    New Board
+                  </span>
+                </button>
+                {isCreateBoardOpen && (
+                  <CreateBoardBar setIsCreateBoardOpen={setIsCreateBoardOpen} />
+                )}
+              </li>
+            )}
+
+            {isAuth && (
+              <li className="nav-item">
+                <NavLink to="/search" className="nav-inner">
+                  <span>
+                    <i className="fa-solid fa-magnifying-glass" />
+                    Search
+                  </span>
+                </NavLink>
+              </li>
+            )}
+
+            {/*  {isAuth && (
+              <li className="nav-item">
+                <NavLink to="/stats" className="nav-inner">
+                  <span>
+                    <i className="fa-solid fa-star" />
+                    Stats
+                  </span>
+                </NavLink>
+              </li>
+            )} */}
+
+            {isAuth && (
+              <li className="nav-item">
+                <NavLink to="/profile" className="nav-inner">
+                  <span>
+                    <i className="fa-solid fa-user" />
+                    Edit Profile
+                  </span>
+                </NavLink>
+              </li>
+            )}
+
+            {isAuth && (
+              <li className="nav-item">
+                <NavLink to="/" className="nav-inner">
+                  <span>
+                    <i className="fa-solid fa-clipboard-check" />
+                    Main Page
+                  </span>
+                </NavLink>
+              </li>
+            )}
+
+            {isAuth && (
+              <li className="nav-item">
+                <button
+                  type="button"
+                  className="header-button nav-inner"
+                  onClick={() => {
+                    logoutUser();
+                  }}
+                >
+                  <span>
+                    <i className="fa-solid fa-right-from-bracket" />
+                    Sign Out
+                  </span>
+                </button>
+              </li>
+            )}
+
+            {!isAuth && (
+              <li className="nav-item">
+                <NavLink to="/login" className="main-nav-btn main-nav-btn-dark">
+                  <i className="fa-solid fa-user-lock" />
+                  Sign In
+                </NavLink>
+              </li>
+            )}
+
+            {!isAuth && (
+              <li className="nav-item">
+                <NavLink to="/registration" className="main-nav-btn">
+                  <i className="fa-solid fa-user-check" /> Sign up
+                </NavLink>
+              </li>
+            )}
+
             <li className="nav-item">
               <button
                 type="button"
@@ -117,11 +168,11 @@ function Header() {
               </button>
             </li>
           </ul>
-          <button className="header-burger" type="button">
-            <i className="fa-solid fa-bars" />
-          </button>
-        </nav>
-      )}
+        </div>
+        <button className="header-burger" type="button" onClick={toggleNavbar}>
+          <i className="fa-solid fa-bars" />
+        </button>
+      </nav>
     </header>
   );
 }

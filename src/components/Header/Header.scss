@@ -5,7 +5,7 @@
   position: fixed;
   width: 100%;
   top: 0;
-  transition: background 0.7s ease 0s, box-shadow 0.7s ease 0s;
+  transition: background 0.7s;
 }
 
 .nav-item {
@@ -24,16 +24,22 @@
     background: none;
     border: none;
     outline: none;
+    padding: 0;
   }
   .lang-button {
     font-weight: bold;
     padding: 0;
     width: 35px;
-    margin-top: 7px;
+    margin-top: 12px;
     height: 35px;
     color: $blue-trello;
     background-color: #fff;
     border-radius: 100px;
+    margin-right: 30px;
+    box-shadow: 0 0 20px rgb(0 0 0 / 70%);
+    @media (max-width: 850px) {
+      margin-right: 2px;
+    }
     &:hover {
       color: $blue-trello;
     }
@@ -46,16 +52,62 @@
 .header-menu-container {
   display: flex;
   justify-content: space-between;
-  min-height: 50px;
+  min-height: $header-height;
+  padding: 0;
 }
 
 .nav-wrapper {
   display: flex;
   margin: 0 auto;
-  justify-content: space-evenly;
+  justify-content: flex-end;
   width: 100%;
-  @media (max-width: 1000px) {
-    display: none;
+  gap: 40px;
+
+  @media (max-width: 1200px) {
+    gap: 30px;
+  }
+
+  @media (max-width: 950px) {
+    gap: 15px;
+  }
+
+  @media (max-width: 850px) {
+    transition: right 1s, background 0.7s;
+    border-bottom-left-radius: 5px;
+    z-index: 3;
+    top: 0;
+    position: fixed;
+    width: 160px;
+    justify-content: flex-start;
+    margin: 0;
+    display: flex;
+    right: 0;
+    flex-direction: column;
+    /* background-color: #2a2a72;
+    background-image: linear-gradient(315deg, #2a2a72 0%, #009ffd 74%); */
+    background-color: $blue-dark;
+    background-image: linear-gradient(45deg, $blue-trello 0%, $blue-dark 74%);
+    gap: 1px;
+    align-items: end;
+    padding: 46px 15px 10px 10px;
+    right: -105vw;
+  }
+}
+
+.show-nav-overlay {
+  transition: all 0.3s;
+  @media (max-width: 850px) {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+.nav-show {
+  @media (max-width: 850px) {
+    right: 0;
+    box-shadow: 0 0 20px rgb(0 0 0 / 70%);
   }
 }
 
@@ -95,34 +147,40 @@
 }
 
 .nav-app-logo {
+  z-index: 4;
   font-size: 10px;
   width: 120px;
   padding-left: 42px;
   height: 40px;
   background: url('../../assets/svg/app_logo.svg') left/contain no-repeat;
-  margin-top: 5px;
   transition: all 0.3s;
   margin-left: 20px;
+  margin-top: 10px;
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
 }
 
 .header-burger {
   font-size: 32px;
-  margin-top: 7px;
+  margin-top: 1px;
   margin-right: 20px;
   background: none;
   border: none;
   outline: none;
   color: #fff;
   padding: 0;
-  @media (min-width: 1001px) {
+  z-index: 4;
+  @media (min-width: 851px) {
     display: none;
   }
 }
 
+.header {
+  background-color: $blue-dark;
+}
+
 .header-fixed {
   background-color: $blue-trello;
-  box-shadow: inset 0 0 10px rgb(0 0 0 / 50%);
+  box-shadow: 0 0 20px rgb(0 0 0 / 70%);
 }

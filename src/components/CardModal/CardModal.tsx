@@ -36,7 +36,7 @@ function CardModal({
   const [taskTitle, setTaskTitle] = useState(task.title);
   const [taskDesc, setTaskDesc] = useState(task.description);
   const [historyDesc, setHistoryDesc] = useState(task.description);
-  const textTitle = createRef<HTMLTextAreaElement>();
+  const textTitle = createRef<HTMLInputElement>();
   const textDesc = createRef<HTMLTextAreaElement>();
 
   const getUserLoginAndSetResponsible = async (id: string) => {
@@ -157,16 +157,11 @@ function CardModal({
           <i className="fa-solid fa-xmark"> </i>
         </button>
         <div className="card-modal__container">
-          <i className="user fa-solid fa-chalkboard-user"> </i>
-          <p className="task__subtitle">
-            Responsible [<span className="responsible-name">{responsible}</span>]
-          </p>
-        </div>
-        <div className="card-modal__container">
           <i className="fa-brands fa-hive"> </i>
           {isTitleInputShow ? (
-            <textarea
-              className="task__title task__textarea"
+            <input
+              className="task__title task__textinput"
+              type="text"
               value={taskTitle}
               ref={textTitle}
               onBlur={() => setIsTitleInputShow(false)}
@@ -214,11 +209,17 @@ function CardModal({
             )}
           </div>
         </div>
+        <div className="card-modal__container">
+          <i className="user fa-solid fa-chalkboard-user"> </i>
+          <p className="task__subtitle">
+            Responsible [<span className="responsible-name">{responsible}</span>]
+          </p>
+        </div>
 
         <div className="task__buttons">
           <select className="card-modal__select" value={selected} onChange={handleSelectChange}>
             <option value="" disabled>
-              Change responsible
+              Change user
             </option>
             {users.length &&
               users.map((user) => (

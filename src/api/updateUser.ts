@@ -2,6 +2,7 @@ import { API_URL } from '../data/constants';
 import { ApiUserInfo } from '../data/interfacesA';
 import decodeToken from './decodeToken';
 import { toastErrorDark, toastInfoDark, toastWarnDark } from '../utils/toast';
+import findCurrentUser from './findCurrentUser';
 
 const updateUser = async (
   name: string,
@@ -9,10 +10,12 @@ const updateUser = async (
   password: string,
   logoutUser: () => void
 ) => {
+  /* const thisUser = await findCurrentUser(logoutUser);
+  console.log('thisUser', thisUser); */
   const { token, id } = decodeToken();
 
   if (!token) {
-    toastErrorDark('Invalid token');
+    toastErrorDark('Invalid token. Please, sign in again');
     logoutUser();
     return false;
   }
@@ -43,12 +46,12 @@ const updateUser = async (
   }
 
   if (res.ok) {
-    toastInfoDark('User info was updated');
+    toastInfoDark('Successfully updated user info');
     return user;
   }
 
   if (res.status === 401) {
-    toastErrorDark('Not authorized or credentials expired');
+    toastErrorDark('Not authorized or credentials expired. Please, log in again');
     logoutUser();
   } else if (res.status >= 400 && res.status <= 499) {
     toastErrorDark('User not found or query error');

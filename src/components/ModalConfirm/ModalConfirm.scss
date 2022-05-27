@@ -17,20 +17,33 @@
 }
 
 .modal-content {
+  transition: all 0.3s;
+  p {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
   cursor: unset;
   position: relative;
-  max-width: 300px;
+  max-width: 280px;
+  min-width: 220px;
   min-height: 160px;
   text-align: center;
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 4px;
   overflow: hidden;
 
   .modal-header {
     position: relative;
     min-height: 50px;
-    background: $blue-trello;
+    background-color: #990000;
+    background-image: linear-gradient(147deg, #990000 0%, #ff0000 74%);
     padding: 10px 40px 10px 10px;
+    display: flex;
+  }
+
+  .excl-red {
+    color: red;
+    padding: 5px;
   }
 
   .modal-descriptor {
@@ -45,9 +58,9 @@
     border: none;
     border-radius: 5px;
     background: url('../../assets/svg/closew.svg') center / cover no-repeat;
-    &:hover {
+    /*   &:hover {
       background: url('../../assets/svg/closew.svg') red center / cover no-repeat;
-    }
+    } */
   }
   .modal-buttons-container {
     display: flex;

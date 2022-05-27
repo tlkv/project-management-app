@@ -7,7 +7,7 @@ export default async function getBoards(logoutUser: () => void) {
   const token = localStorage.getItem('pmapp34-token') || '';
 
   if (!token) {
-    toastErrorDark('Invalid token');
+    toastErrorDark('Invalid token. Please, sign in again');
     logoutUser();
     return false;
   }
@@ -32,11 +32,12 @@ export default async function getBoards(logoutUser: () => void) {
     return boards;
   }
 
-  if (res.status >= 400 && res.status <= 499) {
+  if (res.status === 401) {
+    toastErrorDark('Not authorized or credentials expired. Please, log in again');
+    logoutUser();
+  } else if (res.status >= 400 && res.status <= 499) {
     toastErrorDark('Boards not found');
-  }
-
-  if (res.status >= 500) {
+  } else if (res.status >= 500) {
     toastWarnDark('Server Error');
   }
   return false;

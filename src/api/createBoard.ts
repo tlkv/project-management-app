@@ -10,7 +10,7 @@ export default async function createBoard(
   const url = `${API_URL}/boards`;
   const token = localStorage.getItem('pmapp34-token') || '';
   if (!token) {
-    toastErrorDark('Invalid token');
+    toastErrorDark('Invalid token. Please, sign in again');
     logoutUser();
     return false;
   }
@@ -40,11 +40,12 @@ export default async function createBoard(
     return board;
   }
 
-  if (res.status >= 400 && res.status <= 499) {
-    toastErrorDark('Board not found');
-  }
-
-  if (res.status >= 500) {
+  if (res.status === 401) {
+    toastErrorDark('Not authorized or credentials expired. Please, log in again');
+    logoutUser();
+  } else if (res.status >= 400 && res.status <= 499) {
+    toastErrorDark('Bad query or conflict with another user session');
+  } else if (res.status >= 500) {
     toastWarnDark('Server Error');
   }
 

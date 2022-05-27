@@ -5,7 +5,7 @@ export default async function deleteColumn(boardId: string, colId: string, logou
   const url = `${API_URL}/boards/${boardId}/columns/${colId}`;
   const token = localStorage.getItem('pmapp34-token') || '';
   if (!token) {
-    toastErrorDark('Invalid token');
+    toastErrorDark('Invalid token. Please, sign in again');
     logoutUser();
     return false;
   }
@@ -25,15 +25,16 @@ export default async function deleteColumn(boardId: string, colId: string, logou
   }
 
   if (res.ok) {
-    toastSuccessDark('Column was successfully removed');
+    toastSuccessDark('Successfully removed column');
     return res;
   }
 
-  if (res.status >= 400 && res.status <= 499) {
-    toastErrorDark('Board not found');
-  }
-
-  if (res.status >= 500) {
+  if (res.status === 401) {
+    toastErrorDark('Not authorized or credentials expired. Please, log in again');
+    logoutUser();
+  } else if (res.status >= 400 && res.status <= 499) {
+    toastErrorDark('Bad query or conflict with another user session');
+  } else if (res.status >= 500) {
     toastWarnDark('Server Error');
   }
 

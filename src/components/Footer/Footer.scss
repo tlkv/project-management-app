@@ -1,7 +1,7 @@
 @import '../../sass/variables';
 
 #footer {
-  background: #eaeef3;
+  background: #d7e1ec;
   color: #000;
   height: $footer-height;
   text-align: center;
@@ -14,6 +14,34 @@
     height: 40px;
     font-size: 0;
     display: block;
+    margin: auto;
     background: url('../../assets/svg/rs_school_js.svg') center / contain no-repeat;
+  }
+}
+
+.footer-card-container {
+  flex-wrap: wrap;
+  display: flex;
+  width: 290px;
+  justify-content: space-evenly;
+  .fa-github {
+    padding-left: 4px;
+    color: #000;
+  }
+  a {
+    text-decoration: none;
+    color: #000;
+  }
+  .footer-card-item {
+    padding: 4px;
+    font-size: 15px;
+    padding: 2px;
+    width: 33%;
+    font-weight: 500;
+    text-decoration: none;
+    color: #000;
+  }
+  .full-length-item {
+    width: 100%;
   }
 }

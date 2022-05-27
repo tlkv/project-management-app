@@ -50,7 +50,11 @@ function Task({
             onClick={() => setIsCardOpen(true)}
           >
             {task.title}
-            <button className="list__btn delete" type="button" onClick={handleDeletePreviewTask}>
+            <button
+              className="list__btn delete light-gr"
+              type="button"
+              onClick={handleDeletePreviewTask}
+            >
               <i className="fa-regular fa-trash-can"> </i>
             </button>
           </div>
