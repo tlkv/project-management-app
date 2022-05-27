@@ -58,14 +58,14 @@
   background-color: #ffffff;
   background-image: linear-gradient(0deg, #ffffff 0%, #d7e1ec 74%);
   .front-content-wrapper {
-    height: 680px;
+    height: 860px;
     justify-content: space-evenly;
   }
 }
 
 .main-title-heading {
   font-size: 36px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .sec-one-left {
@@ -129,6 +129,7 @@
   color: #000428;
   .front-content-wrapper {
     justify-content: space-evenly;
+    align-items: center;
   }
 
   .advantages-descr {
@@ -139,6 +140,16 @@
     align-items: center;
     display: flex;
     flex-direction: column;
+    h2 {
+      font-size: 30px;
+      font-weight: 600;
+      margin: 0;
+    }
+    p {
+      width: 100%;
+      font-size: 20px;
+      color: #666;
+    }
     @media (max-width: 800px) {
       width: 100%;
       height: 200px;
@@ -151,7 +162,7 @@
   }
   .advantages-video {
     padding: 10px;
-    height: 500px;
+    height: 540px;
     width: 65%;
     justify-content: center;
     align-items: center;
@@ -180,8 +191,53 @@
 .front-sec-four {
   background-color: #ffffff;
   background-image: linear-gradient(180deg, #ffffff 0%, #d7e1ec 74%);
-  height: 500px;
   color: #000428;
+  .front-content-wrapper {
+    display: block;
+    h2 {
+      font-size: 32px;
+    }
+  }
+  .team-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+
+    .pers-card-wrapper {
+      flex-direction: column;
+      background-color: #fff;
+      border-radius: 5px;
+      text-decoration: none;
+      box-shadow: 0 0 20px rgb(0 0 0 / 70%);
+      width: 280px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      .pers-card-name {
+        text-transform: uppercase;
+      }
+      .pers-card-photo {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+      }
+      .pers-card-details {
+        width: 100%;
+      }
+      .pers-card-done {
+        text-align: left;
+      }
+      .pers-photo-1 {
+        background: #fff url('../../assets/img/av1.png') center/cover no-repeat;
+      }
+      .pers-photo-2 {
+        background: #fff url('../../assets/img/av2.jfif') center/cover no-repeat;
+      }
+    }
+  }
 }
 
 .front-content-wrapper {
@@ -209,4 +265,10 @@
   top: 0;
   left: 0;
   border-radius: 10px;
+}
+
+.front-icon-large {
+  font-size: 50px;
+  margin-left: 10px;
+  margin-right: auto;
 }
