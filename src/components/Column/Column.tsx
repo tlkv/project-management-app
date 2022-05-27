@@ -1,7 +1,8 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/jsx-props-no-spreading */
 import { LegacyRef, useState, useContext } from 'react';
 import {
-  Draggable,
   DraggableProvidedDraggableProps,
   DraggableProvidedDragHandleProps,
   Droppable,
@@ -12,6 +13,7 @@ import { TaskResponse } from '../../data/interfacesV';
 import CreateTaskModal from '../CreateTaskModal/CreateTaskModal';
 import ColHeader from './ColHeader/ColHeader';
 import './Column.scss';
+import Task from './Task/Task';
 
 function Column({
   columnId,
@@ -49,6 +51,7 @@ function Column({
   return (
     <div className="list-wrapper" ref={innerRef} {...drProps} {...drHandleProps}>
       <div className={`list ${isDragging ? 'list-dragging' : ''}`}>
+        {tasks.length > 0 && <span className="list__badge">{tasks.length}</span>}
         <ColHeader
           columnId={columnId}
           boardId={boardId}
@@ -66,18 +69,14 @@ function Column({
             >
               {tasks.map((task, ind) => {
                 return (
-                  <Draggable key={task.id} draggableId={task.id} index={ind + 1}>
-                    {(provTask, snapTask) => (
-                      <div
-                        className={`list__task ${snapTask.isDragging ? 'task-dragging' : ''}`}
-                        {...provTask.draggableProps}
-                        {...provTask.dragHandleProps}
-                        ref={provTask.innerRef}
-                      >
-                        {task.title}
-                      </div>
-                    )}
-                  </Draggable>
+                  <Task
+                    key={task.id}
+                    task={task}
+                    boardId={boardId}
+                    columnId={columnId}
+                    loadBoard={loadBoard}
+                    ind={ind}
+                  />
                 );
               })}
               {providedTasks.placeholder}

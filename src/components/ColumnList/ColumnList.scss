@@ -11,6 +11,7 @@ $list-text-color: #282c34;
 }
 
 .list {
+  position: relative;
   background-color: $list-color;
   border-radius: 4px;
   transition: all 0.3s;
@@ -40,21 +41,6 @@ $list-text-color: #282c34;
     cursor: pointer;
   }
 
-  .list__btn {
-    padding: 2px 6px;
-    background-color: transparent;
-    border: none;
-
-    &.accept {
-      color: green;
-    }
-
-    &.delete {
-      align-self: baseline;
-      color: red;
-    }
-  }
-
   .list__title-input {
     width: 100%;
     margin-left: 4px;
@@ -63,6 +49,21 @@ $list-text-color: #282c34;
     border: 1px solid darkgray;
     border-radius: 3px;
     outline-color: #026aa7;
+  }
+}
+
+.list__btn {
+  padding: 2px 6px;
+  background-color: transparent;
+  border: none;
+
+  &.accept {
+    color: green;
+  }
+
+  &.delete {
+    align-self: baseline;
+    color: red;
   }
 }
 
@@ -75,11 +76,12 @@ $list-text-color: #282c34;
 }
 
 .list__task {
+  position: relative;
   display: -webkit-box;
   overflow: hidden;
   margin-bottom: 5px;
   margin-right: 6px;
-  padding: 6px 8px;
+  padding: 6px 28px 8px 8px;
 
   color: $list-text-color;
   box-shadow: 0 1px 1px rgba(9, 30, 66, 0.4);
@@ -89,6 +91,12 @@ $list-text-color: #282c34;
   word-break: break-all;
   -webkit-line-clamp: 10;
   -webkit-box-orient: vertical;
+
+  .list__btn {
+    position: absolute;
+    right: -4px;
+    top: 4px;
+  }
 }
 
 .add-task-container {
