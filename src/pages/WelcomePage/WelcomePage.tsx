@@ -95,22 +95,54 @@ function WelcomePage() {
           <h2 className="front-sec-title">Our team</h2>
           <div className="team-wrapper">
             <div className="pers-card-wrapper">
-              <h3 className="pers-card-name">Andrey</h3>
+              <h3 className="pers-card-name">
+                Andrey
+                <a
+                  href="https://github.com/tlkv"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="pers-card-link"
+                >
+                  <i className="fa-brands fa-github" />
+                </a>
+              </h3>
               <div className="pers-card-photo pers-photo-1"></div>
               <div className="pers-card-details">
                 <p className="pers-card-done">
                   <ul>
-                    <li>1</li>
-                    <li>2</li>
+                    <li>Kanban board - Drag-n-Drop</li>
+                    <li>Front page, Profile page</li>
+                    <li>API error handling, toast popups</li>
+                    <li>Project Architecture</li>
+                    <li>CI/CD</li>
                   </ul>
                 </p>
               </div>
             </div>
             <div className="pers-card-wrapper">
-              <h3 className="pers-card-name">Vitali</h3>
+              <h3 className="pers-card-name">
+                Vitali
+                <a
+                  href="https://github.com/deftonjke"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="pers-card-link"
+                >
+                  <i className="fa-brands fa-github" />
+                </a>
+              </h3>
               <div className="pers-card-photo pers-photo-2"></div>
               <div className="pers-card-details">
-                <p className="pers-card-done"></p>
+                <p className="pers-card-done">
+                  <p className="pers-card-done">
+                    <ul>
+                      <li>Kanban board - columns, tasks</li>
+                      <li>Boards management</li>
+                      <li>Tasks management</li>
+                      <li>Modal boxes</li>
+                    </ul>
+                  </p>
+                </p>
               </div>
             </div>
           </div>

@@ -60,6 +60,9 @@
   .front-content-wrapper {
     height: 860px;
     justify-content: space-evenly;
+    @media (max-width: 800px) {
+      height: 760px;
+    }
   }
 }
 
@@ -101,7 +104,7 @@
 
   @media (max-width: 800px) {
     width: 100%;
-    height: 60%;
+    height: 70%;
     .main-title-heading {
       font-size: 26px;
     }
@@ -117,7 +120,7 @@
   width: 60%;
   padding: 15px;
   @media (max-width: 800px) {
-    height: 40%;
+    height: 30%;
     width: 100%;
     order: -1;
     background: url('../../assets/img/kanban3.svg') center / contain no-repeat;
@@ -141,14 +144,21 @@
     display: flex;
     flex-direction: column;
     h2 {
+      width: 100%;
       font-size: 30px;
       font-weight: 600;
       margin: 0;
+      @media (max-width: 800px) {
+        font-size: 22px;
+      }
     }
     p {
       width: 100%;
       font-size: 20px;
       color: #666;
+      @media (max-width: 800px) {
+        font-size: 18px;
+      }
     }
     @media (max-width: 800px) {
       width: 100%;
@@ -186,6 +196,9 @@
   /*  background: linear-gradient(350deg, #026a8d, rgba(28, 5, 169, 0.3) 60%), #000; */
   background: #fff url('../../assets/img/kanban.svg') center / contain no-repeat;
   height: 600px;
+  @media (max-width: 800px) {
+    height: 300px;
+  }
 }
 
 .front-sec-four {
@@ -203,19 +216,27 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 40px;
+    gap: 60px;
+    padding: 15px;
 
     .pers-card-wrapper {
       flex-direction: column;
-      background-color: #fff;
-      border-radius: 5px;
+      background-color: #000428;
+      background-image: linear-gradient(315deg, #2a2a72 0%, #009ffd 74%);
+      border-radius: 10px;
       text-decoration: none;
       box-shadow: 0 0 20px rgb(0 0 0 / 70%);
-      width: 280px;
+      width: 290px;
+      padding: 5px;
+      color: #fff;
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
+      height: 460px;
+      li {
+        line-height: 1.4em;
+      }
       .pers-card-name {
         text-transform: uppercase;
       }
@@ -226,6 +247,11 @@
       }
       .pers-card-details {
         width: 100%;
+      }
+      .pers-card-link {
+        color: #fff;
+        text-decoration: none;
+        padding: 5px;
       }
       .pers-card-done {
         text-align: left;
