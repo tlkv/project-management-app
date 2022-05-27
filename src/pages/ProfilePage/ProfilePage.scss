@@ -2,6 +2,7 @@
 
 .profile-container {
   text-align: center;
+  margin-top: 50px;
   h3 {
     text-transform: uppercase;
   }
@@ -84,4 +85,15 @@
 .valid-err {
   color: red;
   font-size: 12px;
+}
+
+.prof-icon {
+  padding: 5px 10px;
+}
+
+.test-class {
+  color: transparent;
+  background: none;
+  max-width: 100px;
+  box-shadow: none;
 }

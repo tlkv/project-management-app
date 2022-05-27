@@ -59,10 +59,12 @@ function ProfilePage() {
   return (
     <>
       <div className="narrow-container profile-container">
-        <h1 className="title">Profile</h1>
         <UserInfo name={currName} login={currLogin} id={currId} />
         <div className="form-wrapper">
-          <h3>Edit profile</h3>
+          <h3>
+            <i className="fa-solid fa-pen-to-square prof-icon" />
+            Edit profile
+          </h3>
           <form onSubmit={onSubmit} className="user-controls">
             <div className="profile-field">
               <label htmlFor="form-name">

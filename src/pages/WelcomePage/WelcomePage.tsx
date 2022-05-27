@@ -44,10 +44,37 @@ function WelcomePage() {
       </section>
       <section className="front-sec-two">
         <div className="front-content-wrapper">
-          <h2 className="front-sec-title">App Advantages (4 cards grid)</h2>
-          <video autoPlay playsInline loop muted className="video-el">
-            <source src="./assets/video/appDemo.mp4" type="video/mp4" className="jsx-video" />
-          </video>
+          <div className="advantages-descr">
+            <h2>Unlimited kanban boards, columns and tasks.</h2>
+            <h3>No limits for all registered users.</h3>
+          </div>
+          <div className="advantages-video">
+            <video autoPlay playsInline loop muted className="video-el">
+              <source src="./assets/video/appDemo.mp4" type="video/mp4" className="jsx-video" />
+            </video>
+          </div>
+        </div>
+        <div className="front-content-wrapper">
+          <div className="advantages-video">
+            <video autoPlay playsInline loop muted className="video-el">
+              <source src="./assets/video/appDemo.mp4" type="video/mp4" className="jsx-video" />
+            </video>
+          </div>
+          <div className="advantages-descr reorder-desc">
+            <h2>Unlimited kanban boards, columns and tasks.</h2>
+            <h3>No limits for all registered users.</h3>
+          </div>
+        </div>
+        <div className="front-content-wrapper">
+          <div className="advantages-descr">
+            <h2>Unlimited kanban boards, columns and tasks.</h2>
+            <h3>No limits for all registered users.</h3>
+          </div>
+          <div className="advantages-video">
+            <video autoPlay playsInline loop muted className="video-el">
+              <source src="./assets/video/appDemo.mp4" type="video/mp4" className="jsx-video" />
+            </video>
+          </div>
         </div>
       </section>
 

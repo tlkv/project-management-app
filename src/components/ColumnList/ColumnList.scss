@@ -63,7 +63,11 @@ $list-text-color: #282c34;
 
   &.delete {
     align-self: baseline;
-    color: #333;
+    color: red;
+  }
+  &.light-gr {
+    color: gray;
+    font-size: 14px;
   }
 }
 
