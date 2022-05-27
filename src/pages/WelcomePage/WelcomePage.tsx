@@ -45,6 +45,9 @@ function WelcomePage() {
       <section className="front-sec-two">
         <div className="front-content-wrapper">
           <h2 className="front-sec-title">App Advantages (4 cards grid)</h2>
+          <video autoPlay playsInline loop muted className="video-el">
+            <source src="./assets/video/appDemo.mp4" type="video/mp4" className="jsx-video" />
+          </video>
         </div>
       </section>
 
