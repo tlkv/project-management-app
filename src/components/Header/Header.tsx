@@ -87,17 +87,6 @@ function Header() {
               </li>
             )}
 
-            {/*  {isAuth && (
-              <li className="nav-item">
-                <NavLink to="/stats" className="nav-inner">
-                  <span>
-                    <i className="fa-solid fa-star" />
-                    Stats
-                  </span>
-                </NavLink>
-              </li>
-            )} */}
-
             {isAuth && (
               <li className="nav-item">
                 <NavLink to="/profile" className="nav-inner">

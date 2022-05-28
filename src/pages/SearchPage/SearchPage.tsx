@@ -10,6 +10,7 @@ export default function SearchPage() {
   const { isAuth, logoutUser } = useContext(AppContext);
   const navigate = useNavigate();
   const [tasks, setTasks] = useState<SearchTaskResponse[]>([]);
+  const [searchVal, setSearchVal] = useState('');
 
   useEffect(() => {
     if (!isAuth && !localStorage.getItem('pmapp34-token')) {
@@ -19,13 +20,22 @@ export default function SearchPage() {
   }, [isAuth]);
 
   const loadTasks = async () => {
-    const res = await getAllTasks(logoutUser);
-    setTasks(res);
-    /*  if (data) {
-      setBoard(data);
+    if (searchVal.length !== 0) {
+      const res = await getAllTasks(logoutUser);
+      const searchValue = searchVal.toLocaleLowerCase();
+      const filtered = res.filter(
+        (i) =>
+          i.title.toLocaleLowerCase().includes(searchValue) ||
+          i.description.toLocaleLowerCase().includes(searchValue)
+      );
+      setTasks(filtered);
     } else {
-      navigate('/');
-    } */
+      setTasks([]);
+    }
+  };
+
+  const handleChange = (e: React.FormEvent) => {
+    setSearchVal((e.target as HTMLInputElement).value);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -38,11 +48,21 @@ export default function SearchPage() {
       <h1 className="title">Search tasks</h1>
       <div className="search-form-wrapper">
         <form onSubmit={handleSubmit} className="search-form">
-          <input type="text" placeholder="keyword to find in task title or description" />
-          <button type="submit">search</button>
+          <input
+            type="text"
+            placeholder="search in task titles or descriptions"
+            className="search-res-query"
+            value={searchVal}
+            onChange={handleChange}
+          />
+          <button type="submit" className="search-res-button">
+            search
+          </button>
         </form>
       </div>
       <div className="search-tasks-wrapper">
+        {tasks.length === 0 && <h3>Nothing found yet. Another attempt?</h3>}
+        {tasks.length !== 0 && <h3>Tasks found: {tasks.length}</h3>}
         {tasks.map((i) => (
           <SearchTaskInfo
             id={i.id}

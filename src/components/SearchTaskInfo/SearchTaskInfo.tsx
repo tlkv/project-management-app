@@ -35,16 +35,6 @@ export default function SearchTaskInfo({
   const [isModalOpen, showModal] = useState(false);
   const { logoutUser } = useContext(AppContext);
   const handleShowCard = () => {
-    /* console.log({
-      id,
-      order,
-      userId,
-      user,
-      boardId,
-      columnId,
-      title,
-      description,
-    }); */
     setIsCardOpen(true);
   };
 
@@ -58,8 +48,8 @@ export default function SearchTaskInfo({
   return (
     <>
       <div className="search-task-info" onClick={handleShowCard}>
-        <div className="search-task-field">{title}</div>
-        <div className="search-task-field">{description}</div>
+        <div className="search-task-field search-task-name">{title}</div>
+        <div className="search-task-field  search-task-descr">{description}</div>
       </div>
       {isCardOpen && (
         <CardModal

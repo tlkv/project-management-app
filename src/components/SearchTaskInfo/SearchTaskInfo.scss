@@ -1,11 +1,23 @@
 .search-task-info {
-  border: 1px solid white;
-  border-radius: 5px;
   cursor: pointer;
+  height: 140px;
+  position: relative;
+  max-width: 234px;
+  width: 100%;
+  margin: 0 1rem 1rem 0;
+  padding: 15px;
+  background-color: rgba(126, 151, 175, 0.6);
+  border-radius: 4px;
 }
 
 .search-task-field {
   overflow: hidden;
-  max-width: 300px;
   white-space: pre-wrap;
+  max-height: 95px;
+}
+
+.search-task-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+  max-height: 20px;
 }

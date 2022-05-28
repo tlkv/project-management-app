@@ -46,12 +46,6 @@ export const ROUTES_LIST = [
     onNavbar: false,
   },
   {
-    path: '/stats',
-    element: <StatsPage />,
-    navbarText: 'Statistics',
-    onNavbar: false,
-  },
-  {
     path: '/search',
     element: <SearchPage />,
     navbarText: 'Search',
