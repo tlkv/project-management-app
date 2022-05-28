@@ -124,7 +124,7 @@ function BoardPage() {
   }, [isAuth, window.location.href]);
 
   return (
-    <>
+    <div className="kanban-wrapper">
       <div className="board-header">
         <div className="board-header-title-wrapper">
           <Link className="board-header__btn" to="/">
@@ -145,7 +145,7 @@ function BoardPage() {
           reorderTasks={reorderTasks}
         />
       </div>
-    </>
+    </div>
   );
 }
 

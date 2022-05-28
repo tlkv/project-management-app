@@ -20,10 +20,13 @@
 }
 
 .footer-card-container {
-  flex-wrap: wrap;
   display: flex;
-  width: 290px;
+  width: 640px;
+  @media (max-width: 700px) {
+    width: 280px;
+  }
   justify-content: space-evenly;
+  align-items: center;
   .fa-github {
     padding-left: 4px;
     color: #000;
@@ -34,14 +37,14 @@
   }
   .footer-card-item {
     padding: 4px;
-    font-size: 15px;
+    font-size: 16px;
     padding: 2px;
     width: 33%;
     font-weight: 500;
     text-decoration: none;
     color: #000;
-  }
-  .full-length-item {
-    width: 100%;
+    @media (max-width: 700px) {
+      font-size: 14px;
+    }
   }
 }
