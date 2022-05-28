@@ -65,7 +65,7 @@ function CreateColumnModal({
       onMouseDown={() => setIsColCreateOpen(false)}
     >
       <div className="create-board" role="presentation" onMouseDown={(e) => e.stopPropagation()}>
-        <h3>Add list</h3>
+        <h3>Add column</h3>
         <button
           className="create-board__close-btn"
           type="button"

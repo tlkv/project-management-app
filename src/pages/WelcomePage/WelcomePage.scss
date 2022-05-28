@@ -5,11 +5,11 @@
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  color: #000;
+  color: #000428;
   &:visited,
   &:hover,
   &:active {
-    color: #000;
+    color: #000428;
   }
   &:hover {
     filter: brightness(1.2);
@@ -97,7 +97,7 @@
     &:visited,
     &:hover,
     &:active {
-      color: #000;
+      color: #000428;
       filter: brightness(1.1);
     }
   }
@@ -222,7 +222,7 @@
     .pers-card-wrapper {
       flex-direction: column;
       background-color: #000428;
-      background-image: linear-gradient(315deg, #2a2a72 0%, #009ffd 74%);
+      background-image: linear-gradient(135deg, #0277bd 0%, #000428 74%);
       border-radius: 10px;
       text-decoration: none;
       box-shadow: 0 0 20px rgb(0 0 0 / 70%);

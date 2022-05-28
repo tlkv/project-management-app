@@ -8,7 +8,7 @@ $primary-color: #026aa7;
 
   text-align: center;
   border-radius: 8px;
-  background-color: rgba(47, 54, 64, 0.9);
+  background-color: rgba(47, 54, 64, 0.98);
   box-shadow: 0 0 20px rgb(0 0 0 / 70%);
 }
 
@@ -76,7 +76,7 @@ $primary-color: #026aa7;
   }
   &:disabled {
     background-color: #5a717e;
-    border-color: #000;
+    border-color: #000428;
   }
 }
 
@@ -89,7 +89,7 @@ $primary-color: #026aa7;
 
   border: none;
   background: url('../../assets/svg/closew.svg') center / cover no-repeat;
-  transition: opacity 100ms;
+  transition: opacity 0.2s;
 
   &:hover {
     opacity: 0.9;
