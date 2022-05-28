@@ -74,14 +74,14 @@ $list-text-color: #282c34;
 .list__tasks {
   margin-left: 6px;
   overflow-y: auto;
-  max-height: calc(100vh - 340px);
+  max-height: calc(100vh - 400px);
   height: 100%;
   min-height: 4px;
 }
 
 .dnd-wrapper {
   margin: 15px;
-  height: calc(100vh - 240px);
+  height: calc(100vh - 300px);
 }
 
 .list__task {

@@ -21,4 +21,23 @@ code {
 * {
   box-sizing: border-box;
   font-family: 'Montserrat', sans-serif;
+  /* firefox scroll */
+  scrollbar-width: thin;
+  scrollbar-color: #29539b #999;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  border: 1px solid #666;
+  background-color: #29539b;
+  background: linear-gradient(to top, #004e92, #000428);
 }
