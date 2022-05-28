@@ -87,3 +87,16 @@
     filter: brightness(0.9);
   }
 }
+
+.login__title {
+  @media (max-width: 600px) {
+    font-size: 18px;
+  }
+}
+
+.login__description,
+.login__suggestion {
+  @media (max-width: 600px) {
+    font-size: 15px;
+  }
+}
