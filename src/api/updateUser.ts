@@ -2,7 +2,6 @@ import { API_URL } from '../data/constants';
 import { ApiUserInfo } from '../data/interfacesA';
 import decodeToken from './decodeToken';
 import { toastErrorDark, toastInfoDark, toastWarnDark } from '../utils/toast';
-import findCurrentUser from './findCurrentUser';
 
 const updateUser = async (
   name: string,

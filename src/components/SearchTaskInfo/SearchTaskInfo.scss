@@ -1,9 +1,11 @@
 .search-task-info {
   border: 1px solid white;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .search-task-field {
   overflow: hidden;
   max-width: 300px;
+  white-space: pre-wrap;
 }

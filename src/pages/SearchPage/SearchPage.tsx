@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import './SearchPage.scss';
 import { AppContext } from '../../App';
 import getAllTasks from '../../api/getAllTasks';
-import { TaskResponse } from '../../data/interfacesV';
+import { SearchTaskResponse } from '../../data/interfacesV';
 import SearchTaskInfo from '../../components/SearchTaskInfo/SearchTaskInfo';
 
 export default function SearchPage() {
   const { isAuth, logoutUser } = useContext(AppContext);
   const navigate = useNavigate();
-  const [tasks, setTasks] = useState<TaskResponse[]>([]);
+  const [tasks, setTasks] = useState<SearchTaskResponse[]>([]);
 
   useEffect(() => {
     if (!isAuth && !localStorage.getItem('pmapp34-token')) {
@@ -18,10 +18,19 @@ export default function SearchPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuth]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const loadTasks = async () => {
     const res = await getAllTasks(logoutUser);
     setTasks(res);
+    /*  if (data) {
+      setBoard(data);
+    } else {
+      navigate('/');
+    } */
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    loadTasks();
   };
 
   return (
@@ -39,12 +48,13 @@ export default function SearchPage() {
             id={i.id}
             title={i.title}
             order={i.order}
-            done={i.done}
             description={i.description}
             userId={i.userId}
+            user={i.user}
             boardId={i.boardId}
             columnId={i.columnId}
             key={i.id}
+            loadTasks={loadTasks}
           />
         ))}
       </div>
