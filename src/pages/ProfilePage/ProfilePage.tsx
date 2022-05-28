@@ -74,12 +74,12 @@ function ProfilePage() {
                   type="text"
                   className="form-name  user-edit-input"
                   placeholder="Enter your name"
-                  {...register('name', { required: true, pattern: /^[A-Za-z0-9]\w{3,}$/ })}
+                  {...register('name', { required: true, pattern: userRegExp })}
                 />
               </label>
               {errors.name && (
                 <div className="valid-err">
-                  At least 4 letters (eng) or numbers, no spaces or special symbols
+                  4-20 letters (eng) or numbers, no spaces or special symbols
                 </div>
               )}
             </div>
@@ -96,7 +96,7 @@ function ProfilePage() {
               </label>
               {errors.login && (
                 <div className="valid-err">
-                  At least 4 letters (eng) or numbers, no spaces or special symbols
+                  4-20 letters (eng) or numbers, no spaces or special symbols
                 </div>
               )}
             </div>
@@ -114,7 +114,7 @@ function ProfilePage() {
               </label>
               {errors.password && (
                 <div className="valid-err">
-                  At least 8 letters (eng) or numbers, no spaces or special symbols
+                  8-30 letters (eng) or numbers or ! @ # $ & ( ) - ‘ . / + ,
                 </div>
               )}
             </div>

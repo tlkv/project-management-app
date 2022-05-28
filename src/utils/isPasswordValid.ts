@@ -1,4 +1,6 @@
+import { passRegExp } from '../data/constantsA';
+
 export default function IS_PASSWORD_VALID(password: string): boolean {
-  const regex = /^[A-Za-z0-9]\w{7,}$/;
+  const regex = passRegExp;
   return regex.test(password);
 }
