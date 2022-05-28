@@ -93,7 +93,7 @@ function ColumnList({
                   onClick={() => setIsColCreateOpen(true)}
                 >
                   <i className="fa-solid fa-plus"> </i>
-                  Add list
+                  Add column
                 </button>
               </div>
             </div>

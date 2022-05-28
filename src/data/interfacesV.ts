@@ -13,11 +13,27 @@ export interface TaskResponse {
   id: string;
   title: string;
   order: number;
-  done: boolean;
   description: string;
   userId: string;
   boardId: string;
   columnId: string;
+}
+
+export interface SearchTaskResponse {
+  id: string;
+  title: string;
+  order: number;
+  description: string;
+  userId: string;
+  user: {
+    name: string;
+  };
+  boardId: string;
+  columnId: string;
+}
+
+export interface SearchTaskCard extends SearchTaskResponse {
+  loadTasks: () => Promise<void>;
 }
 
 export interface ColumnsResponse extends ColumnResponse {

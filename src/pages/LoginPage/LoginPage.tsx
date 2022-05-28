@@ -7,7 +7,6 @@ import loginWithToken from '../../api/loginWithToken';
 import getResponseOnCreatingUser from '../../api/getResponseOnCreatingUser';
 import IS_PASSWORD_VALID from '../../utils/isPasswordValid';
 import IS_NAME_OR_LOGIN_VALID from '../../utils/isNameOrLoginValid';
-import { toastErrorDark } from '../../utils/toast';
 
 function LoginPage() {
   const context = useContext(AppContext);
@@ -52,14 +51,10 @@ function LoginPage() {
       return;
     }
     const response = await getResponseOnCreatingUser(name, login, password);
-    if (response.status === 201) {
+    if (response.ok) {
       const token = await getToken(login, password);
       loginWithToken(token as string, login, context.setIsAuth);
       navigate('/');
-      return;
-    }
-    if (response.status === 409) {
-      toastErrorDark('This login already exists');
     }
   };
 
@@ -75,9 +70,7 @@ function LoginPage() {
     if (token) {
       loginWithToken(token, login, context.setIsAuth);
       navigate('/');
-      return;
     }
-    toastErrorDark('Wrong login or password');
   };
 
   return (
@@ -101,7 +94,9 @@ function LoginPage() {
               />
             </label>
             {isNameValid ? null : (
-              <div className="login__invalid-field">Name must be at least 4 symbols</div>
+              <div className="login__invalid-field">
+                4-20 letters (eng) or numbers, no spaces or special symbols
+              </div>
             )}
           </div>
         )}
@@ -117,7 +112,9 @@ function LoginPage() {
             />
           </label>
           {isLoginValid ? null : (
-            <div className="login__invalid-field">Login must be at least 4 symbols</div>
+            <div className="login__invalid-field">
+              4-20 letters (eng) or numbers, no spaces or special symbols
+            </div>
           )}
         </div>
         <div className="login__form-field login__form-field_text">
@@ -132,7 +129,9 @@ function LoginPage() {
             />
           </label>
           {isPasswordValid ? null : (
-            <div className="login__invalid-field">Password must contain at least 8 characters</div>
+            <div className="login__invalid-field">
+              8-30 letters (eng) or numbers or ! @ # $ & ( ) - ‘ . / + ,
+            </div>
           )}
         </div>
         {isLogin ? (

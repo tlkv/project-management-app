@@ -212,7 +212,7 @@ function CardModal({
         <div className="card-modal__container">
           <i className="user fa-solid fa-chalkboard-user"> </i>
           <p className="task__subtitle">
-            Responsible [<span className="responsible-name">{responsible}</span>]
+            Assigned to: <span className="responsible-name">{responsible}</span>
           </p>
         </div>
 

@@ -2,11 +2,18 @@
   color: #b0c4de;
   font-size: 24px;
   font-weight: 500;
+
+  @media (max-width: 800px) {
+    text-align: center;
+  }
 }
 
 .board-list {
   display: flex;
   flex-wrap: wrap;
+  @media (max-width: 800px) {
+    justify-content: center;
+  }
 
   .no-data {
     margin: 0;

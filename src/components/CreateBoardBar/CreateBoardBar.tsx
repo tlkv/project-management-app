@@ -97,7 +97,7 @@ function CreateBoardBar({
                 placeholder="Project managment app"
                 disabled={boardIsCreating}
                 {...register('title', {
-                  required: 'Enter a board name',
+                  required: 'Enter board name',
                   pattern: {
                     value: titleRegex,
                     message: FORM_INVALID_MESSAGE,

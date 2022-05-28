@@ -20,6 +20,8 @@ export interface AppContextData {
   boards: BoardsResponse[];
   dispatchBoards: Dispatch<BoardsAction>;
   logoutUser: () => void;
+  isLoading: boolean;
+  setIsLoading: Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface AuthPopupData {

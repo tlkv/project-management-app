@@ -26,7 +26,7 @@
   border: none;
   border-radius: 50%;
   background: url('../../assets/svg/closew.svg') center/cover no-repeat;
-  transition: opacity 100ms;
+  transition: opacity 0.2s;
 }
 
 .responsible-name {
@@ -60,7 +60,7 @@
     position: absolute;
     left: 0;
     top: 2px;
-    color: #000;
+    color: #000428;
   }
 }
 
@@ -70,15 +70,15 @@
 }
 
 .task__title {
-  max-height: 200px;
+  max-height: 80px;
   min-height: 23px;
   margin: 0 0 0 10px;
   color: #282c34;
   font-size: 18px;
   font-weight: 400;
   overflow: hidden;
-  overflow-y: auto;
   cursor: pointer;
+  max-width: 90%;
 }
 
 .task__textinput {
@@ -93,7 +93,7 @@
   resize: none;
   border: none;
   border-radius: 3px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.98);
   outline-color: #026aa7;
   cursor: text !important;
   width: 90%;
@@ -110,7 +110,7 @@
 
   border: none;
   border-radius: 3px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.98);
   outline-color: #026aa7;
   cursor: text !important;
 }
@@ -118,13 +118,15 @@
 .task__subtitle {
   margin: 0 0 0 10px;
   color: #282c34;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
+  max-width: 90%;
+  overflow: hidden;
 }
 
 .task__desc {
   overflow-y: auto;
-  max-height: 300px;
+  max-height: 150px;
   min-height: 20px;
   margin: 10px 0 0 10px;
   white-space: pre-wrap;

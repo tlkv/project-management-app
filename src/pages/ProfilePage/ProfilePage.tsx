@@ -14,7 +14,7 @@ import { passRegExp, userRegExp } from '../../data/constantsA';
 import UserInfo from '../../components/UserInfo/UserInfo';
 
 function ProfilePage() {
-  const { logoutUser, isAuth } = useContext(AppContext);
+  const { logoutUser, isAuth, setIsLoading } = useContext(AppContext);
   const [isModalOpen, showModal] = useState(false);
   const [currName, setCurrName] = useState('');
   const [currLogin, setCurrLogin] = useState('');
@@ -28,7 +28,7 @@ function ProfilePage() {
   const navigate = useNavigate();
 
   const handleCurrentUser = async () => {
-    const res = await findCurrentUser(logoutUser);
+    const res = await findCurrentUser(logoutUser, setIsLoading);
     setValue('name', res.name);
     setValue('login', res.login);
     setCurrName(res.name);
@@ -45,7 +45,7 @@ function ProfilePage() {
   }, [isAuth]);
 
   const onSubmit = handleSubmit(async ({ name, login, password }) => {
-    const result = await updateUser(name, login, password, logoutUser);
+    const result = await updateUser(name, login, password, logoutUser, setIsLoading);
     if (result) {
       setCurrName(name);
       setCurrLogin(login);
@@ -74,12 +74,12 @@ function ProfilePage() {
                   type="text"
                   className="form-name  user-edit-input"
                   placeholder="Enter your name"
-                  {...register('name', { required: true, pattern: /^[A-Za-z0-9]\w{3,}$/ })}
+                  {...register('name', { required: true, pattern: userRegExp })}
                 />
               </label>
               {errors.name && (
                 <div className="valid-err">
-                  At least 4 letters (eng) or numbers, no spaces or special symbols
+                  4-20 letters (eng) or numbers, no spaces or special symbols
                 </div>
               )}
             </div>
@@ -96,7 +96,7 @@ function ProfilePage() {
               </label>
               {errors.login && (
                 <div className="valid-err">
-                  At least 4 letters (eng) or numbers, no spaces or special symbols
+                  4-20 letters (eng) or numbers, no spaces or special symbols
                 </div>
               )}
             </div>
@@ -114,7 +114,7 @@ function ProfilePage() {
               </label>
               {errors.password && (
                 <div className="valid-err">
-                  At least 8 letters (eng) or numbers, no spaces or special symbols
+                  8-30 letters (eng) or numbers or ! @ # $ & ( ) - ‘ . / + ,
                 </div>
               )}
             </div>

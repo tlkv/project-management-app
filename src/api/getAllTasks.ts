@@ -1,11 +1,11 @@
 import { API_URL } from '../data/constants';
-import { TaskResponse } from '../data/interfacesV';
+import { SearchTaskResponse } from '../data/interfacesV';
 import { toastErrorDark, toastWarnDark } from '../utils/toast';
 import decodeToken from './decodeToken';
 
 const getAllTasks = async (logoutUser: () => void) => {
   const { token } = decodeToken();
-  const defData: TaskResponse[] = [];
+  const defData: SearchTaskResponse[] = [];
 
   if (!token) {
     toastErrorDark('Invalid token. Please, sign in again');
@@ -21,7 +21,7 @@ const getAllTasks = async (logoutUser: () => void) => {
   };
 
   let res = {} as Response;
-  let users: TaskResponse[] = [];
+  let users: SearchTaskResponse[] = [];
 
   try {
     res = await fetch(`${API_URL}/search/tasks`, options);

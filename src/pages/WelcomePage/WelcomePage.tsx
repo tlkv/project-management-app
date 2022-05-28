@@ -108,7 +108,7 @@ function WelcomePage() {
               </h3>
               <div className="pers-card-photo pers-photo-1"></div>
               <div className="pers-card-details">
-                <p className="pers-card-done">
+                <div className="pers-card-done">
                   <ul>
                     <li>Kanban board - Drag-n-Drop</li>
                     <li>Front page, Profile page</li>
@@ -116,7 +116,7 @@ function WelcomePage() {
                     <li>Project Architecture</li>
                     <li>CI/CD</li>
                   </ul>
-                </p>
+                </div>
               </div>
             </div>
             <div className="pers-card-wrapper">
@@ -133,16 +133,14 @@ function WelcomePage() {
               </h3>
               <div className="pers-card-photo pers-photo-2"></div>
               <div className="pers-card-details">
-                <p className="pers-card-done">
-                  <p className="pers-card-done">
-                    <ul>
-                      <li>Kanban board - columns, tasks</li>
-                      <li>Boards management</li>
-                      <li>Tasks management</li>
-                      <li>Modal boxes</li>
-                    </ul>
-                  </p>
-                </p>
+                <div className="pers-card-done">
+                  <ul>
+                    <li>Kanban board - columns, tasks</li>
+                    <li>Boards management</li>
+                    <li>Tasks management</li>
+                    <li>Modal boxes</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>

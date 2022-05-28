@@ -2,6 +2,7 @@ $board-header__title-color: #b0c4de;
 
 .board-header {
   margin: 20px 0;
+  padding: 0 15px;
 
   .board-header__title {
     display: -webkit-box;
@@ -53,7 +54,7 @@ $board-header__title-color: #b0c4de;
 }
 
 .board {
-  padding-bottom: 15px;
+  /*   padding-bottom: 15px; */
   overflow-x: auto;
   white-space: nowrap;
 }

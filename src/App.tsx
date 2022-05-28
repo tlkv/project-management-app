@@ -12,11 +12,13 @@ import { AppContextData } from './data/interfaces';
 import { LANG_EN } from './data/constants';
 import { boardsReducer } from './utils/reducers';
 import { Languages } from './data/interfacesA';
+import Spinner from './components/Spinner/Spinner';
 
 export const AppContext = createContext({} as AppContextData);
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [lang, switchLang] = useState(LANG_EN);
   const [boards, dispatchBoards] = useReducer(boardsReducer, []);
 
@@ -46,8 +48,10 @@ function App() {
       boards,
       dispatchBoards,
       logoutUser,
+      isLoading,
+      setIsLoading,
     }),
-    [lang, isAuth, boards]
+    [lang, isAuth, boards, isLoading]
   );
 
   return (
@@ -64,6 +68,7 @@ function App() {
         </main>
         <Footer />
       </BrowserRouter>
+      {isLoading && <Spinner />}
     </AppContext.Provider>
   );
 }

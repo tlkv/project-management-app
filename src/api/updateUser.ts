@@ -2,13 +2,13 @@ import { API_URL } from '../data/constants';
 import { ApiUserInfo } from '../data/interfacesA';
 import decodeToken from './decodeToken';
 import { toastErrorDark, toastInfoDark, toastWarnDark } from '../utils/toast';
-import findCurrentUser from './findCurrentUser';
 
 const updateUser = async (
   name: string,
   login: string,
   password: string,
-  logoutUser: () => void
+  logoutUser: () => void,
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   /* const thisUser = await findCurrentUser(logoutUser);
   console.log('thisUser', thisUser); */
@@ -37,16 +37,21 @@ const updateUser = async (
     name: '',
   };
 
+  setIsLoading(true);
+
   try {
     res = await fetch(`${API_URL}/users/${id}`, options);
     user = await res.json();
   } catch (err) {
     toastErrorDark('No response from server');
+    setIsLoading(false);
     return false;
   }
 
+  setIsLoading(false);
   if (res.ok) {
     toastInfoDark('Successfully updated user info');
+
     return user;
   }
 

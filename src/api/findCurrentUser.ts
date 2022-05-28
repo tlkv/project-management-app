@@ -3,7 +3,10 @@ import { ApiUserInfo } from '../data/interfacesA';
 import { toastErrorDark, toastWarnDark } from '../utils/toast';
 import decodeToken from './decodeToken';
 
-const findCurrentUser = async (logoutUser: () => void) => {
+const findCurrentUser = async (
+  logoutUser: () => void,
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+) => {
   const { token, id } = decodeToken();
 
   const defUser: ApiUserInfo = {
@@ -27,14 +30,17 @@ const findCurrentUser = async (logoutUser: () => void) => {
 
   let res = {} as Response;
   let user = { ...defUser };
-
+  setIsLoading(true);
   try {
     res = await fetch(`${API_URL}/users/${id}`, options);
     user = await res.json();
   } catch (err) {
     toastErrorDark('No response from server');
+    setIsLoading(false);
     return defUser;
   }
+
+  setIsLoading(false);
 
   if (res.ok) {
     return user;
