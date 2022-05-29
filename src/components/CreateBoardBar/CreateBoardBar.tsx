@@ -8,10 +8,10 @@ import ReactDOM from 'react-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../App';
-import { FORM_INVALID_MESSAGE, SET_BOARDS, titleRegex } from '../../data/constantsV';
+import { FORM_INVALID_MESSAGE, SET_BOARDS, titleRegex } from '../../data/constants';
 import getBoards from '../../api/getBoards';
 import createBoard from '../../api/createBoard';
-import { NewBoard } from '../../data/interfacesV';
+import { NewBoard } from '../../data/interfaces';
 
 function CreateBoardBar({
   setIsCreateBoardOpen,

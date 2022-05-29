@@ -9,8 +9,6 @@ export default async function createBoard(
   logoutUser: () => void,
   setSpinner: React.Dispatch<React.SetStateAction<boolean>>
 ) {
-  // setSpinner(true);
-
   const userData = await validateUser(logoutUser, setSpinner);
 
   if (userData) {
@@ -57,8 +55,6 @@ export default async function createBoard(
     } else if (res.status >= 500) {
       toastWarnDark('Server Error');
     }
-
-    // return false;
   }
 
   return false;

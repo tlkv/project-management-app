@@ -1,5 +1,5 @@
 import { API_URL } from '../data/constants';
-import { ColumnsResponse } from '../data/interfacesV';
+import { ColumnsResponse } from '../data/interfaces';
 import { toastErrorDark, toastWarnDark } from '../utils/toast';
 
 export default async function getColumnSingle(

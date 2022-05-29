@@ -8,10 +8,9 @@ import './sass/normalize.scss';
 import { ROUTES_LIST } from './utils/router';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import { AppContextData } from './data/interfaces';
+import { AppContextData, Languages } from './data/interfaces';
 import { LANG_EN } from './data/constants';
 import { boardsReducer } from './utils/reducers';
-import { Languages } from './data/interfacesA';
 import Spinner from './components/Spinner/Spinner';
 
 export const AppContext = createContext({} as AppContextData);

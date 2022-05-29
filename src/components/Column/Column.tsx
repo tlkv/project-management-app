@@ -9,7 +9,7 @@ import {
 } from 'react-beautiful-dnd';
 import deleteColumn from '../../api/deleteColumn';
 import { AppContext } from '../../App';
-import { TaskResponse } from '../../data/interfacesV';
+import { TaskResponse } from '../../data/interfaces';
 import CreateTaskModal from '../CreateTaskModal/CreateTaskModal';
 import ColHeader from './ColHeader/ColHeader';
 import './Column.scss';

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ApiUserInfo } from '../../data/interfacesA';
+import { ApiUserInfo } from '../../data/interfaces';
 import UserInfo from '../../components/UserInfo/UserInfo';
 import getAllUsers from '../../api/getAllUsers';
 import './StatsPage.scss';

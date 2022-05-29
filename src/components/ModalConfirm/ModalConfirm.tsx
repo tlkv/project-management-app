@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import { MouseEvent } from 'react';
 import { createPortal } from 'react-dom';
-import { ModalConfirmation } from '../../data/interfacesA';
+import { ModalConfirmation } from '../../data/interfaces';
 import './ModalConfirm.scss';
 
 export default function ModalConfirm({ modalCallback, showModal, message }: ModalConfirmation) {

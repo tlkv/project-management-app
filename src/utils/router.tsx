@@ -5,7 +5,6 @@ import MainPage from '../pages/MainPage/MainPage';
 import BoardPage from '../pages/BoardPage/BoardPage';
 import ProfilePage from '../pages/ProfilePage/ProfilePage';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
-import StatsPage from '../pages/StatsPage/StatsPage';
 import SearchPage from '../pages/SearchPage/SearchPage';
 
 export const ROUTES_LIST = [

@@ -2,7 +2,7 @@
 import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../App';
-import { SET_BOARDS } from '../../data/constantsV';
+import { SET_BOARDS } from '../../data/constants';
 import getBoards from '../../api/getBoards';
 import Board from '../Board/Board';
 

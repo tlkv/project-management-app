@@ -4,7 +4,7 @@
 import { createRef, useContext, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import createColumn from '../../api/createColumn';
-import { FORM_INVALID_MESSAGE, titleRegex } from '../../data/constantsV';
+import { FORM_INVALID_MESSAGE, titleRegex } from '../../data/constants';
 import { AppContext } from '../../App';
 
 function CreateColumnModal({

@@ -5,7 +5,7 @@ import { useContext, useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import deleteTask from '../../../api/deleteTask';
 import { AppContext } from '../../../App';
-import { TaskResponse } from '../../../data/interfacesV';
+import { TaskResponse } from '../../../data/interfaces';
 import CardModal from '../../CardModal/CardModal';
 import ModalConfirm from '../../ModalConfirm/ModalConfirm';
 

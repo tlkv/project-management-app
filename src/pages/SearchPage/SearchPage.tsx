@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './SearchPage.scss';
 import { AppContext } from '../../App';
 import getAllTasks from '../../api/getAllTasks';
-import { SearchTaskResponse } from '../../data/interfacesV';
+import { SearchTaskResponse } from '../../data/interfaces';
 import SearchTaskInfo from '../../components/SearchTaskInfo/SearchTaskInfo';
 
 export default function SearchPage() {

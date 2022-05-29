@@ -8,7 +8,7 @@ import {
   DropResult,
   DraggableProvidedDragHandleProps,
 } from 'react-beautiful-dnd';
-import { ColumnsResponse } from '../../data/interfacesV';
+import { ColumnsResponse } from '../../data/interfaces';
 import CreateColumnModal from '../CreateColumnModal/CreateColumnModal';
 import './ColumnList.scss';
 import Column from '../Column/Column';

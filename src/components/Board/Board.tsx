@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import deleteBoard from '../../api/deleteBoard';
 import getBoards from '../../api/getBoards';
 import { AppContext } from '../../App';
-import { SET_BOARDS } from '../../data/constantsV';
+import { SET_BOARDS } from '../../data/constants';
 import { BoardsResponse } from '../../data/interfaces';
 import ModalConfirm from '../ModalConfirm/ModalConfirm';
 import './Board.scss';

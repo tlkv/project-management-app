@@ -4,7 +4,7 @@ import { useContext, useState } from 'react';
 import deleteTask from '../../api/deleteTask';
 import { AppContext } from '../../App';
 
-import { SearchTaskCard } from '../../data/interfacesV';
+import { SearchTaskCard } from '../../data/interfaces';
 import CardModal from '../CardModal/CardModal';
 import ModalConfirm from '../ModalConfirm/ModalConfirm';
 import './SearchTaskInfo.scss';

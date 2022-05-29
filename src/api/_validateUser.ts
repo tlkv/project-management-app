@@ -1,6 +1,6 @@
 import jwtDecode from 'jwt-decode';
 import { API_URL } from '../data/constants';
-import { ApiUserInfo, JwtToken } from '../data/interfacesA';
+import { ApiUserInfo, JwtToken } from '../data/interfaces';
 import { toastErrorDark, toastWarnDark } from '../utils/toast';
 import tokenIsExpired from '../utils/tokenIsExpired';
 

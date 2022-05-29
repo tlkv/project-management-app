@@ -1,5 +1,5 @@
 import { API_URL } from '../data/constants';
-import { TaskResponse } from '../data/interfacesV';
+import { TaskResponse } from '../data/interfaces';
 import { toastErrorDark, toastWarnDark } from '../utils/toast';
 import validateUser from './_validateUser';
 

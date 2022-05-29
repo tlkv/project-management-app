@@ -1,5 +1,5 @@
 import { API_URL } from '../data/constants';
-import { ColumnsResponse } from '../data/interfacesV';
+import { ColumnsResponse } from '../data/interfaces';
 import { toastErrorDark, toastWarnDark } from '../utils/toast';
 import validateUser from './_validateUser';
 
@@ -9,8 +9,6 @@ export default async function createColumn(
   logoutUser: () => void,
   setSpinner: React.Dispatch<React.SetStateAction<boolean>>
 ) {
-  // setSpinner(true);
-
   const userData = await validateUser(logoutUser, setSpinner);
 
   if (userData) {
@@ -55,8 +53,6 @@ export default async function createColumn(
     } else if (res.status >= 500) {
       toastWarnDark('Server Error');
     }
-
-    // return false;
   }
 
   return false;

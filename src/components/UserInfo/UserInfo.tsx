@@ -1,4 +1,4 @@
-import { ApiUserInfo } from '../../data/interfacesA';
+import { ApiUserInfo } from '../../data/interfaces';
 import s from './UserInfo.module.scss';
 
 export default function UserInfo({ name, login }: ApiUserInfo) {

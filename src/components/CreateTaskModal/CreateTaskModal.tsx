@@ -5,7 +5,7 @@ import { createRef, useContext, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import createTask from '../../api/createTask';
 import { AppContext } from '../../App';
-import { FORM_INVALID_MESSAGE, titleRegex } from '../../data/constantsV';
+import { FORM_INVALID_MESSAGE, titleRegex } from '../../data/constants';
 import './CreateTaskModal.scss';
 
 function CreateTaskModal({

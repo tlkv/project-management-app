@@ -5,11 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AppContext } from '../../App';
-import { ApiUserQuery } from '../../data/interfacesA';
+import { ApiUserQuery } from '../../data/interfaces';
 import updateUser from '../../api/updateUser';
 import ModalConfirm from '../../components/ModalConfirm/ModalConfirm';
 import deleteUser from '../../api/deleteUser';
-import { passRegExp, userRegExp } from '../../data/constantsA';
+import { passRegExp, userRegExp } from '../../data/constants';
 import UserInfo from '../../components/UserInfo/UserInfo';
 import validateUser from '../../api/_validateUser';
 

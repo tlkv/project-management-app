@@ -3,7 +3,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppContext } from '../../App';
-import { BoardResponse, TaskResponse } from '../../data/interfacesV';
+import { BoardResponse, TaskResponse } from '../../data/interfaces';
 import getBoard from '../../api/getBoard';
 import ColumnList from '../../components/ColumnList/ColumnList';
 import './BoardPage.scss';

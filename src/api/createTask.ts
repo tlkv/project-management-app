@@ -1,5 +1,5 @@
 import { API_URL } from '../data/constants';
-import { TaskResponse } from '../data/interfacesV';
+import { TaskResponse } from '../data/interfaces';
 import { toastErrorDark, toastWarnDark } from '../utils/toast';
 import validateUser from './_validateUser';
 
@@ -11,8 +11,6 @@ export default async function createTask(
   logoutUser: () => void,
   setSpinner: React.Dispatch<React.SetStateAction<boolean>>
 ) {
-  // setSpinner(true);
-
   const userData = await validateUser(logoutUser, setSpinner);
 
   if (userData) {
@@ -61,8 +59,6 @@ export default async function createTask(
     } else if (res.status >= 500) {
       toastWarnDark('Server Error');
     }
-
-    // return false;
   }
 
   return false;
