@@ -7,12 +7,12 @@ import './StatsPage.scss';
 import { AppContext } from '../../App';
 
 export default function StatsPage() {
-  const { isAuth, logoutUser } = useContext(AppContext);
+  const { isAuth, logoutUser, setSpinner } = useContext(AppContext);
   const navigate = useNavigate();
   const [users, setUsers] = useState<ApiUserInfo[]>([]);
 
   const handleCurrentUsers = async () => {
-    const res = await getAllUsers(logoutUser);
+    const res = await getAllUsers(logoutUser, setSpinner);
     setUsers(res);
   };
 

@@ -18,7 +18,7 @@ export const AppContext = createContext({} as AppContextData);
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
-  const [isSpinning, setSpinner] = useState(false);
+  const [isSpinning, setSpinner] = useState(true);
   const [lang, switchLang] = useState(LANG_EN);
   const [boards, dispatchBoards] = useReducer(boardsReducer, []);
 

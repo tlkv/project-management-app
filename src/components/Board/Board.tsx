@@ -14,7 +14,7 @@ function Board({ id, title, description }: BoardsResponse) {
 
   const handleDeleteBoard = async () => {
     await deleteBoard(id, logoutUser, setSpinner);
-    const updatedBoards = await getBoards(logoutUser);
+    const updatedBoards = await getBoards(logoutUser, setSpinner);
     if (updatedBoards) {
       dispatchBoards({ type: SET_BOARDS, payload: updatedBoards });
     }

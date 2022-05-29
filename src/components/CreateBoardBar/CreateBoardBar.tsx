@@ -31,7 +31,7 @@ function CreateBoardBar({
   const Container = document.getElementById('modal') as HTMLElement;
 
   const loadBoards = async () => {
-    const data = await getBoards(logoutUser);
+    const data = await getBoards(logoutUser, setSpinner);
     if (data) {
       dispatchBoards({ type: SET_BOARDS, payload: data });
     }

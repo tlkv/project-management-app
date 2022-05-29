@@ -35,7 +35,7 @@ export default async function deleteColumn(
     setSpinner(false);
 
     if (res.ok) {
-      toastSuccessDark('Successfully removed column');
+      toastSuccessDark('Column was successfully removed');
       return res;
     }
 

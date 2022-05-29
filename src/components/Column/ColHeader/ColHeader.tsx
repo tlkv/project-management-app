@@ -25,7 +25,7 @@ function ColHeader({
   const [isTitleInputShow, setIsTitleInputShow] = useState(false);
   const [colTitle, setColTitle] = useState(title);
   const [isDisabled, setIsDisabled] = useState(false);
-  const { logoutUser } = useContext(AppContext);
+  const { logoutUser, setSpinner } = useContext(AppContext);
   const inputTitle = createRef<HTMLInputElement>();
 
   const cancelTitleChange = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -50,7 +50,7 @@ function ColHeader({
     }
 
     setIsDisabled(true);
-    const res = await updateColumn(boardId, columnId, order, logoutUser, finalTitle);
+    const res = await updateColumn(boardId, columnId, order, logoutUser, setSpinner, finalTitle);
 
     if (res) {
       await loadBoard();

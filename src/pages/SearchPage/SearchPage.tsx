@@ -7,7 +7,7 @@ import { SearchTaskResponse } from '../../data/interfacesV';
 import SearchTaskInfo from '../../components/SearchTaskInfo/SearchTaskInfo';
 
 export default function SearchPage() {
-  const { isAuth, logoutUser } = useContext(AppContext);
+  const { isAuth, logoutUser, setSpinner } = useContext(AppContext);
   const navigate = useNavigate();
   const [tasks, setTasks] = useState<SearchTaskResponse[]>([]);
   const [searchVal, setSearchVal] = useState('');
@@ -21,7 +21,7 @@ export default function SearchPage() {
 
   const loadTasks = async () => {
     if (searchVal.length !== 0) {
-      const res = await getAllTasks(logoutUser);
+      const res = await getAllTasks(logoutUser, setSpinner);
       const searchValue = searchVal.toLocaleLowerCase();
       const filtered = res.filter(
         (i) =>

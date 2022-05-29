@@ -1,7 +1,7 @@
 import { API_URL } from '../data/constants';
 import { TaskResponse } from '../data/interfacesV';
 import { toastErrorDark, toastWarnDark } from '../utils/toast';
-import decodeToken from './__decodeToken';
+import validateUser from './_validateUser';
 
 export default async function updateTask(
   boardId: string,
@@ -13,56 +13,59 @@ export default async function updateTask(
   userId: string,
   newBoardId: string,
   newColumnId: string,
-  logoutUser: () => void
+  logoutUser: () => void,
+  setSpinner: React.Dispatch<React.SetStateAction<boolean>>
 ) {
-  const url = `${API_URL}/boards/${boardId}/columns/${columnId}/tasks/${taskId}`;
-  const { token } = decodeToken();
+  const userData = await validateUser(logoutUser, setSpinner);
 
-  if (!token) {
-    toastErrorDark('Invalid token. Please, sign in again');
-    logoutUser();
-    return false;
-  }
+  if (userData) {
+    setSpinner(true);
 
-  const updTask = {
-    title,
-    order,
-    description,
-    userId,
-    boardId: newBoardId,
-    columnId: newColumnId,
-  };
+    const url = `${API_URL}/boards/${boardId}/columns/${columnId}/tasks/${taskId}`;
 
-  const options = {
-    method: 'PUT',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(updTask),
-  };
+    const updTask = {
+      title,
+      order,
+      description,
+      userId,
+      boardId: newBoardId,
+      columnId: newColumnId,
+    };
 
-  let res = {} as Response;
+    const options = {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${userData.token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updTask),
+    };
 
-  try {
-    res = await fetch(url, options);
-  } catch {
-    toastErrorDark('No response from server');
-    return false;
-  }
+    let res = {} as Response;
 
-  if (res.ok) {
-    const task: TaskResponse = await res.json();
-    return task;
-  }
+    try {
+      res = await fetch(url, options);
+    } catch {
+      toastErrorDark('No response from server');
+      setSpinner(false);
+      return false;
+    }
 
-  if (res.status === 401) {
-    toastErrorDark('Invalid token. Please, log in again');
-    logoutUser();
-  } else if (res.status >= 400 && res.status <= 499) {
-    toastErrorDark('Bad query or conflict with another user session');
-  } else if (res.status >= 500) {
-    toastWarnDark('Server Error');
+    setSpinner(false);
+
+    if (res.ok) {
+      const task: TaskResponse = await res.json();
+      return task;
+    }
+
+    if (res.status === 401) {
+      toastErrorDark('Invalid token. Please, log in again');
+      logoutUser();
+    } else if (res.status >= 400 && res.status <= 499) {
+      toastErrorDark('Bad query or conflict with another user session');
+    } else if (res.status >= 500) {
+      toastWarnDark('Server Error');
+    }
   }
 
   return false;

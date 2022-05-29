@@ -11,7 +11,7 @@ import updateColumn from '../../api/updateColumn';
 import updateTask from '../../api/updateTask';
 
 function BoardPage() {
-  const { logoutUser, isAuth } = useContext(AppContext);
+  const { logoutUser, isAuth, setSpinner } = useContext(AppContext);
   const [board, setBoard] = useState<BoardResponse>({
     id: '',
     title: '',
@@ -22,7 +22,8 @@ function BoardPage() {
   const boardId = window.location.pathname.split('/board/').join('');
 
   const loadBoard = async () => {
-    const data = await getBoard(boardId, logoutUser);
+    const data = await getBoard(boardId, logoutUser, setSpinner);
+
     if (data) {
       setBoard(data);
     } else {
@@ -45,7 +46,7 @@ function BoardPage() {
       }
     });
     setBoard({ ...board, columns: updColumns });
-    await updateColumn(boardId, columnId, ordNext, logoutUser, currColumn?.title);
+    await updateColumn(boardId, columnId, ordNext, logoutUser, setSpinner, currColumn?.title);
     loadBoard();
   };
 
@@ -104,13 +105,14 @@ function BoardPage() {
       board.id,
       sourceId,
       taskId,
-      currTask?.title as string,
+      currTask?.title || ' ',
       ordNext,
-      currTask?.description as string,
-      currTask?.userId as string,
+      currTask?.description || ' ',
+      currTask?.userId || ' ',
       board.id,
       destId,
-      logoutUser
+      logoutUser,
+      setSpinner
     );
     loadBoard();
   };

@@ -3,8 +3,8 @@
 .modal-spinner {
   z-index: 5;
   position: fixed;
-  top: calc(50vh - 40px);
-  left: calc(50vw - 40px);
+  bottom: 10px;
+  right: 10px;
   pointer-events: none;
   opacity: 0.8;
   $custom-easing: cubic-bezier(0.445, 0.05, 0.55, 0.95); // Sine
@@ -32,10 +32,10 @@
     margin: 0 auto;
     animation: loading-spinner-spin 2s linear infinite;
     will-change: transform;
-    background: rgba(200, 200, 200, 0.1);
+    background: rgba(200, 200, 200, 0.2);
     border-radius: 50%;
-    border: 2px solid rgba(200, 200, 200, 0.1);
-    box-shadow: 0 0 20px rgb(0 0 0 / 10%);
+    border: 2px solid rgba(200, 200, 200, 0.2);
+    box-shadow: 0 0 20px rgb(0 0 0 / 30%);
   }
 
   @keyframes loading-spinner-spin {

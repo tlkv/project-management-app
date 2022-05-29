@@ -19,7 +19,7 @@ function LoginPage() {
   const [isLoginValid, setIsLoginValid] = useState(true);
   const [password, setPassword] = useState('');
   const [isPasswordValid, setIsPasswordValid] = useState(true);
-  const { isAuth } = useContext(AppContext);
+  const { isAuth, setSpinner } = useContext(AppContext);
 
   useEffect(() => {
     if (isAuth && localStorage.getItem('pmapp34-token')) {
@@ -50,10 +50,10 @@ function LoginPage() {
       setIsPasswordValid(IS_PASSWORD_VALID(password));
       return;
     }
-    const response = await getResponseOnCreatingUser(name, login, password);
+    const response = await getResponseOnCreatingUser(name, login, password, setSpinner);
     if (response.ok) {
-      const token = await getToken(login, password);
-      loginWithToken(token as string, login, context.setIsAuth);
+      const token = await getToken(login, password, setSpinner);
+      loginWithToken(token as string, context.setIsAuth);
       navigate('/');
     }
   };
@@ -66,9 +66,9 @@ function LoginPage() {
       setIsPasswordValid(IS_PASSWORD_VALID(password));
       return;
     }
-    const token = await getToken(login, password);
+    const token = await getToken(login, password, setSpinner);
     if (token) {
-      loginWithToken(token, login, context.setIsAuth);
+      loginWithToken(token, context.setIsAuth);
       navigate('/');
     }
   };

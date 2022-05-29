@@ -10,8 +10,6 @@ const updateUser = async (
   logoutUser: () => void,
   setSpinner: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
-  // setSpinner(true);
-
   const userData = await validateUser(logoutUser, setSpinner);
 
   if (userData) {
@@ -59,8 +57,6 @@ const updateUser = async (
     } else if (res.status >= 500) {
       toastWarnDark('Login is taken or Server Error');
     }
-
-    // return false;
   }
 
   return false;

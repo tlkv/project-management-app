@@ -1,7 +1,6 @@
 import { API_URL } from '../data/constants';
 import { ColumnsResponse } from '../data/interfacesV';
 import { toastErrorDark, toastWarnDark } from '../utils/toast';
-import decodeToken from './__decodeToken';
 
 export default async function getColumnSingle(
   boardId: string,
@@ -9,7 +8,7 @@ export default async function getColumnSingle(
   logoutUser: () => void
 ) {
   const url = `${API_URL}/boards/${boardId}/columns/${columnId}`;
-  const { token } = decodeToken();
+  const token = localStorage.getItem('pmapp34-token') || '';
 
   if (!token) {
     toastErrorDark('Invalid token. Please, sign in again');

@@ -27,7 +27,7 @@ function CardModal({
   showModal: Dispatch<React.SetStateAction<boolean>>;
 }) {
   const Container = document.getElementById('modal') as HTMLElement;
-  const { logoutUser } = useContext(AppContext);
+  const { logoutUser, setSpinner } = useContext(AppContext);
   const [responsible, setResponsible] = useState('');
   const [users, setUsers] = useState<ApiUserInfo[]>([]);
   const [selected, setSelected] = useState('');
@@ -67,7 +67,8 @@ function CardModal({
       userID,
       boardId,
       columnId,
-      logoutUser
+      logoutUser,
+      setSpinner
     );
   };
 
@@ -108,7 +109,8 @@ function CardModal({
         selected || task.userId,
         boardId,
         columnId,
-        logoutUser
+        logoutUser,
+        setSpinner
       );
 
       if (res) {
@@ -121,7 +123,7 @@ function CardModal({
 
   useEffect(() => {
     const getUsers = async () => {
-      const res = await getAllUsers(logoutUser);
+      const res = await getAllUsers(logoutUser, setSpinner);
       if (res) {
         setUsers(res);
       }

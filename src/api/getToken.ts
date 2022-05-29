@@ -1,7 +1,13 @@
 import { API_URL } from '../data/constants';
 import { toastErrorDark } from '../utils/toast';
 
-export default async function getToken(login: string, password: string): Promise<string | false> {
+export default async function getToken(
+  login: string,
+  password: string,
+  setSpinner: React.Dispatch<React.SetStateAction<boolean>>
+): Promise<string | false> {
+  setSpinner(true);
+
   const options = {
     method: 'POST',
     headers: {
@@ -12,13 +18,18 @@ export default async function getToken(login: string, password: string): Promise
       password,
     }),
   };
+
   let res = {} as Response;
+
   try {
     res = await fetch(`${API_URL}/signin`, options);
   } catch (err) {
     toastErrorDark('No response from server');
+    setSpinner(false);
     return false;
   }
+
+  setSpinner(false);
 
   if (res.ok) {
     const body = await res.json();

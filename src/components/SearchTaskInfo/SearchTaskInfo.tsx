@@ -24,7 +24,7 @@ export default function SearchTaskInfo({
   id,
   order,
   userId,
-  user,
+  /* user, */
   boardId,
   columnId,
   title,
@@ -33,16 +33,14 @@ export default function SearchTaskInfo({
 }: SearchTaskCard) {
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [isModalOpen, showModal] = useState(false);
-  const { logoutUser } = useContext(AppContext);
+  const { logoutUser, setSpinner } = useContext(AppContext);
   const handleShowCard = () => {
     setIsCardOpen(true);
   };
 
   const onDelete = async () => {
-    const res = await deleteTask(boardId, columnId, id, logoutUser);
-    if (res) {
-      await loadTasks();
-    }
+    await deleteTask(boardId, columnId, id, logoutUser, setSpinner);
+    await loadTasks();
   };
 
   return (

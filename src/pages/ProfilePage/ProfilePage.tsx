@@ -55,7 +55,7 @@ function ProfilePage() {
   });
 
   const onDelete = async () => {
-    await deleteUser(logoutUser);
+    await deleteUser(logoutUser, setSpinner);
   };
 
   return (

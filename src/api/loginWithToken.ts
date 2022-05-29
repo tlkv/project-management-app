@@ -1,6 +1,5 @@
 export default function loginWithToken(
   token: string,
-  login: string,
   dispatchIsAuth: React.Dispatch<React.SetStateAction<boolean>>
 ): void {
   localStorage.setItem('pmapp34-token', token);

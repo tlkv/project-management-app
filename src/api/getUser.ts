@@ -28,8 +28,8 @@ export default async function getUser(id: string, logoutUser: () => void) {
   }
 
   if (res.ok) {
-    const board: ApiUserInfo = await res.json();
-    return board;
+    const user: ApiUserInfo = await res.json();
+    return user;
   }
 
   if (res.status >= 400 && res.status <= 499) {

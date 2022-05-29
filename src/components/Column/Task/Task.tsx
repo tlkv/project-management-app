@@ -22,15 +22,13 @@ function Task({
   columnId: string;
   loadBoard: () => Promise<void>;
 }) {
-  const { logoutUser } = useContext(AppContext);
+  const { logoutUser, setSpinner } = useContext(AppContext);
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [isModalOpen, showModal] = useState(false);
 
   const onDelete = async () => {
-    const res = await deleteTask(boardId, columnId, task.id, logoutUser);
-    if (res) {
-      await loadBoard();
-    }
+    await deleteTask(boardId, columnId, task.id, logoutUser, setSpinner);
+    await loadBoard();
   };
 
   const handleDeletePreviewTask = (e: React.MouseEvent) => {

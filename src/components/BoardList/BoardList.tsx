@@ -7,11 +7,11 @@ import getBoards from '../../api/getBoards';
 import Board from '../Board/Board';
 
 function BoardList() {
-  const { logoutUser, isAuth, boards, dispatchBoards } = useContext(AppContext);
+  const { logoutUser, isAuth, boards, dispatchBoards, setSpinner } = useContext(AppContext);
   const navigate = useNavigate();
 
   const loadBoards = async () => {
-    const data = await getBoards(logoutUser);
+    const data = await getBoards(logoutUser, setSpinner);
     if (data) {
       dispatchBoards({ type: SET_BOARDS, payload: data });
     }
