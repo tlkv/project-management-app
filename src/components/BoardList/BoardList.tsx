@@ -20,7 +20,8 @@ function BoardList() {
   useEffect(() => {
     if (!isAuth && !localStorage.getItem('pmapp34-token')) {
       navigate('/welcome');
-    } else if (!boards.length) {
+    } else {
+      /* if (!boards.length) */
       loadBoards();
     }
   }, [isAuth]);

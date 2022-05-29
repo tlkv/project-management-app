@@ -8,6 +8,7 @@ const validateUser = async (
   logoutUser: () => void,
   setSpinner: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
+  setSpinner(true);
   const token = localStorage.getItem('pmapp34-token') || '';
   const logoutAndStopSpinner = () => {
     setSpinner(false);

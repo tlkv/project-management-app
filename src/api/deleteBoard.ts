@@ -1,41 +1,51 @@
 import { API_URL } from '../data/constants';
 import { toastErrorDark, toastSuccessDark, toastWarnDark } from '../utils/toast';
+import validateUser from './_validateUser';
 
-export default async function deleteBoard(id: string, logoutUser: () => void) {
-  const url = `${API_URL}/boards/${id}`;
-  const token = localStorage.getItem('pmapp34-token') || '';
-  if (!token) {
-    toastErrorDark('Invalid token. Please, sign in again');
-    logoutUser();
-    return false;
-  }
+export default async function deleteBoard(
+  id: string,
+  logoutUser: () => void,
+  setSpinner: React.Dispatch<React.SetStateAction<boolean>>
+) {
+  const userData = await validateUser(logoutUser, setSpinner);
 
-  let res = {} as Response;
+  if (userData) {
+    setSpinner(true);
 
-  try {
-    res = await fetch(url, {
+    const url = `${API_URL}/boards/${id}`;
+
+    const options = {
       method: 'DELETE',
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${userData.token}`,
       },
-    });
-  } catch {
-    toastErrorDark('No response from server');
-    return false;
-  }
+    };
 
-  if (res.ok) {
-    toastSuccessDark('Board was successfully removed');
-    return res;
-  }
+    let res = {} as Response;
 
-  if (res.status === 401) {
-    toastErrorDark('Invalid token. Please, log in again');
-    logoutUser();
-  } else if (res.status >= 400 && res.status <= 499) {
-    toastErrorDark('Bad query or conflict with another user session');
-  } else if (res.status >= 500) {
-    toastWarnDark('Server Error');
+    try {
+      res = await fetch(url, options);
+    } catch {
+      toastErrorDark('No response from server');
+      setSpinner(false);
+      return false;
+    }
+
+    setSpinner(false);
+
+    if (res.ok) {
+      toastSuccessDark('Board was successfully removed');
+      return res;
+    }
+
+    if (res.status === 401) {
+      toastErrorDark('Invalid token. Please, log in again');
+      logoutUser();
+    } else if (res.status >= 400 && res.status <= 499) {
+      toastErrorDark('Bad query or conflict with another user session');
+    } else if (res.status >= 500) {
+      toastWarnDark('Server Error');
+    }
   }
 
   return false;

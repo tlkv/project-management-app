@@ -9,7 +9,7 @@ export default async function createBoard(
   logoutUser: () => void,
   setSpinner: React.Dispatch<React.SetStateAction<boolean>>
 ) {
-  setSpinner(true);
+  // setSpinner(true);
 
   const userData = await validateUser(logoutUser, setSpinner);
 
@@ -58,7 +58,7 @@ export default async function createBoard(
       toastWarnDark('Server Error');
     }
 
-    return false;
+    // return false;
   }
 
   return false;

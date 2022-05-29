@@ -1,6 +1,6 @@
 import { API_URL } from '../data/constants';
 import { toastErrorDark, toastSuccessDark, toastWarnDark } from '../utils/toast';
-import decodeToken from './decodeToken';
+import decodeToken from './__decodeToken';
 
 const deleteUser = async (logoutUser: () => void) => {
   const { token, id } = decodeToken();

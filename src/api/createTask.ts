@@ -1,58 +1,68 @@
 import { API_URL } from '../data/constants';
 import { TaskResponse } from '../data/interfacesV';
 import { toastErrorDark, toastWarnDark } from '../utils/toast';
-import decodeToken from './decodeToken';
+import validateUser from './_validateUser';
 
 export default async function createTask(
   boardId: string,
   columnId: string,
   title: string,
   description: string,
-  logoutUser: () => void
+  logoutUser: () => void,
+  setSpinner: React.Dispatch<React.SetStateAction<boolean>>
 ) {
-  const url = `${API_URL}/boards/${boardId}/columns/${columnId}/tasks`;
-  const token = localStorage.getItem('pmapp34-token') || '';
-  const { id } = decodeToken();
-  if (!token) {
-    toastErrorDark('Invalid token. Please, sign in again');
-    logoutUser();
-    return false;
-  }
+  // setSpinner(true);
 
-  const newTask = {
-    title,
-    description,
-    userId: id,
-  };
+  const userData = await validateUser(logoutUser, setSpinner);
 
-  let res = {} as Response;
+  if (userData) {
+    setSpinner(true);
 
-  try {
-    res = await fetch(url, {
+    const url = `${API_URL}/boards/${boardId}/columns/${columnId}/tasks`;
+
+    const newTask = {
+      title,
+      description,
+      userId: userData.id,
+    };
+
+    const options = {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${userData.token}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(newTask),
-    });
-  } catch {
-    toastErrorDark('No response from server');
-    return false;
-  }
+    };
 
-  if (res.ok) {
-    const task: TaskResponse = await res.json();
-    return task;
-  }
+    let res = {} as Response;
+    let task = {} as TaskResponse;
 
-  if (res.status === 401) {
-    toastErrorDark('Invalid token. Please, log in again');
-    logoutUser();
-  } else if (res.status >= 400 && res.status <= 499) {
-    toastErrorDark('Bad query or conflict with another user session');
-  } else if (res.status >= 500) {
-    toastWarnDark('Server Error');
+    try {
+      res = await fetch(url, options);
+      task = await res.json();
+    } catch {
+      toastErrorDark('No response from server');
+      setSpinner(false);
+      return false;
+    }
+
+    setSpinner(false);
+
+    if (res.ok) {
+      return task;
+    }
+
+    if (res.status === 401) {
+      toastErrorDark('Invalid token. Please, log in again');
+      logoutUser();
+    } else if (res.status >= 400 && res.status <= 499) {
+      toastErrorDark('Bad query or conflict with another user session');
+    } else if (res.status >= 500) {
+      toastWarnDark('Server Error');
+    }
+
+    // return false;
   }
 
   return false;

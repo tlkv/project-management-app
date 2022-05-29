@@ -20,7 +20,7 @@ function CreateTaskModal({
   setIsTaskCreateOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const Container = document.getElementById('modal') as HTMLElement;
-  const { logoutUser } = useContext(AppContext);
+  const { logoutUser, setSpinner } = useContext(AppContext);
   const [hasError, setHasError] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const taskTitle = createRef<HTMLInputElement>();
@@ -39,7 +39,7 @@ function CreateTaskModal({
         const title = taskTitle.current.value.replace(/\s+/g, ' ').trim();
         const desc = taskDesc.current.value ? taskDesc.current.value.replace(/\s+/g, ' ') : ' ';
 
-        const res = await createTask(boardId, columnId, title, desc, logoutUser);
+        const res = await createTask(boardId, columnId, title, desc, logoutUser, setSpinner);
         if (res) {
           loadBoard();
         }

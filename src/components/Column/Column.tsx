@@ -39,13 +39,11 @@ function Column({
   isDragging: boolean;
 }) {
   const [isTaskCreateOpen, setIsTaskCreateOpen] = useState(false);
-  const { logoutUser } = useContext(AppContext);
+  const { logoutUser, setSpinner } = useContext(AppContext);
 
   const onDelete = async () => {
-    const res = await deleteColumn(boardId, columnId, logoutUser);
-    if (res) {
-      loadBoard();
-    }
+    await deleteColumn(boardId, columnId, logoutUser, setSpinner);
+    loadBoard();
   };
 
   return (

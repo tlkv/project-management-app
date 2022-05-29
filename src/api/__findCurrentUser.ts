@@ -1,7 +1,7 @@
 import { API_URL } from '../data/constants';
 import { ApiUserInfo } from '../data/interfacesA';
 import { toastErrorDark, toastWarnDark } from '../utils/toast';
-import decodeToken from './decodeToken';
+import decodeToken from './__decodeToken';
 
 const findCurrentUser = async (
   logoutUser: () => void,

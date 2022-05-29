@@ -1,7 +1,7 @@
 import { API_URL } from '../data/constants';
 import { ColumnsResponse } from '../data/interfacesV';
 import { toastErrorDark, toastWarnDark } from '../utils/toast';
-import decodeToken from './decodeToken';
+import decodeToken from './__decodeToken';
 
 export default async function getColumnSingle(
   boardId: string,
