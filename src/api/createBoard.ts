@@ -36,7 +36,7 @@ export default async function createBoard(
 
   if (res.ok) {
     const board: BoardsResponse = await res.json();
-    toastSuccessDark('Board was created');
+    toastSuccessDark('Board successfully created');
     return board;
   }
 

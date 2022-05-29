@@ -3,8 +3,10 @@
 .modal-spinner {
   z-index: 5;
   position: fixed;
-  bottom: 7px;
-  right: 7px;
+  top: calc(50vh - 40px);
+  left: calc(50vw - 40px);
+  pointer-events: none;
+  opacity: 0.8;
   $custom-easing: cubic-bezier(0.445, 0.05, 0.55, 0.95); // Sine
   $animation-duration: 1.7s;
   $small-stroke: 105;
@@ -19,8 +21,8 @@
   #spinner-bott-circle {
     display: flex;
     flex-flow: column;
-    width: 40px;
-    height: 40px;
+    width: 80px;
+    height: 80px;
     justify-content: space-around;
     align-items: flex-end;
   }
@@ -32,7 +34,8 @@
     will-change: transform;
     background: rgba(200, 200, 200, 0.2);
     border-radius: 50%;
-    border: 1px solid rgba(200, 200, 200, 0.1);
+    border: 2px solid rgba(200, 200, 200, 0.2);
+    box-shadow: 0 0 20px rgb(0 0 0 / 20%);
   }
 
   @keyframes loading-spinner-spin {
@@ -44,19 +47,19 @@
     }
   }
 
-  #loading-circle {
-    stroke-dasharray: $small-stroke;
-    stroke-dashoffset: $small-stroke;
+  #loading-circle-large {
+    stroke-dasharray: $large-stroke;
+    stroke-dashoffset: $large-stroke;
     stroke-linecap: round;
-    animation: loading-spinner-small $animation-duration $custom-easing infinite;
+    animation: loading-spinner-large $animation-duration $custom-easing infinite;
     transform: translateZ(0);
     transform-origin: center;
     will-change: stroke-dashoffset;
   }
 
-  @keyframes loading-spinner-small {
+  @keyframes loading-spinner-large {
     0% {
-      stroke-dashoffset: $small-stroke-animate;
+      stroke-dashoffset: $large-stroke-animate;
       transform: scaleY(1);
     }
     49.99% {
@@ -68,7 +71,7 @@
       transform: scaleY(-1) rotate($rotate);
     }
     100% {
-      stroke-dashoffset: $small-stroke-animate;
+      stroke-dashoffset: $large-stroke-animate;
       transform: scaleY(-1) rotate($rotate-origin);
     }
   }
