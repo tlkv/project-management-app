@@ -31,7 +31,7 @@ const deleteUser = async (logoutUser: () => void) => {
     toastSuccessDark('Successfully removed user');
     logoutUser();
   } else if (res.status === 401) {
-    toastErrorDark('Not authorized or credentials expired. Please, log in again');
+    toastErrorDark('Invalid token. Please, log in again');
     logoutUser();
   } else if (res.status >= 400 && res.status <= 499) {
     toastErrorDark('User not found');

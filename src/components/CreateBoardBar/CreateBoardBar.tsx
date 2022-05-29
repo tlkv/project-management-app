@@ -57,7 +57,8 @@ function CreateBoardBar({
     const res = await createBoard(
       data.title,
       data.description ? data.description : ' ',
-      logoutUser
+      logoutUser,
+      setSpinner
     );
     if (res) {
       await loadBoards();

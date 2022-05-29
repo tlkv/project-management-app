@@ -11,7 +11,9 @@ const updateUser = async (
   setSpinner: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   setSpinner(true);
+
   const userData = await validateUser(logoutUser, setSpinner);
+
   if (userData) {
     setSpinner(true);
 
@@ -43,6 +45,7 @@ const updateUser = async (
     }
 
     setSpinner(false);
+
     if (res.ok) {
       toastInfoDark('Successfully updated user info');
       return user;

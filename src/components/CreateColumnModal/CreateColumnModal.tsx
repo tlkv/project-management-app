@@ -17,7 +17,7 @@ function CreateColumnModal({
   setIsColCreateOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const Container = document.getElementById('modal') as HTMLElement;
-  const { logoutUser } = useContext(AppContext);
+  const { logoutUser, setSpinner } = useContext(AppContext);
   const colName = createRef<HTMLInputElement>();
   const [isDisabled, setIsDisabled] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -32,7 +32,7 @@ function CreateColumnModal({
     } else if (!hasError) {
       setIsDisabled(true);
       const colname = colName.current.value.replace(/\s+/g, ' ').trim();
-      const res = await createColumn(boardId, colname, logoutUser);
+      const res = await createColumn(boardId, colname, logoutUser, setSpinner);
       if (res) {
         loadBoard();
       }
