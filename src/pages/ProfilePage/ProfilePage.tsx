@@ -5,16 +5,16 @@ import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AppContext } from '../../App';
-import findCurrentUser from '../../api/findCurrentUser';
 import { ApiUserQuery } from '../../data/interfacesA';
 import updateUser from '../../api/updateUser';
 import ModalConfirm from '../../components/ModalConfirm/ModalConfirm';
 import deleteUser from '../../api/deleteUser';
 import { passRegExp, userRegExp } from '../../data/constantsA';
 import UserInfo from '../../components/UserInfo/UserInfo';
+import validateUser from '../../api/_validateUser';
 
 function ProfilePage() {
-  const { logoutUser, isAuth, setIsLoading } = useContext(AppContext);
+  const { logoutUser, isAuth, setSpinner } = useContext(AppContext);
   const [isModalOpen, showModal] = useState(false);
   const [currName, setCurrName] = useState('');
   const [currLogin, setCurrLogin] = useState('');
@@ -28,12 +28,14 @@ function ProfilePage() {
   const navigate = useNavigate();
 
   const handleCurrentUser = async () => {
-    const res = await findCurrentUser(logoutUser, setIsLoading);
-    setValue('name', res.name);
-    setValue('login', res.login);
-    setCurrName(res.name);
-    setCurrLogin(res.login);
-    setCurrId(res.id);
+    const res = await validateUser(logoutUser, setSpinner);
+    if (res) {
+      setValue('name', res.name);
+      setValue('login', res.login);
+      setCurrName(res.name);
+      setCurrLogin(res.login);
+      setCurrId(res.id);
+    }
   };
 
   useEffect(() => {
@@ -45,7 +47,7 @@ function ProfilePage() {
   }, [isAuth]);
 
   const onSubmit = handleSubmit(async ({ name, login, password }) => {
-    const result = await updateUser(name, login, password, logoutUser, setIsLoading);
+    const result = await updateUser(name, login, password, logoutUser, setSpinner);
     if (result) {
       setCurrName(name);
       setCurrLogin(login);

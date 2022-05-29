@@ -5,7 +5,7 @@ import decodeToken from './decodeToken';
 
 const findCurrentUser = async (
   logoutUser: () => void,
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+  setSpinner: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   const { token, id } = decodeToken();
 
@@ -30,17 +30,17 @@ const findCurrentUser = async (
 
   let res = {} as Response;
   let user = { ...defUser };
-  setIsLoading(true);
+  setSpinner(true);
   try {
     res = await fetch(`${API_URL}/users/${id}`, options);
     user = await res.json();
   } catch (err) {
     toastErrorDark('No response from server');
-    setIsLoading(false);
+    setSpinner(false);
     return defUser;
   }
 
-  setIsLoading(false);
+  setSpinner(false);
 
   if (res.ok) {
     return user;

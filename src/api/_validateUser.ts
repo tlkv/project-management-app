@@ -6,11 +6,11 @@ import tokenIsExpired from '../utils/tokenIsExpired';
 
 const validateUser = async (
   logoutUser: () => void,
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+  setSpinner: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   const token = localStorage.getItem('pmapp34-token') || '';
   const logoutAndStopSpinner = () => {
-    setIsLoading(false);
+    setSpinner(false);
     logoutUser();
   };
 
@@ -29,7 +29,7 @@ const validateUser = async (
   }
 
   if (tokenIsExpired(encoded.iat)) {
-    toastErrorDark('Token has expired. Please, log in again');
+    toastWarnDark('Token has expired. Please, log in again');
     logoutAndStopSpinner();
     return false;
   }
@@ -53,7 +53,7 @@ const validateUser = async (
 
   if (res.ok) {
     const { id, login, name } = user;
-    setIsLoading(false);
+    setSpinner(false);
     return { token, id, login, name };
   }
 

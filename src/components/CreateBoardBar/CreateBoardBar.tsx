@@ -19,7 +19,7 @@ function CreateBoardBar({
   setIsCreateBoardOpen: Dispatch<React.SetStateAction<boolean>>;
 }) {
   const navigate = useNavigate();
-  const { logoutUser, dispatchBoards } = useContext(AppContext);
+  const { logoutUser, dispatchBoards, setSpinner } = useContext(AppContext);
   const [boardIsCreating, setBoardIsCreating] = useState(false);
   const {
     register,

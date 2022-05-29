@@ -18,7 +18,7 @@ export const AppContext = createContext({} as AppContextData);
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isSpinning, setSpinner] = useState(true);
   const [lang, switchLang] = useState(LANG_EN);
   const [boards, dispatchBoards] = useReducer(boardsReducer, []);
 
@@ -48,10 +48,10 @@ function App() {
       boards,
       dispatchBoards,
       logoutUser,
-      isLoading,
-      setIsLoading,
+      isSpinning,
+      setSpinner,
     }),
-    [lang, isAuth, boards, isLoading]
+    [lang, isAuth, boards, isSpinning]
   );
 
   return (
@@ -68,7 +68,7 @@ function App() {
         </main>
         <Footer />
       </BrowserRouter>
-      {isLoading && <Spinner />}
+      {isSpinning && <Spinner />}
     </AppContext.Provider>
   );
 }

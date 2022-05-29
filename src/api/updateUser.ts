@@ -8,12 +8,12 @@ const updateUser = async (
   login: string,
   password: string,
   logoutUser: () => void,
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+  setSpinner: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
-  setIsLoading(true);
-  const userData = await validateUser(logoutUser, setIsLoading);
+  setSpinner(true);
+  const userData = await validateUser(logoutUser, setSpinner);
   if (userData) {
-    setIsLoading(true);
+    setSpinner(true);
 
     const options = {
       method: 'PUT',
@@ -38,11 +38,11 @@ const updateUser = async (
       user = await res.json();
     } catch (err) {
       toastErrorDark('No response from server');
-      setIsLoading(false);
+      setSpinner(false);
       return false;
     }
 
-    setIsLoading(false);
+    setSpinner(false);
     if (res.ok) {
       toastInfoDark('Successfully updated user info');
       return user;
