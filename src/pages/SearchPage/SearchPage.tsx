@@ -11,6 +11,7 @@ export default function SearchPage() {
   const navigate = useNavigate();
   const [tasks, setTasks] = useState<SearchTaskResponse[]>([]);
   const [searchVal, setSearchVal] = useState('');
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
 
   useEffect(() => {
     if (!isAuth && !localStorage.getItem('pmapp34-token')) {
@@ -40,6 +41,8 @@ export default function SearchPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setButtonDisabled(true);
+    setTimeout(() => setButtonDisabled(false), 1500);
     loadTasks();
   };
 
@@ -55,7 +58,10 @@ export default function SearchPage() {
             value={searchVal}
             onChange={handleChange}
           />
-          <button type="submit" className="search-res-button">
+          <button
+            type="submit"
+            className={`search-res-button ${isButtonDisabled ? 'temp-disabled' : ''}`}
+          >
             search
           </button>
         </form>

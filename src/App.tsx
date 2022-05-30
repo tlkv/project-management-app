@@ -55,10 +55,10 @@ function App() {
 
   return (
     <AppContext.Provider value={store}>
-      <ToastContainer />
+      <ToastContainer limit={3} newestOnTop />
       <BrowserRouter>
         <Header />
-        <main className="main-container">
+        <main className={`main-container ${isSpinning ? 'main-darken' : ''}`}>
           <Routes>
             {ROUTES_LIST.map(({ path, element }, ind) => (
               <Route path={path} element={element} key={`route_${ind + 1}`} />

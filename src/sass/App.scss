@@ -13,6 +13,10 @@
   padding: $header-height 0 0 0;
 }
 
+.main-darken {
+  filter: brightness(0.8);
+}
+
 h1.title {
   text-align: center;
 }
@@ -32,4 +36,9 @@ button {
 
 .Toastify__toast-container {
   font-size: 15px;
+}
+
+.temp-disabled {
+  filter: brightness(0.8);
+  pointer-events: none;
 }

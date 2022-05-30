@@ -18,6 +18,7 @@ function ProfilePage() {
   const [isModalOpen, showModal] = useState(false);
   const [currName, setCurrName] = useState('');
   const [currLogin, setCurrLogin] = useState('');
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
   const [currId, setCurrId] = useState('');
   const {
     register,
@@ -47,6 +48,8 @@ function ProfilePage() {
   }, [isAuth]);
 
   const onSubmit = handleSubmit(async ({ name, login, password }) => {
+    setButtonDisabled(true);
+    setTimeout(() => setButtonDisabled(false), 1500);
     const result = await updateUser(name, login, password, logoutUser, setSpinner);
     if (result) {
       setCurrName(name);
@@ -120,7 +123,11 @@ function ProfilePage() {
                 </div>
               )}
             </div>
-            <input type="submit" value="Save" className="save-button" />
+            <input
+              type="submit"
+              value="Save"
+              className={`save-button ${isButtonDisabled ? 'temp-disabled' : ''}`}
+            />
           </form>
         </div>
         <button type="button" className="delete-profile" onClick={() => showModal(true)}>

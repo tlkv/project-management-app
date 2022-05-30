@@ -71,7 +71,7 @@ function Task({
       {isModalOpen && (
         <ModalConfirm
           showModal={showModal}
-          message={<p>Are you sure?</p>}
+          message={<p>Are you sure? Task will be removed</p>}
           modalCallback={onDelete}
         />
       )}

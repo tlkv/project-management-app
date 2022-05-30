@@ -71,6 +71,15 @@ function ColHeader({
     <div className="list__header">
       {isTitleInputShow ? (
         <>
+          <form onSubmit={submitTitleChange}>
+            <input
+              className="list__title-input"
+              value={colTitle}
+              ref={inputTitle}
+              onChange={(e) => setColTitle(e.target.value)}
+              disabled={isDisabled}
+            />
+          </form>
           <button
             className="list__btn accept"
             type="submit"
@@ -82,15 +91,6 @@ function ColHeader({
           <button className="list__btn" type="button" onClick={(e) => cancelTitleChange(e)}>
             <i className="fa-solid fa-xmark"> </i>
           </button>
-          <form onSubmit={submitTitleChange}>
-            <input
-              className="list__title-input"
-              value={colTitle}
-              ref={inputTitle}
-              onChange={(e) => setColTitle(e.target.value)}
-              disabled={isDisabled}
-            />
-          </form>
         </>
       ) : (
         <>

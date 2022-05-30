@@ -20,6 +20,7 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const { isAuth, setSpinner } = useContext(AppContext);
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
 
   useEffect(() => {
     if (isAuth && localStorage.getItem('pmapp34-token')) {
@@ -42,6 +43,8 @@ function LoginPage() {
   };
   const createUser = async (e: React.MouseEvent<HTMLInputElement>) => {
     e.preventDefault();
+    setButtonDisabled(true);
+    setTimeout(() => setButtonDisabled(false), 1500);
     const isInputDataValid =
       IS_NAME_OR_LOGIN_VALID(name) && IS_NAME_OR_LOGIN_VALID(login) && IS_PASSWORD_VALID(password);
     if (!isInputDataValid) {
@@ -60,6 +63,8 @@ function LoginPage() {
 
   const logIn = async (e: React.MouseEvent<HTMLInputElement>) => {
     e.preventDefault();
+    setButtonDisabled(true);
+    setTimeout(() => setButtonDisabled(false), 1500);
     const isInputDataValid = IS_NAME_OR_LOGIN_VALID(login) && IS_PASSWORD_VALID(password);
     if (!isInputDataValid) {
       setIsLoginValid(IS_NAME_OR_LOGIN_VALID(login));
@@ -136,7 +141,7 @@ function LoginPage() {
         </div>
         {isLogin ? (
           <input
-            className="login__form_submit"
+            className={`login__form_submit ${isButtonDisabled ? 'temp-disabled' : ''}`}
             type="submit"
             value="Sign in"
             disabled={!(login && password)}
@@ -144,7 +149,7 @@ function LoginPage() {
           />
         ) : (
           <input
-            className="login__form_submit"
+            className={`login__form_submit ${isButtonDisabled ? 'temp-disabled' : ''}`}
             type="submit"
             value="Sign up"
             disabled={!(name && login && password)}
