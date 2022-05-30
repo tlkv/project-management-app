@@ -72,6 +72,7 @@ function Column({
                     task={task}
                     boardId={boardId}
                     columnId={columnId}
+                    userId={task.userId}
                     loadBoard={loadBoard}
                     ind={ind}
                   />

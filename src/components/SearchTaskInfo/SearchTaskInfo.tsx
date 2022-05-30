@@ -2,23 +2,14 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useContext, useState } from 'react';
 import deleteTask from '../../api/deleteTask';
+import validateUser from '../../api/_validateUser';
 import { AppContext } from '../../App';
 
 import { SearchTaskCard } from '../../data/interfaces';
+import { toastWarnDark } from '../../utils/toast';
 import CardModal from '../CardModal/CardModal';
 import ModalConfirm from '../ModalConfirm/ModalConfirm';
 import './SearchTaskInfo.scss';
-
-/*  {isCardOpen && (
-        <CardModal
-          task={{i.}}
-          boardId={boardId}
-          columnId={columnId}
-          setIsCardOpen={setIsCardOpen}
-          loadBoard={loadBoard}
-          showModal={showModal}
-        />
-      )} */
 
 export default function SearchTaskInfo({
   id,
@@ -39,8 +30,15 @@ export default function SearchTaskInfo({
   };
 
   const onDelete = async () => {
-    await deleteTask(boardId, columnId, id, logoutUser, setSpinner);
-    await loadTasks();
+    const userData = await validateUser(logoutUser, setSpinner);
+    if (userData) {
+      if (userData.id === userId) {
+        await deleteTask(boardId, columnId, id, logoutUser, setSpinner);
+        await loadTasks();
+      } else {
+        toastWarnDark('You can not remove task, assigned to other user');
+      }
+    }
   };
 
   return (

@@ -4,8 +4,10 @@
 import { useContext, useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import deleteTask from '../../../api/deleteTask';
+import validateUser from '../../../api/_validateUser';
 import { AppContext } from '../../../App';
 import { TaskResponse } from '../../../data/interfaces';
+import { toastWarnDark } from '../../../utils/toast';
 import CardModal from '../../CardModal/CardModal';
 import ModalConfirm from '../../ModalConfirm/ModalConfirm';
 
@@ -14,12 +16,14 @@ function Task({
   ind,
   boardId,
   columnId,
+  userId,
   loadBoard,
 }: {
   task: TaskResponse;
   ind: number;
   boardId: string;
   columnId: string;
+  userId: string;
   loadBoard: () => Promise<void>;
 }) {
   const { logoutUser, setSpinner } = useContext(AppContext);
@@ -27,8 +31,15 @@ function Task({
   const [isModalOpen, showModal] = useState(false);
 
   const onDelete = async () => {
-    await deleteTask(boardId, columnId, task.id, logoutUser, setSpinner);
-    await loadBoard();
+    const userData = await validateUser(logoutUser, setSpinner);
+    if (userData) {
+      if (userData.id === userId) {
+        await deleteTask(boardId, columnId, task.id, logoutUser, setSpinner);
+        await loadBoard();
+      } else {
+        toastWarnDark('You can not remove task, assigned to other user');
+      }
+    }
   };
 
   const handleDeletePreviewTask = (e: React.MouseEvent) => {

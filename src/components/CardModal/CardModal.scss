@@ -38,7 +38,10 @@
   margin-top: 5px;
   margin-left: 10px;
   padding: 6px 8px;
-  width: 150px;
+  width: 130px;
+  @media (max-width: 400px) {
+    width: 120px;
+  }
 
   font-size: 14px;
   background-color: rgba(255, 255, 255, 0.3);
@@ -166,7 +169,7 @@
 
 .task__buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .task__delete {
@@ -187,6 +190,32 @@
   }
 }
 
-.task__buttons {
-  display: flex;
+.task__save {
+  padding: 6px 8px;
+  height: 33px;
+  align-self: flex-end;
+  font-size: 14px;
+  color: #0277bd;
+  text-transform: uppercase;
+  border: 1px solid #0277bd;
+  border-radius: 3px;
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: background 0.4s;
+
+  &:hover {
+    color: #fff;
+    background-color: #0277bd;
+  }
+}
+
+.task__buttons > * {
+  @media (max-width: 400px) {
+    font-size: 12px !important;
+    padding: 3px;
+    height: 25px;
+  }
+  .fa-trash-can,
+  .fa-floppy-disk {
+    padding-right: 3px;
+  }
 }

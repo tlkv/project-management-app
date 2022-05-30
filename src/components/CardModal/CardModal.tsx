@@ -9,6 +9,7 @@ import updateTask from '../../api/updateTask';
 import getAllUsers from '../../api/getAllUsers';
 import './CardModal.scss';
 import getUser from '../../api/getUser';
+import { toastInfoDark } from '../../utils/toast';
 
 function CardModal({
   task,
@@ -87,7 +88,7 @@ function CardModal({
     setIsDescInputShow(false);
   };
 
-  const saveCard = async () => {
+  const saveCardCurrent = async () => {
     if (isDescInputShow) {
       cancelDescChange();
       return;
@@ -114,9 +115,13 @@ function CardModal({
 
       if (res) {
         await loadBoard();
+        toastInfoDark('Task was updated');
       }
     }
+  };
 
+  const saveCard = async () => {
+    await saveCardCurrent();
     setIsCardOpen(false);
   };
 
@@ -229,6 +234,9 @@ function CardModal({
                 </option>
               ))}
           </select>
+          <button className="task__save" type="button" onClick={saveCardCurrent}>
+            <i className="fa-solid fa-floppy-disk" /> Save
+          </button>
           <button className="task__delete" type="button" onClick={hideCardAndShowDeleteModal}>
             <i className="fa-regular fa-trash-can"> </i> Delete
           </button>
