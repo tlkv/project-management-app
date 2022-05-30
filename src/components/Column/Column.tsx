@@ -6,6 +6,7 @@ import {
 } from 'react-beautiful-dnd';
 import deleteColumn from '../../api/deleteColumn';
 import { AppContext } from '../../App';
+import dict from '../../data/dict';
 import { TaskResponse } from '../../data/interfaces';
 import CreateTaskModal from '../CreateTaskModal/CreateTaskModal';
 import ColHeader from './ColHeader/ColHeader';
@@ -36,7 +37,7 @@ function Column({
   isDragging: boolean;
 }) {
   const [isTaskCreateOpen, setIsTaskCreateOpen] = useState(false);
-  const { logoutUser, setSpinner } = useContext(AppContext);
+  const { logoutUser, setSpinner, lang } = useContext(AppContext);
 
   const onDelete = async () => {
     await deleteColumn(boardId, columnId, logoutUser, setSpinner);
@@ -82,7 +83,7 @@ function Column({
         <div className="add-task-container">
           <button className="add-task" type="button" onClick={() => setIsTaskCreateOpen(true)}>
             <i className="fa-solid fa-plus"> </i>
-            Add a task
+            {dict[lang].addTaskText}
           </button>
         </div>
       </div>

@@ -4,12 +4,13 @@ import deleteBoard from '../../api/deleteBoard';
 import getBoards from '../../api/getBoards';
 import { AppContext } from '../../App';
 import { SET_BOARDS } from '../../data/constants';
+import dict from '../../data/dict';
 import { BoardsResponse } from '../../data/interfaces';
 import ModalConfirm from '../ModalConfirm/ModalConfirm';
 import './Board.scss';
 
 function Board({ id, title, description }: BoardsResponse) {
-  const { logoutUser, dispatchBoards, setSpinner } = useContext(AppContext);
+  const { logoutUser, dispatchBoards, setSpinner, lang } = useContext(AppContext);
   const [isModalOpen, showModal] = useState(false);
 
   const handleDeleteBoard = async () => {
@@ -33,7 +34,7 @@ function Board({ id, title, description }: BoardsResponse) {
       {isModalOpen && (
         <ModalConfirm
           showModal={showModal}
-          message={<p>Are you sure? All board data will be deleted.</p>}
+          message={<p>{dict[lang].boardDelConfirm}</p>}
           modalCallback={handleDeleteBoard}
         />
       )}

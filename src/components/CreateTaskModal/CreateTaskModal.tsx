@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import createTask from '../../api/createTask';
 import { AppContext } from '../../App';
 import { FORM_INVALID_MESSAGE, titleRegex } from '../../data/constants';
+import dict from '../../data/dict';
 import './CreateTaskModal.scss';
 
 function CreateTaskModal({
@@ -17,7 +18,7 @@ function CreateTaskModal({
   setIsTaskCreateOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const Container = document.getElementById('modal') as HTMLElement;
-  const { logoutUser, setSpinner } = useContext(AppContext);
+  const { logoutUser, setSpinner, lang } = useContext(AppContext);
   const [hasError, setHasError] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const taskTitle = createRef<HTMLInputElement>();
@@ -69,7 +70,7 @@ function CreateTaskModal({
       onMouseDown={() => setIsTaskCreateOpen(false)}
     >
       <div className="create-board" role="presentation" onMouseDown={(e) => e.stopPropagation()}>
-        <h3>Add task</h3>
+        <h3>{dict[lang].addTaskText}</h3>
         <button
           className="create-board__close-btn"
           type="button"
@@ -80,15 +81,14 @@ function CreateTaskModal({
           <div className="create-board__field">
             <label htmlFor="task-title">
               {hasError ? (
-                <span className="create-board__invalid">{FORM_INVALID_MESSAGE}</span>
+                <span className="create-board__invalid">{dict[lang].formInv}</span>
               ) : (
-                <span>Task title:</span>
+                <span>{dict[lang].modalTaskTitleText}</span>
               )}
 
               <input
                 className="create-board__input"
                 name="task-title"
-                placeholder="To learn React"
                 ref={taskTitle}
                 onChange={() => setHasError(false)}
               />
@@ -96,14 +96,9 @@ function CreateTaskModal({
           </div>
           <div className="create-board__field">
             <label htmlFor="desc-title">
-              <span>Task description:</span>
+              <span>{dict[lang].modalTaskDescrText}</span>
 
-              <input
-                className="create-board__input"
-                name="task-description"
-                placeholder="Reactjs.org"
-                ref={taskDesc}
-              />
+              <input className="create-board__input" name="task-description" ref={taskDesc} />
             </label>
           </div>
           <button
@@ -111,7 +106,7 @@ function CreateTaskModal({
             type="submit"
             disabled={isDisabled || hasError}
           >
-            Add
+            {dict[lang].addText}
           </button>
         </form>
       </div>

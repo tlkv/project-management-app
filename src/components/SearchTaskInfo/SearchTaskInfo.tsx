@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import deleteTask from '../../api/deleteTask';
 import validateUser from '../../api/_validateUser';
 import { AppContext } from '../../App';
+import dict from '../../data/dict';
 
 import { SearchTaskCard } from '../../data/interfaces';
 import { toastWarnDark } from '../../utils/toast';
@@ -21,7 +22,7 @@ export default function SearchTaskInfo({
 }: SearchTaskCard) {
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [isModalOpen, showModal] = useState(false);
-  const { logoutUser, setSpinner } = useContext(AppContext);
+  const { logoutUser, setSpinner, lang } = useContext(AppContext);
   const handleShowCard = () => {
     setIsCardOpen(true);
   };
@@ -33,7 +34,7 @@ export default function SearchTaskInfo({
         await deleteTask(boardId, columnId, id, logoutUser, setSpinner);
         await loadTasks();
       } else {
-        toastWarnDark('You can not remove task, assigned to other user');
+        toastWarnDark(dict[lang].toastRemoveWarn);
       }
     }
   };
@@ -57,7 +58,7 @@ export default function SearchTaskInfo({
       {isModalOpen && (
         <ModalConfirm
           showModal={showModal}
-          message={<p>Are you sure? Task will be removed</p>}
+          message={<p>{dict[lang].confirmTaskRemove}</p>}
           modalCallback={onDelete}
         />
       )}

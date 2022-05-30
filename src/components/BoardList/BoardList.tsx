@@ -4,9 +4,10 @@ import { AppContext } from '../../App';
 import { SET_BOARDS } from '../../data/constants';
 import getBoards from '../../api/getBoards';
 import Board from '../Board/Board';
+import dict from '../../data/dict';
 
 function BoardList() {
-  const { logoutUser, isAuth, boards, dispatchBoards, setSpinner } = useContext(AppContext);
+  const { logoutUser, isAuth, boards, dispatchBoards, setSpinner, lang } = useContext(AppContext);
   const navigate = useNavigate();
 
   const loadBoards = async () => {
@@ -32,7 +33,7 @@ function BoardList() {
 
   return (
     <div className="board-list">
-      {boardsArray || <h3 className="no-data">No boards available</h3>}
+      {boardsArray || <h3 className="no-data">{dict[lang].noBoards}</h3>}
     </div>
   );
 }

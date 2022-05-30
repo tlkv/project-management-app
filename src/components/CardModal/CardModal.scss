@@ -39,8 +39,9 @@
   margin-left: 10px;
   padding: 6px 8px;
   width: 130px;
-  @media (max-width: 400px) {
-    width: 120px;
+  @media (max-width: 420px) {
+    max-width: 80px;
+    margin-left: 4px;
   }
 
   font-size: 14px;
@@ -208,7 +209,7 @@
 }
 
 .task__buttons > * {
-  @media (max-width: 400px) {
+  @media (max-width: 420px) {
     font-size: 12px !important;
     padding: 3px;
     height: 25px;

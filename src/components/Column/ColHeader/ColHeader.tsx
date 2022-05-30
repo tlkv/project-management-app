@@ -2,6 +2,7 @@ import React, { createRef, useContext, useEffect, useState } from 'react';
 import { AppContext } from '../../../App';
 import updateColumn from '../../../api/updateColumn';
 import ModalConfirm from '../../ModalConfirm/ModalConfirm';
+import dict from '../../../data/dict';
 
 function ColHeader({
   columnId,
@@ -22,7 +23,7 @@ function ColHeader({
   const [isTitleInputShow, setIsTitleInputShow] = useState(false);
   const [colTitle, setColTitle] = useState(title);
   const [isDisabled, setIsDisabled] = useState(false);
-  const { logoutUser, setSpinner } = useContext(AppContext);
+  const { logoutUser, setSpinner, lang } = useContext(AppContext);
   const inputTitle = createRef<HTMLInputElement>();
 
   const cancelTitleChange = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -102,7 +103,7 @@ function ColHeader({
       {isModalOpen && (
         <ModalConfirm
           showModal={showModal}
-          message={<p>Are you sure? Column will be deleted along with all tasks.</p>}
+          message={<p>{dict[lang].colDeleteWarn}</p>}
           modalCallback={onDelete}
         />
       )}

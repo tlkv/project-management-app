@@ -3,6 +3,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import deleteTask from '../../../api/deleteTask';
 import validateUser from '../../../api/_validateUser';
 import { AppContext } from '../../../App';
+import dict from '../../../data/dict';
 import { TaskResponse } from '../../../data/interfaces';
 import { toastWarnDark } from '../../../utils/toast';
 import CardModal from '../../CardModal/CardModal';
@@ -23,7 +24,7 @@ function Task({
   userId: string;
   loadBoard: () => Promise<void>;
 }) {
-  const { logoutUser, setSpinner } = useContext(AppContext);
+  const { logoutUser, setSpinner, lang } = useContext(AppContext);
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [isModalOpen, showModal] = useState(false);
 
@@ -34,7 +35,7 @@ function Task({
         await deleteTask(boardId, columnId, task.id, logoutUser, setSpinner);
         await loadBoard();
       } else {
-        toastWarnDark('You can not remove task, assigned to other user');
+        toastWarnDark(dict[lang].toastRemoveWarn);
       }
     }
   };
@@ -79,7 +80,7 @@ function Task({
       {isModalOpen && (
         <ModalConfirm
           showModal={showModal}
-          message={<p>Are you sure? Task will be removed</p>}
+          message={<p>{dict[lang].confirmTaskRemove}</p>}
           modalCallback={onDelete}
         />
       )}

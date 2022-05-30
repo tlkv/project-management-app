@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   DragDropContext,
   Droppable,
@@ -10,6 +10,8 @@ import { ColumnsResponse } from '../../data/interfaces';
 import CreateColumnModal from '../CreateColumnModal/CreateColumnModal';
 import './ColumnList.scss';
 import Column from '../Column/Column';
+import dict from '../../data/dict';
+import { AppContext } from '../../App';
 
 function ColumnList({
   boardId,
@@ -31,6 +33,7 @@ function ColumnList({
   ) => void;
 }) {
   const [isColCreateOpen, setIsColCreateOpen] = useState(false);
+  const { lang } = useContext(AppContext);
   const columnsCopy = [...columns];
   columnsCopy.forEach((i) => i.tasks.sort((a, b) => a.order - b.order));
   const columnsSorted = columnsCopy.sort((a, b) => a.order - b.order);
@@ -91,7 +94,7 @@ function ColumnList({
                   onClick={() => setIsColCreateOpen(true)}
                 >
                   <i className="fa-solid fa-plus"> </i>
-                  Add column
+                  {dict[lang].addColText}
                 </button>
               </div>
             </div>

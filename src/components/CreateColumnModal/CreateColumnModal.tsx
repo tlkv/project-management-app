@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import createColumn from '../../api/createColumn';
 import { FORM_INVALID_MESSAGE, titleRegex } from '../../data/constants';
 import { AppContext } from '../../App';
+import dict from '../../data/dict';
 
 function CreateColumnModal({
   boardId,
@@ -14,7 +15,7 @@ function CreateColumnModal({
   setIsColCreateOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const Container = document.getElementById('modal') as HTMLElement;
-  const { logoutUser, setSpinner } = useContext(AppContext);
+  const { logoutUser, setSpinner, lang } = useContext(AppContext);
   const colName = createRef<HTMLInputElement>();
   const [isDisabled, setIsDisabled] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -62,7 +63,7 @@ function CreateColumnModal({
       onMouseDown={() => setIsColCreateOpen(false)}
     >
       <div className="create-board" role="presentation" onMouseDown={(e) => e.stopPropagation()}>
-        <h3>Add column</h3>
+        <h3>{dict[lang].addColText}</h3>
         <button
           className="create-board__close-btn"
           type="button"
@@ -73,15 +74,14 @@ function CreateColumnModal({
           <div className="create-board__field">
             <label htmlFor="column-title">
               {hasError ? (
-                <span className="create-board__invalid">{FORM_INVALID_MESSAGE}</span>
+                <span className="create-board__invalid">{dict[lang].formInv}</span>
               ) : (
-                <span>Column title:</span>
+                <span>{dict[lang].modalColTitleText}</span>
               )}
 
               <input
                 className="create-board__input"
                 name="column-title"
-                placeholder="to Do"
                 ref={colName}
                 onChange={() => setHasError(false)}
               />
@@ -92,7 +92,7 @@ function CreateColumnModal({
             type="submit"
             disabled={isDisabled || hasError}
           >
-            Add
+            {dict[lang].addText}
           </button>
         </form>
       </div>

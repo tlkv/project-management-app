@@ -1,5 +1,7 @@
-import { MouseEvent } from 'react';
+import { MouseEvent, useContext } from 'react';
 import { createPortal } from 'react-dom';
+import { AppContext } from '../../App';
+import dict from '../../data/dict';
 import { ModalConfirmation } from '../../data/interfaces';
 import './ModalConfirm.scss';
 
@@ -8,6 +10,8 @@ export default function ModalConfirm({ modalCallback, showModal, message }: Moda
     modalCallback();
     showModal(false);
   };
+
+  const { lang } = useContext(AppContext);
 
   return createPortal(
     <div
@@ -43,7 +47,7 @@ export default function ModalConfirm({ modalCallback, showModal, message }: Moda
             type="button"
             onClick={() => showModal(false)}
           >
-            Cancel
+            {dict[lang].cancelText}
           </button>
         </div>
       </div>
