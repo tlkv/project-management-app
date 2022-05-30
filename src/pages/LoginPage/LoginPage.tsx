@@ -129,6 +129,7 @@ function LoginPage() {
               placeholder={dict[lang].forms.passwordPholder}
               id="password"
               onInput={handlePasswordInput}
+              autoComplete="on"
             />
           </label>
           {isPasswordValid ? null : (
