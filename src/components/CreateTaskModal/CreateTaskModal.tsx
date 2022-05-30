@@ -37,7 +37,7 @@ function CreateTaskModal({
         const title = taskTitle.current.value.replace(/\s+/g, ' ').trim();
         const desc = taskDesc.current.value ? taskDesc.current.value.replace(/\s+/g, ' ') : ' ';
 
-        const res = await createTask(boardId, columnId, title, desc, logoutUser, setSpinner);
+        const res = await createTask(boardId, columnId, title, desc, logoutUser, setSpinner, lang);
         if (res) {
           loadBoard();
         }

@@ -14,8 +14,8 @@ function Board({ id, title, description }: BoardsResponse) {
   const [isModalOpen, showModal] = useState(false);
 
   const handleDeleteBoard = async () => {
-    await deleteBoard(id, logoutUser, setSpinner);
-    const updatedBoards = await getBoards(logoutUser, setSpinner);
+    await deleteBoard(id, logoutUser, setSpinner, lang);
+    const updatedBoards = await getBoards(logoutUser, setSpinner, lang);
     if (updatedBoards) {
       dispatchBoards({ type: SET_BOARDS, payload: updatedBoards });
     }

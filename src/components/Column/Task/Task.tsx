@@ -29,10 +29,10 @@ function Task({
   const [isModalOpen, showModal] = useState(false);
 
   const onDelete = async () => {
-    const userData = await validateUser(logoutUser, setSpinner);
+    const userData = await validateUser(logoutUser, setSpinner, lang);
     if (userData) {
       if (userData.id === userId) {
-        await deleteTask(boardId, columnId, task.id, logoutUser, setSpinner);
+        await deleteTask(boardId, columnId, task.id, logoutUser, setSpinner, lang);
         await loadBoard();
       } else {
         toastWarnDark(dict[lang].toastRemoveWarn);

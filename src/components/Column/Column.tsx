@@ -40,7 +40,7 @@ function Column({
   const { logoutUser, setSpinner, lang } = useContext(AppContext);
 
   const onDelete = async () => {
-    await deleteColumn(boardId, columnId, logoutUser, setSpinner);
+    await deleteColumn(boardId, columnId, logoutUser, setSpinner, lang);
     loadBoard();
   };
 

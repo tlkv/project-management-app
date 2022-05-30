@@ -30,7 +30,7 @@ function CreateColumnModal({
     } else if (!hasError) {
       setIsDisabled(true);
       const colname = colName.current.value.replace(/\s+/g, ' ').trim();
-      const res = await createColumn(boardId, colname, logoutUser, setSpinner);
+      const res = await createColumn(boardId, colname, logoutUser, setSpinner, lang);
       if (res) {
         loadBoard();
       }

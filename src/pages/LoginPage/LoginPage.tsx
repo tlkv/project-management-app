@@ -53,9 +53,9 @@ function LoginPage() {
       setIsPasswordValid(IS_PASSWORD_VALID(password));
       return;
     }
-    const response = await getResponseOnCreatingUser(name, login, password, setSpinner);
+    const response = await getResponseOnCreatingUser(name, login, password, setSpinner, lang);
     if (response.ok) {
-      const token = await getToken(login, password, setSpinner);
+      const token = await getToken(login, password, setSpinner, lang);
       loginWithToken(token as string, context.setIsAuth);
       navigate('/');
     }
@@ -71,7 +71,7 @@ function LoginPage() {
       setIsPasswordValid(IS_PASSWORD_VALID(password));
       return;
     }
-    const token = await getToken(login, password, setSpinner);
+    const token = await getToken(login, password, setSpinner, lang);
     if (token) {
       loginWithToken(token, context.setIsAuth);
       navigate('/');

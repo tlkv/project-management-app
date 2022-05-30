@@ -1,11 +1,14 @@
 import { API_URL } from '../data/constants';
+import dict from '../data/dict';
+import { Languages } from '../data/interfaces';
 import { toastWarnDark } from '../utils/toast';
 
 export default async function getResponseOnCreatingUser(
   name: string,
   login: string,
   password: string,
-  setSpinner: React.Dispatch<React.SetStateAction<boolean>>
+  setSpinner: React.Dispatch<React.SetStateAction<boolean>>,
+  lang: Languages
 ): Promise<Response> {
   setSpinner(true);
 
@@ -26,7 +29,7 @@ export default async function getResponseOnCreatingUser(
   try {
     res = await fetch(`${API_URL}/signup`, options);
   } catch {
-    toastWarnDark('No response from server');
+    toastWarnDark(dict[lang].toastNoServResp);
     setSpinner(false);
     return res;
   }
@@ -34,11 +37,11 @@ export default async function getResponseOnCreatingUser(
   setSpinner(false);
 
   if (res.status >= 400 && res.status <= 499) {
-    toastWarnDark('Login already exists or client error');
+    toastWarnDark(dict[lang].toastLoginExists);
   }
 
   if (res.status >= 500) {
-    toastWarnDark('Server error');
+    toastWarnDark(dict[lang].toastServError);
   }
 
   return res;

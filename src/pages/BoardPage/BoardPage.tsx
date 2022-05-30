@@ -21,7 +21,7 @@ function BoardPage() {
   const boardId = window.location.pathname.split('/board/').join('');
 
   const loadBoard = async () => {
-    const data = await getBoard(boardId, logoutUser, setSpinner);
+    const data = await getBoard(boardId, logoutUser, setSpinner, lang);
 
     if (data) {
       setBoard(data);
@@ -45,7 +45,7 @@ function BoardPage() {
       }
     });
     setBoard({ ...board, columns: updColumns });
-    await updateColumn(boardId, columnId, ordNext, logoutUser, setSpinner, currColumn?.title);
+    await updateColumn(boardId, columnId, ordNext, logoutUser, setSpinner, lang, currColumn?.title);
     loadBoard();
   };
 
@@ -111,7 +111,8 @@ function BoardPage() {
       board.id,
       destId,
       logoutUser,
-      setSpinner
+      setSpinner,
+      lang
     );
     loadBoard();
   };

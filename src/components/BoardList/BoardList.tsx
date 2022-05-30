@@ -11,7 +11,7 @@ function BoardList() {
   const navigate = useNavigate();
 
   const loadBoards = async () => {
-    const data = await getBoards(logoutUser, setSpinner);
+    const data = await getBoards(logoutUser, setSpinner, lang);
     if (data) {
       dispatchBoards({ type: SET_BOARDS, payload: data });
     }

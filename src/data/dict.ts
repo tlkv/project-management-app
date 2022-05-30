@@ -88,6 +88,26 @@ const dict = {
     boardDelConfirm: 'Are you sure? All board data will be deleted.',
 
     toastRemoveWarn: 'You can not remove task, assigned to other user',
+    toastTaskUpdate: 'Task was updated',
+
+    toastInvToken: 'Invalid token. Please, sign in again',
+    toastServError: 'Server Error',
+    toastNoServResp: 'No response from server',
+    toastUserNotFound: 'User not found or query error',
+    toastTokenExp: 'Token has expired. Please, sign in again',
+    toastBadQuery: 'Bad query or conflict with another user session, please refresh page',
+    toastNoTasks: 'Tasks not found or query error',
+    toastNoUsers: 'Users not found or query error',
+    toastNoBoard: 'Board not found or query error',
+    toastWrongLoginPass: 'Wrong login or password',
+    toastLoginExists: 'Login already exists or client error',
+    toastLoginTaken: 'Login is taken or Server Error',
+    toastInfoUpdUser: 'Successfully updated user info',
+    toastBoardCreated: 'Board successfully created',
+    toastBoardRemoved: 'Board was successfully removed',
+    toastColRemoved: 'Column was successfully removed',
+    toastTaskRemoved: 'Task was successfully removed',
+    toastUserRemoved: 'Successfully removed user',
   },
   /* ru */
   RU: {
@@ -178,6 +198,27 @@ const dict = {
     boardDelConfirm: 'Вы уверены? Все данные на доске будут удалены.',
 
     toastRemoveWarn: 'Вы не можете удалять задачи других пользователей',
+    toastTaskUpdate: 'Задача обновлена',
+
+    toastInvToken: 'Неверный токен. Пожалуйста, зайдите снова',
+    toastServError: 'Ошибка сервера',
+    toastNoServResp: 'Нет ответа от сервера',
+    toastUserNotFound: 'Пользователь не найден или ошибка в запросе',
+    toastTokenExp: 'Истек срок действия токена. Пожалуйста, зайдите снова',
+    toastBadQuery:
+      'Ошибочный запрос или конфликт с сессией другого пользователя, обновите страницу',
+    toastNoTasks: 'Задачи не найдены или ошибочный запрос',
+    toastNoUsers: 'Пользователи не найдены',
+    toastNoBoard: 'Доска не найдена или ошибочный запрос',
+    toastWrongLoginPass: 'Неверный логин или пароль',
+    toastLoginExists: 'Логин уже существует',
+    toastLoginTaken: 'Логин занят или ошибка сервера',
+    toastInfoUpdUser: 'Данные пользователя успешно обновлены',
+    toastBoardCreated: 'Доска успешно создана',
+    toastBoardRemoved: 'Доска успешно удалена',
+    toastColRemoved: 'Колонка успешно удалена',
+    toastTaskRemoved: 'Задача успешно удалена',
+    toastUserRemoved: 'Пользователь успешно удален',
   },
 };
 

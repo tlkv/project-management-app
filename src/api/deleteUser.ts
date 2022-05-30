@@ -1,12 +1,15 @@
 import { API_URL } from '../data/constants';
+import dict from '../data/dict';
+import { Languages } from '../data/interfaces';
 import { toastErrorDark, toastSuccessDark, toastWarnDark } from '../utils/toast';
 import validateUser from './_validateUser';
 
 const deleteUser = async (
   logoutUser: () => void,
-  setSpinner: React.Dispatch<React.SetStateAction<boolean>>
+  setSpinner: React.Dispatch<React.SetStateAction<boolean>>,
+  lang: Languages
 ) => {
-  const userData = await validateUser(logoutUser, setSpinner);
+  const userData = await validateUser(logoutUser, setSpinner, lang);
 
   if (userData) {
     setSpinner(true);
@@ -23,7 +26,7 @@ const deleteUser = async (
     try {
       res = await fetch(`${API_URL}/users/${userData.id}`, options);
     } catch (err) {
-      toastWarnDark('No response from server');
+      toastWarnDark(dict[lang].toastNoServResp);
       setSpinner(false);
       return false;
     }
@@ -31,18 +34,18 @@ const deleteUser = async (
     setSpinner(false);
 
     if (res.ok) {
-      toastSuccessDark('Successfully removed user');
+      toastSuccessDark(dict[lang].toastUserRemoved);
       logoutUser();
       return true;
     }
 
     if (res.status === 401) {
-      toastErrorDark('Invalid token. Please, log in again');
+      toastErrorDark(dict[lang].toastInvToken);
       logoutUser();
     } else if (res.status >= 400 && res.status <= 499) {
-      toastErrorDark('User not found or client error');
+      toastErrorDark(dict[lang].toastUserNotFound);
     } else if (res.status >= 500) {
-      toastWarnDark('Server Error');
+      toastWarnDark(dict[lang].toastServError);
     }
   }
 

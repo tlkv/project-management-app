@@ -48,7 +48,15 @@ function ColHeader({
     }
 
     setIsDisabled(true);
-    const res = await updateColumn(boardId, columnId, order, logoutUser, setSpinner, finalTitle);
+    const res = await updateColumn(
+      boardId,
+      columnId,
+      order,
+      logoutUser,
+      setSpinner,
+      lang,
+      finalTitle
+    );
 
     if (res) {
       await loadBoard();

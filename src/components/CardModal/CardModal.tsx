@@ -39,7 +39,7 @@ function CardModal({
 
   const getUserLoginAndSetResponsible = async (id: string) => {
     if (id) {
-      const res = await getUser(id, logoutUser);
+      const res = await getUser(id, logoutUser, lang);
       if (res) {
         setResponsible(res.login);
       }
@@ -66,7 +66,8 @@ function CardModal({
       boardId,
       columnId,
       logoutUser,
-      setSpinner
+      setSpinner,
+      lang
     );
   };
 
@@ -108,11 +109,12 @@ function CardModal({
         boardId,
         columnId,
         logoutUser,
-        setSpinner
+        setSpinner,
+        lang
       );
 
       if (res) {
-        toastInfoDark('Task was updated');
+        toastInfoDark(dict[lang].toastTaskUpdate);
       }
       await loadBoard();
     }
@@ -125,7 +127,7 @@ function CardModal({
 
   useEffect(() => {
     const getUsers = async () => {
-      const res = await getAllUsers(logoutUser, setSpinner);
+      const res = await getAllUsers(logoutUser, setSpinner, lang);
       if (res) {
         setUsers(res);
       }

@@ -28,10 +28,10 @@ export default function SearchTaskInfo({
   };
 
   const onDelete = async () => {
-    const userData = await validateUser(logoutUser, setSpinner);
+    const userData = await validateUser(logoutUser, setSpinner, lang);
     if (userData) {
       if (userData.id === userId) {
-        await deleteTask(boardId, columnId, id, logoutUser, setSpinner);
+        await deleteTask(boardId, columnId, id, logoutUser, setSpinner, lang);
         await loadTasks();
       } else {
         toastWarnDark(dict[lang].toastRemoveWarn);

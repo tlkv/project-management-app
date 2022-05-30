@@ -28,7 +28,7 @@ function ProfilePage() {
   const navigate = useNavigate();
 
   const handleCurrentUser = async () => {
-    const res = await validateUser(logoutUser, setSpinner);
+    const res = await validateUser(logoutUser, setSpinner, lang);
     if (res) {
       setValue('name', res.name);
       setValue('login', res.login);
@@ -49,7 +49,7 @@ function ProfilePage() {
   const onSubmit = handleSubmit(async ({ name, login, password }) => {
     setButtonDisabled(true);
     setTimeout(() => setButtonDisabled(false), 1500);
-    const result = await updateUser(name, login, password, logoutUser, setSpinner);
+    const result = await updateUser(name, login, password, logoutUser, setSpinner, lang);
     if (result) {
       setCurrName(name);
       setCurrLogin(login);
@@ -57,7 +57,7 @@ function ProfilePage() {
   });
 
   const onDelete = async () => {
-    await deleteUser(logoutUser, setSpinner);
+    await deleteUser(logoutUser, setSpinner, lang);
   };
 
   return (

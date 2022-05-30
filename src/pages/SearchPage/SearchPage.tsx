@@ -22,7 +22,7 @@ export default function SearchPage() {
 
   const loadTasks = async () => {
     if (searchVal.length !== 0) {
-      const res = await getAllTasks(logoutUser, setSpinner);
+      const res = await getAllTasks(logoutUser, setSpinner, lang);
       const searchValue = searchVal.toLocaleLowerCase();
       const filtered = res.filter(
         (i) =>

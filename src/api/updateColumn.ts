@@ -1,5 +1,6 @@
 import { API_URL } from '../data/constants';
-import { ColumnsResponse } from '../data/interfaces';
+import dict from '../data/dict';
+import { ColumnsResponse, Languages } from '../data/interfaces';
 import { toastErrorDark, toastWarnDark } from '../utils/toast';
 import getColumnSingle from './getColumnSingle';
 import validateUser from './_validateUser';
@@ -10,9 +11,10 @@ export default async function updateColumn(
   order: number,
   logoutUser: () => void,
   setSpinner: React.Dispatch<React.SetStateAction<boolean>>,
+  lang: Languages,
   title?: string
 ) {
-  const userData = await validateUser(logoutUser, setSpinner);
+  const userData = await validateUser(logoutUser, setSpinner, lang);
 
   if (userData) {
     setSpinner(true);
@@ -23,7 +25,7 @@ export default async function updateColumn(
     if (title) {
       newTitle = title;
     } else if (!title) {
-      const res = await getColumnSingle(boardId, colId, logoutUser);
+      const res = await getColumnSingle(boardId, colId, logoutUser, lang);
       if (res) {
         newTitle = res.title || ' ';
       }
@@ -46,7 +48,7 @@ export default async function updateColumn(
     try {
       res = await fetch(url, options);
     } catch {
-      toastWarnDark('No response from server');
+      toastWarnDark(dict[lang].toastNoServResp);
       setSpinner(false);
       return false;
     }
@@ -59,12 +61,12 @@ export default async function updateColumn(
     }
 
     if (res.status === 401) {
-      toastErrorDark('Invalid token. Please, log in again');
+      toastErrorDark(dict[lang].toastInvToken);
       logoutUser();
     } else if (res.status >= 400 && res.status <= 499) {
-      toastErrorDark('Bad query or conflict with another user session');
+      toastErrorDark(dict[lang].toastBadQuery);
     } else if (res.status >= 500) {
-      toastWarnDark('Server Error');
+      toastWarnDark(dict[lang].toastServError);
     }
   }
 

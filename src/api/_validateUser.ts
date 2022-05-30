@@ -1,12 +1,14 @@
 import jwtDecode from 'jwt-decode';
 import { API_URL } from '../data/constants';
-import { ApiUserInfo, JwtToken } from '../data/interfaces';
+import dict from '../data/dict';
+import { ApiUserInfo, JwtToken, Languages } from '../data/interfaces';
 import { toastErrorDark, toastWarnDark } from '../utils/toast';
 import tokenIsExpired from '../utils/tokenIsExpired';
 
 const validateUser = async (
   logoutUser: () => void,
-  setSpinner: React.Dispatch<React.SetStateAction<boolean>>
+  setSpinner: React.Dispatch<React.SetStateAction<boolean>>,
+  lang: Languages
 ) => {
   setSpinner(true);
   const token = localStorage.getItem('pmapp34-token') || '';
@@ -16,7 +18,7 @@ const validateUser = async (
   };
 
   if (!token) {
-    toastErrorDark('Invalid token. Please, log in again');
+    toastErrorDark(dict[lang].toastInvToken);
     logoutAndStopSpinner();
     return false;
   }
@@ -24,13 +26,13 @@ const validateUser = async (
   try {
     encoded = jwtDecode(token);
   } catch {
-    toastErrorDark('Invalid token. Please, log in again');
+    toastErrorDark(dict[lang].toastInvToken);
     logoutAndStopSpinner();
     return false;
   }
 
   if (tokenIsExpired(encoded.iat)) {
-    toastWarnDark('Token has expired. Please, log in again');
+    toastWarnDark(dict[lang].toastTokenExp);
     logoutAndStopSpinner();
     return false;
   }
@@ -47,7 +49,7 @@ const validateUser = async (
     res = await fetch(url, options);
     user = await res.json();
   } catch (err) {
-    toastWarnDark('No response from server');
+    toastWarnDark(dict[lang].toastNoServResp);
     setSpinner(false);
     return false;
   }
@@ -59,11 +61,11 @@ const validateUser = async (
   }
 
   if (res.status === 401) {
-    toastErrorDark('Invalid token. Please, log in again');
+    toastErrorDark(dict[lang].toastInvToken);
   } else if (res.status >= 400 && res.status <= 499) {
-    toastErrorDark('User not found or query error');
+    toastErrorDark(dict[lang].toastUserNotFound);
   } else if (res.status >= 500) {
-    toastWarnDark('Server Error');
+    toastWarnDark(dict[lang].toastServError);
   }
 
   logoutAndStopSpinner();
