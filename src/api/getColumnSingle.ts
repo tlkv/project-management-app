@@ -1,18 +1,19 @@
 import { API_URL } from '../data/constants';
-import { ColumnsResponse } from '../data/interfacesV';
+import dict from '../data/dict';
+import { ColumnsResponse, Languages } from '../data/interfaces';
 import { toastErrorDark, toastWarnDark } from '../utils/toast';
-import decodeToken from './decodeToken';
 
 export default async function getColumnSingle(
   boardId: string,
   columnId: string,
-  logoutUser: () => void
+  logoutUser: () => void,
+  lang: Languages
 ) {
   const url = `${API_URL}/boards/${boardId}/columns/${columnId}`;
-  const { token } = decodeToken();
+  const token = localStorage.getItem('pmapp34-token') || '';
 
   if (!token) {
-    toastErrorDark('Invalid token. Please, sign in again');
+    toastErrorDark(dict[lang].toastInvToken);
     logoutUser();
     return false;
   }
@@ -28,7 +29,7 @@ export default async function getColumnSingle(
       },
     });
   } catch {
-    toastErrorDark('No response from server');
+    toastWarnDark(dict[lang].toastNoServResp);
     return false;
   }
 
@@ -37,12 +38,12 @@ export default async function getColumnSingle(
     return column;
   }
   if (res.status === 401) {
-    toastErrorDark('Not authorized or credentials expired. Please, log in again');
+    toastErrorDark(dict[lang].toastInvToken);
     logoutUser();
   } else if (res.status >= 400 && res.status <= 499) {
-    toastErrorDark('Bad query or conflict with another user session');
+    toastErrorDark(dict[lang].toastBadQuery);
   } else if (res.status >= 500) {
-    toastWarnDark('Server Error');
+    toastWarnDark(dict[lang].toastServError);
   }
 
   return false;

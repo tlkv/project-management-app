@@ -1,44 +1,55 @@
 import { API_URL } from '../data/constants';
-import { BoardsResponse } from '../data/interfaces';
+import dict from '../data/dict';
+import { BoardsResponse, Languages } from '../data/interfaces';
 import { toastErrorDark, toastWarnDark } from '../utils/toast';
+import validateUser from './_validateUser';
 
-export default async function getBoards(logoutUser: () => void) {
-  const url = `${API_URL}/boards`;
-  const token = localStorage.getItem('pmapp34-token') || '';
+export default async function getBoards(
+  logoutUser: () => void,
+  setSpinner: React.Dispatch<React.SetStateAction<boolean>>,
+  lang: Languages
+) {
+  const userData = await validateUser(logoutUser, setSpinner, lang);
 
-  if (!token) {
-    toastErrorDark('Invalid token. Please, sign in again');
-    logoutUser();
-    return false;
-  }
+  if (userData) {
+    setSpinner(true);
 
-  let res = {} as Response;
+    const url = `${API_URL}/boards`;
 
-  try {
-    res = await fetch(url, {
+    const options = {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${userData.token}`,
         'Content-Type': 'application/json',
       },
-    });
-  } catch {
-    toastErrorDark('No response from server');
-    return false;
+    };
+
+    let res = {} as Response;
+
+    try {
+      res = await fetch(url, options);
+    } catch {
+      toastWarnDark(dict[lang].toastNoServResp);
+      setSpinner(false);
+      return false;
+    }
+
+    setSpinner(false);
+
+    if (res.ok) {
+      const boards: BoardsResponse[] = await res.json();
+      return boards;
+    }
+
+    if (res.status === 401) {
+      toastErrorDark(dict[lang].toastInvToken);
+      logoutUser();
+    } else if (res.status >= 400 && res.status <= 499) {
+      toastErrorDark(dict[lang].toastNoBoard);
+    } else if (res.status >= 500) {
+      toastWarnDark(dict[lang].toastServError);
+    }
   }
 
-  if (res.ok) {
-    const boards: BoardsResponse[] = await res.json();
-    return boards;
-  }
-
-  if (res.status === 401) {
-    toastErrorDark('Not authorized or credentials expired. Please, log in again');
-    logoutUser();
-  } else if (res.status >= 400 && res.status <= 499) {
-    toastErrorDark('Boards not found');
-  } else if (res.status >= 500) {
-    toastWarnDark('Server Error');
-  }
   return false;
 }

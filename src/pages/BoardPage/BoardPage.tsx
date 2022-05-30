@@ -1,17 +1,16 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppContext } from '../../App';
-import { BoardResponse, TaskResponse } from '../../data/interfacesV';
+import { BoardResponse, TaskResponse } from '../../data/interfaces';
 import getBoard from '../../api/getBoard';
 import ColumnList from '../../components/ColumnList/ColumnList';
 import './BoardPage.scss';
 import updateColumn from '../../api/updateColumn';
 import updateTask from '../../api/updateTask';
+import dict from '../../data/dict';
 
 function BoardPage() {
-  const { logoutUser, isAuth } = useContext(AppContext);
+  const { logoutUser, isAuth, setSpinner, lang } = useContext(AppContext);
   const [board, setBoard] = useState<BoardResponse>({
     id: '',
     title: '',
@@ -22,7 +21,8 @@ function BoardPage() {
   const boardId = window.location.pathname.split('/board/').join('');
 
   const loadBoard = async () => {
-    const data = await getBoard(boardId, logoutUser);
+    const data = await getBoard(boardId, logoutUser, setSpinner, lang);
+
     if (data) {
       setBoard(data);
     } else {
@@ -45,7 +45,7 @@ function BoardPage() {
       }
     });
     setBoard({ ...board, columns: updColumns });
-    await updateColumn(boardId, columnId, ordNext, logoutUser, currColumn?.title);
+    await updateColumn(boardId, columnId, ordNext, logoutUser, setSpinner, lang, currColumn?.title);
     loadBoard();
   };
 
@@ -104,13 +104,15 @@ function BoardPage() {
       board.id,
       sourceId,
       taskId,
-      currTask?.title as string,
+      currTask?.title || ' ',
       ordNext,
-      currTask?.description as string,
-      currTask?.userId as string,
+      currTask?.description || ' ',
+      currTask?.userId || ' ',
       board.id,
       destId,
-      logoutUser
+      logoutUser,
+      setSpinner,
+      lang
     );
     loadBoard();
   };
@@ -128,7 +130,7 @@ function BoardPage() {
       <div className="board-header">
         <div className="board-header-title-wrapper">
           <Link className="board-header__btn" to="/">
-            <i className="fa-solid fa-angle-left"> </i> Back
+            <i className="fa-solid fa-angle-left"> </i> {dict[lang].backText}
           </Link>
           <h1 className="board-header__title">{board.title}</h1>
         </div>

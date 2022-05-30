@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable react/jsx-props-no-spreading */
 import { LegacyRef, useState, useContext } from 'react';
 import {
   DraggableProvidedDraggableProps,
@@ -9,7 +6,8 @@ import {
 } from 'react-beautiful-dnd';
 import deleteColumn from '../../api/deleteColumn';
 import { AppContext } from '../../App';
-import { TaskResponse } from '../../data/interfacesV';
+import dict from '../../data/dict';
+import { TaskResponse } from '../../data/interfaces';
 import CreateTaskModal from '../CreateTaskModal/CreateTaskModal';
 import ColHeader from './ColHeader/ColHeader';
 import './Column.scss';
@@ -39,13 +37,11 @@ function Column({
   isDragging: boolean;
 }) {
   const [isTaskCreateOpen, setIsTaskCreateOpen] = useState(false);
-  const { logoutUser } = useContext(AppContext);
+  const { logoutUser, setSpinner, lang } = useContext(AppContext);
 
   const onDelete = async () => {
-    const res = await deleteColumn(boardId, columnId, logoutUser);
-    if (res) {
-      loadBoard();
-    }
+    await deleteColumn(boardId, columnId, logoutUser, setSpinner, lang);
+    loadBoard();
   };
 
   return (
@@ -74,6 +70,7 @@ function Column({
                     task={task}
                     boardId={boardId}
                     columnId={columnId}
+                    userId={task.userId}
                     loadBoard={loadBoard}
                     ind={ind}
                   />
@@ -86,7 +83,7 @@ function Column({
         <div className="add-task-container">
           <button className="add-task" type="button" onClick={() => setIsTaskCreateOpen(true)}>
             <i className="fa-solid fa-plus"> </i>
-            Add a task
+            {dict[lang].addTaskText}
           </button>
         </div>
       </div>

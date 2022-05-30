@@ -1,18 +1,22 @@
-import { ApiUserInfo } from '../../data/interfacesA';
+import { useContext } from 'react';
+import { AppContext } from '../../App';
+import dict from '../../data/dict';
+import { ApiUserInfo } from '../../data/interfaces';
 import s from './UserInfo.module.scss';
 
 export default function UserInfo({ name, login }: ApiUserInfo) {
+  const { lang } = useContext(AppContext);
   return (
     <div className={s.ProfDescr}>
       <div className={s.ProfDescrItem}>
-        <img src="./assets/img/userIcon.png" alt="user icon" className={s.UserImg} />
+        <i className="fa-solid fa-user-large user-big" />
       </div>
       <div className={s.ProfDescrItem}>
         <div className={s.ProfDescrText}>
-          <span>Name:</span> {name}
+          <span>{dict[lang].forms.nameLabel}:</span> {name}
         </div>
         <div className={s.ProfDescrText}>
-          <span>Login:</span> {login}
+          <span>{dict[lang].forms.loginLabel}:</span> {login}
         </div>
       </div>
     </div>

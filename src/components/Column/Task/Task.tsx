@@ -1,11 +1,11 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable react/jsx-props-no-spreading */
 import { useContext, useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import deleteTask from '../../../api/deleteTask';
+import validateUser from '../../../api/_validateUser';
 import { AppContext } from '../../../App';
-import { TaskResponse } from '../../../data/interfacesV';
+import dict from '../../../data/dict';
+import { TaskResponse } from '../../../data/interfaces';
+import { toastWarnDark } from '../../../utils/toast';
 import CardModal from '../../CardModal/CardModal';
 import ModalConfirm from '../../ModalConfirm/ModalConfirm';
 
@@ -14,22 +14,29 @@ function Task({
   ind,
   boardId,
   columnId,
+  userId,
   loadBoard,
 }: {
   task: TaskResponse;
   ind: number;
   boardId: string;
   columnId: string;
+  userId: string;
   loadBoard: () => Promise<void>;
 }) {
-  const { logoutUser } = useContext(AppContext);
+  const { logoutUser, setSpinner, lang } = useContext(AppContext);
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [isModalOpen, showModal] = useState(false);
 
   const onDelete = async () => {
-    const res = await deleteTask(boardId, columnId, task.id, logoutUser);
-    if (res) {
-      await loadBoard();
+    const userData = await validateUser(logoutUser, setSpinner, lang);
+    if (userData) {
+      if (userData.id === userId) {
+        await deleteTask(boardId, columnId, task.id, logoutUser, setSpinner, lang);
+        await loadBoard();
+      } else {
+        toastWarnDark(dict[lang].toastRemoveWarn);
+      }
     }
   };
 
@@ -73,7 +80,7 @@ function Task({
       {isModalOpen && (
         <ModalConfirm
           showModal={showModal}
-          message={<p>Are you sure?</p>}
+          message={<p>{dict[lang].confirmTaskRemove}</p>}
           modalCallback={onDelete}
         />
       )}

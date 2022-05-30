@@ -1,15 +1,13 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { createRef, Dispatch, useContext, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { AppContext } from '../../App';
-import { TaskResponse } from '../../data/interfacesV';
+import { TaskResponse, ApiUserInfo } from '../../data/interfaces';
 import updateTask from '../../api/updateTask';
 import getAllUsers from '../../api/getAllUsers';
 import './CardModal.scss';
 import getUser from '../../api/getUser';
-import { ApiUserInfo } from '../../data/interfacesA';
+import { toastInfoDark } from '../../utils/toast';
+import dict from '../../data/dict';
 
 function CardModal({
   task,
@@ -27,7 +25,7 @@ function CardModal({
   showModal: Dispatch<React.SetStateAction<boolean>>;
 }) {
   const Container = document.getElementById('modal') as HTMLElement;
-  const { logoutUser } = useContext(AppContext);
+  const { logoutUser, setSpinner, lang } = useContext(AppContext);
   const [responsible, setResponsible] = useState('');
   const [users, setUsers] = useState<ApiUserInfo[]>([]);
   const [selected, setSelected] = useState('');
@@ -41,7 +39,7 @@ function CardModal({
 
   const getUserLoginAndSetResponsible = async (id: string) => {
     if (id) {
-      const res = await getUser(id, logoutUser);
+      const res = await getUser(id, logoutUser, lang);
       if (res) {
         setResponsible(res.login);
       }
@@ -67,7 +65,9 @@ function CardModal({
       userID,
       boardId,
       columnId,
-      logoutUser
+      logoutUser,
+      setSpinner,
+      lang
     );
   };
 
@@ -87,7 +87,7 @@ function CardModal({
     setIsDescInputShow(false);
   };
 
-  const saveCard = async () => {
+  const saveCardCurrent = async () => {
     if (isDescInputShow) {
       cancelDescChange();
       return;
@@ -108,20 +108,26 @@ function CardModal({
         selected || task.userId,
         boardId,
         columnId,
-        logoutUser
+        logoutUser,
+        setSpinner,
+        lang
       );
 
       if (res) {
-        await loadBoard();
+        toastInfoDark(dict[lang].toastTaskUpdate);
       }
+      await loadBoard();
     }
+  };
 
+  const saveCard = async () => {
+    await saveCardCurrent();
     setIsCardOpen(false);
   };
 
   useEffect(() => {
     const getUsers = async () => {
-      const res = await getAllUsers(logoutUser);
+      const res = await getAllUsers(logoutUser, setSpinner, lang);
       if (res) {
         setUsers(res);
       }
@@ -176,7 +182,7 @@ function CardModal({
         <div className="card-modal__container">
           <i className="fa-solid fa-align-left"> </i>
           <div>
-            <h4 className="task__subtitle">Description</h4>
+            <h4 className="task__subtitle">{dict[lang].modalTaskDescr}</h4>
             {isDescInputShow ? (
               <div className="task-desc-container">
                 <textarea
@@ -200,7 +206,7 @@ function CardModal({
               <p className="task__desc" onClick={() => setIsDescInputShow(true)}>
                 {taskDesc === ' ' ? (
                   <span className="add-desc">
-                    <i className="fa-solid fa-plus"> </i> Add description
+                    <i className="fa-solid fa-plus"> </i> {dict[lang].modalTaskAddDescr}
                   </span>
                 ) : (
                   taskDesc
@@ -212,14 +218,14 @@ function CardModal({
         <div className="card-modal__container">
           <i className="user fa-solid fa-chalkboard-user"> </i>
           <p className="task__subtitle">
-            Assigned to: <span className="responsible-name">{responsible}</span>
+            {dict[lang].assignedTo}: <span className="responsible-name">{responsible}</span>
           </p>
         </div>
 
         <div className="task__buttons">
           <select className="card-modal__select" value={selected} onChange={handleSelectChange}>
             <option value="" disabled>
-              Change user
+              {dict[lang].changeUser}
             </option>
             {users.length &&
               users.map((user) => (
@@ -228,8 +234,11 @@ function CardModal({
                 </option>
               ))}
           </select>
+          <button className="task__save" type="button" onClick={saveCardCurrent}>
+            <i className="fa-solid fa-floppy-disk" /> {dict[lang].saveText}
+          </button>
           <button className="task__delete" type="button" onClick={hideCardAndShowDeleteModal}>
-            <i className="fa-regular fa-trash-can"> </i> Delete
+            <i className="fa-regular fa-trash-can"> </i> {dict[lang].deleteText}
           </button>
         </div>
       </div>

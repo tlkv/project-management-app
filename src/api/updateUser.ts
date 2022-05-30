@@ -1,67 +1,64 @@
 import { API_URL } from '../data/constants';
-import { ApiUserInfo } from '../data/interfacesA';
-import decodeToken from './decodeToken';
+import dict from '../data/dict';
+import { ApiUserInfo, Languages } from '../data/interfaces';
 import { toastErrorDark, toastInfoDark, toastWarnDark } from '../utils/toast';
+import validateUser from './_validateUser';
 
 const updateUser = async (
   name: string,
   login: string,
   password: string,
   logoutUser: () => void,
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+  setSpinner: React.Dispatch<React.SetStateAction<boolean>>,
+  lang: Languages
 ) => {
-  /* const thisUser = await findCurrentUser(logoutUser);
-  console.log('thisUser', thisUser); */
-  const { token, id } = decodeToken();
+  const userData = await validateUser(logoutUser, setSpinner, lang);
 
-  if (!token) {
-    toastErrorDark('Invalid token. Please, sign in again');
-    logoutUser();
-    return false;
-  }
+  if (userData) {
+    setSpinner(true);
 
-  const options = {
-    method: 'PUT',
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ name, login, password }),
-  };
+    const options = {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${userData.token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name, login, password }),
+    };
 
-  let res = {} as Response;
-  let user: ApiUserInfo = {
-    login: '',
-    id: '',
-    name: '',
-  };
+    let res = {} as Response;
 
-  setIsLoading(true);
+    let user: ApiUserInfo = {
+      login: '',
+      id: '',
+      name: '',
+    };
 
-  try {
-    res = await fetch(`${API_URL}/users/${id}`, options);
-    user = await res.json();
-  } catch (err) {
-    toastErrorDark('No response from server');
-    setIsLoading(false);
-    return false;
-  }
+    try {
+      res = await fetch(`${API_URL}/users/${userData.id}`, options);
+      user = await res.json();
+    } catch (err) {
+      toastWarnDark(dict[lang].toastNoServResp);
+      setSpinner(false);
+      return false;
+    }
 
-  setIsLoading(false);
-  if (res.ok) {
-    toastInfoDark('Successfully updated user info');
+    setSpinner(false);
 
-    return user;
-  }
+    if (res.ok) {
+      toastInfoDark(dict[lang].toastInfoUpdUser);
+      return user;
+    }
 
-  if (res.status === 401) {
-    toastErrorDark('Not authorized or credentials expired. Please, log in again');
-    logoutUser();
-  } else if (res.status >= 400 && res.status <= 499) {
-    toastErrorDark('User not found or query error');
-  } else if (res.status >= 500) {
-    toastWarnDark('Login is taken or Server Error');
+    if (res.status === 401) {
+      toastErrorDark(dict[lang].toastInvToken);
+      logoutUser();
+    } else if (res.status >= 400 && res.status <= 499) {
+      toastErrorDark(dict[lang].toastUserNotFound);
+    } else if (res.status >= 500) {
+      toastWarnDark(dict[lang].toastLoginTaken);
+    }
   }
 
   return false;

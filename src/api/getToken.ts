@@ -1,7 +1,16 @@
 import { API_URL } from '../data/constants';
-import { toastErrorDark } from '../utils/toast';
+import dict from '../data/dict';
+import { Languages } from '../data/interfaces';
+import { toastErrorDark, toastWarnDark } from '../utils/toast';
 
-export default async function getToken(login: string, password: string): Promise<string | false> {
+export default async function getToken(
+  login: string,
+  password: string,
+  setSpinner: React.Dispatch<React.SetStateAction<boolean>>,
+  lang: Languages
+): Promise<string | false> {
+  setSpinner(true);
+
   const options = {
     method: 'POST',
     headers: {
@@ -12,13 +21,18 @@ export default async function getToken(login: string, password: string): Promise
       password,
     }),
   };
+
   let res = {} as Response;
+
   try {
     res = await fetch(`${API_URL}/signin`, options);
   } catch (err) {
-    toastErrorDark('No response from server');
+    toastWarnDark(dict[lang].toastNoServResp);
+    setSpinner(false);
     return false;
   }
+
+  setSpinner(false);
 
   if (res.ok) {
     const body = await res.json();
@@ -26,10 +40,10 @@ export default async function getToken(login: string, password: string): Promise
   }
 
   if (res.status >= 400 && res.status <= 499) {
-    toastErrorDark('Wrong login or password');
+    toastErrorDark(dict[lang].toastWrongLoginPass);
   }
   if (res.status >= 500) {
-    toastErrorDark('Server error');
+    toastWarnDark(dict[lang].toastServError);
   }
 
   return false;

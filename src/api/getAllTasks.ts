@@ -1,47 +1,53 @@
 import { API_URL } from '../data/constants';
-import { SearchTaskResponse } from '../data/interfacesV';
+import dict from '../data/dict';
+import { Languages, SearchTaskResponse } from '../data/interfaces';
 import { toastErrorDark, toastWarnDark } from '../utils/toast';
-import decodeToken from './decodeToken';
+import validateUser from './_validateUser';
 
-const getAllTasks = async (logoutUser: () => void) => {
-  const { token } = decodeToken();
+const getAllTasks = async (
+  logoutUser: () => void,
+  setSpinner: React.Dispatch<React.SetStateAction<boolean>>,
+  lang: Languages
+) => {
+  const userData = await validateUser(logoutUser, setSpinner, lang);
   const defData: SearchTaskResponse[] = [];
 
-  if (!token) {
-    toastErrorDark('Invalid token. Please, sign in again');
-    logoutUser();
-    return defData;
-  }
+  if (userData) {
+    setSpinner(true);
 
-  const options = {
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-  };
+    const options = {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${userData.token}`,
+      },
+    };
 
-  let res = {} as Response;
-  let users: SearchTaskResponse[] = [];
+    let res = {} as Response;
+    let tasks: SearchTaskResponse[] = [];
 
-  try {
-    res = await fetch(`${API_URL}/search/tasks`, options);
-    users = await res.json();
-  } catch (err) {
-    toastErrorDark('No response from server');
-    return defData;
-  }
+    try {
+      res = await fetch(`${API_URL}/search/tasks`, options);
+      tasks = await res.json();
+    } catch (err) {
+      toastWarnDark(dict[lang].toastNoServResp);
+      setSpinner(false);
+      return defData;
+    }
 
-  if (res.ok) {
-    return users;
-  }
+    setSpinner(false);
 
-  if (res.status === 401) {
-    toastErrorDark('Not authorized or credentials expired. Please, log in again');
-    logoutUser();
-  } else if (res.status >= 400 && res.status <= 499) {
-    toastErrorDark('Tasks not found or query error');
-  } else if (res.status >= 500) {
-    toastWarnDark('Server Error');
+    if (res.ok) {
+      return tasks;
+    }
+
+    if (res.status === 401) {
+      toastErrorDark(dict[lang].toastInvToken);
+      logoutUser();
+    } else if (res.status >= 400 && res.status <= 499) {
+      toastErrorDark(dict[lang].toastNoTasks);
+    } else if (res.status >= 500) {
+      toastWarnDark(dict[lang].toastServError);
+    }
   }
 
   return defData;

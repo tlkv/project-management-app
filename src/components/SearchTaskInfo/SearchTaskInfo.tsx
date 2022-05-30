@@ -1,30 +1,19 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useContext, useState } from 'react';
 import deleteTask from '../../api/deleteTask';
+import validateUser from '../../api/_validateUser';
 import { AppContext } from '../../App';
+import dict from '../../data/dict';
 
-import { SearchTaskCard } from '../../data/interfacesV';
+import { SearchTaskCard } from '../../data/interfaces';
+import { toastWarnDark } from '../../utils/toast';
 import CardModal from '../CardModal/CardModal';
 import ModalConfirm from '../ModalConfirm/ModalConfirm';
 import './SearchTaskInfo.scss';
-
-/*  {isCardOpen && (
-        <CardModal
-          task={{i.}}
-          boardId={boardId}
-          columnId={columnId}
-          setIsCardOpen={setIsCardOpen}
-          loadBoard={loadBoard}
-          showModal={showModal}
-        />
-      )} */
 
 export default function SearchTaskInfo({
   id,
   order,
   userId,
-  user,
   boardId,
   columnId,
   title,
@@ -33,15 +22,20 @@ export default function SearchTaskInfo({
 }: SearchTaskCard) {
   const [isCardOpen, setIsCardOpen] = useState(false);
   const [isModalOpen, showModal] = useState(false);
-  const { logoutUser } = useContext(AppContext);
+  const { logoutUser, setSpinner, lang } = useContext(AppContext);
   const handleShowCard = () => {
     setIsCardOpen(true);
   };
 
   const onDelete = async () => {
-    const res = await deleteTask(boardId, columnId, id, logoutUser);
-    if (res) {
-      await loadTasks();
+    const userData = await validateUser(logoutUser, setSpinner, lang);
+    if (userData) {
+      if (userData.id === userId) {
+        await deleteTask(boardId, columnId, id, logoutUser, setSpinner, lang);
+        await loadTasks();
+      } else {
+        toastWarnDark(dict[lang].toastRemoveWarn);
+      }
     }
   };
 
@@ -64,7 +58,7 @@ export default function SearchTaskInfo({
       {isModalOpen && (
         <ModalConfirm
           showModal={showModal}
-          message={<p>Are you sure?</p>}
+          message={<p>{dict[lang].confirmTaskRemove}</p>}
           modalCallback={onDelete}
         />
       )}

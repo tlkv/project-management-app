@@ -7,6 +7,7 @@ import loginWithToken from '../../api/loginWithToken';
 import getResponseOnCreatingUser from '../../api/getResponseOnCreatingUser';
 import IS_PASSWORD_VALID from '../../utils/isPasswordValid';
 import IS_NAME_OR_LOGIN_VALID from '../../utils/isNameOrLoginValid';
+import dict from '../../data/dict';
 
 function LoginPage() {
   const context = useContext(AppContext);
@@ -19,13 +20,13 @@ function LoginPage() {
   const [isLoginValid, setIsLoginValid] = useState(true);
   const [password, setPassword] = useState('');
   const [isPasswordValid, setIsPasswordValid] = useState(true);
-  const { isAuth } = useContext(AppContext);
+  const { isAuth, setSpinner, lang } = useContext(AppContext);
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
 
   useEffect(() => {
     if (isAuth && localStorage.getItem('pmapp34-token')) {
       navigate('/');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuth]);
 
   const handleNameInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,6 +43,8 @@ function LoginPage() {
   };
   const createUser = async (e: React.MouseEvent<HTMLInputElement>) => {
     e.preventDefault();
+    setButtonDisabled(true);
+    setTimeout(() => setButtonDisabled(false), 1500);
     const isInputDataValid =
       IS_NAME_OR_LOGIN_VALID(name) && IS_NAME_OR_LOGIN_VALID(login) && IS_PASSWORD_VALID(password);
     if (!isInputDataValid) {
@@ -50,103 +53,101 @@ function LoginPage() {
       setIsPasswordValid(IS_PASSWORD_VALID(password));
       return;
     }
-    const response = await getResponseOnCreatingUser(name, login, password);
+    const response = await getResponseOnCreatingUser(name, login, password, setSpinner, lang);
     if (response.ok) {
-      const token = await getToken(login, password);
-      loginWithToken(token as string, login, context.setIsAuth);
+      const token = await getToken(login, password, setSpinner, lang);
+      loginWithToken(token as string, context.setIsAuth);
       navigate('/');
     }
   };
 
   const logIn = async (e: React.MouseEvent<HTMLInputElement>) => {
     e.preventDefault();
+    setButtonDisabled(true);
+    setTimeout(() => setButtonDisabled(false), 1500);
     const isInputDataValid = IS_NAME_OR_LOGIN_VALID(login) && IS_PASSWORD_VALID(password);
     if (!isInputDataValid) {
       setIsLoginValid(IS_NAME_OR_LOGIN_VALID(login));
       setIsPasswordValid(IS_PASSWORD_VALID(password));
       return;
     }
-    const token = await getToken(login, password);
+    const token = await getToken(login, password, setSpinner, lang);
     if (token) {
-      loginWithToken(token, login, context.setIsAuth);
+      loginWithToken(token, context.setIsAuth);
       navigate('/');
     }
   };
 
   return (
     <div className="narrow-container">
-      <h1 className="login__title">{isLogin ? 'Already with us?' : 'Create new account'}</h1>
+      <h1 className="login__title">
+        {isLogin ? dict[lang].loginPage.signInHeader : dict[lang].loginPage.signUpHeader}
+      </h1>
       <p className="login__description">
-        {isLogin ? 'Sign in to RS Project Management App' : 'Sign up to RS Project Management App'}
+        {isLogin ? dict[lang].loginPage.signInText : dict[lang].loginPage.signUpText}
       </p>
       <form className="login__form">
         {isLogin ? null : (
           <div className="login__form-field login__form-field_text">
             <label htmlFor="name">
-              Name
+              {dict[lang].forms.nameLabel}
               <input
                 className="registration__form_input"
                 type="text"
-                placeholder="Enter your name"
+                placeholder={dict[lang].forms.namePholder}
                 id="name"
                 value={name}
                 onInput={handleNameInput}
               />
             </label>
             {isNameValid ? null : (
-              <div className="login__invalid-field">
-                4-20 letters (eng) or numbers, no spaces or special symbols
-              </div>
+              <div className="login__invalid-field">{dict[lang].forms.nameLoginValid}</div>
             )}
           </div>
         )}
         <div className="login__form-field login__form-field_text">
           <label htmlFor="login">
-            Login
+            {dict[lang].forms.loginLabel}
             <input
               className="login__form_input"
               type="text"
-              placeholder="Enter your login"
+              placeholder={dict[lang].forms.loginPholder}
               id="login"
               onInput={handleLoginInput}
             />
           </label>
           {isLoginValid ? null : (
-            <div className="login__invalid-field">
-              4-20 letters (eng) or numbers, no spaces or special symbols
-            </div>
+            <div className="login__invalid-field">{dict[lang].forms.nameLoginValid}</div>
           )}
         </div>
         <div className="login__form-field login__form-field_text">
           <label htmlFor="password">
-            Password
+            {dict[lang].forms.passwordLabel}
             <input
               className="login__form_input"
               type="password"
-              placeholder="Enter your password"
+              placeholder={dict[lang].forms.passwordPholder}
               id="password"
               onInput={handlePasswordInput}
             />
           </label>
           {isPasswordValid ? null : (
-            <div className="login__invalid-field">
-              8-30 letters (eng) or numbers or ! @ # $ & ( ) - ‘ . / + ,
-            </div>
+            <div className="login__invalid-field">{dict[lang].forms.passwordValid}</div>
           )}
         </div>
         {isLogin ? (
           <input
-            className="login__form_submit"
+            className={`login__form_submit ${isButtonDisabled ? 'temp-disabled' : ''}`}
             type="submit"
-            value="Sign in"
+            value={dict[lang].buttons.signIn}
             disabled={!(login && password)}
             onClick={logIn}
           />
         ) : (
           <input
-            className="login__form_submit"
+            className={`login__form_submit ${isButtonDisabled ? 'temp-disabled' : ''}`}
             type="submit"
-            value="Sign up"
+            value={dict[lang].buttons.signUp}
             disabled={!(name && login && password)}
             onClick={createUser}
           />
@@ -154,16 +155,16 @@ function LoginPage() {
       </form>
       {isLogin ? (
         <p className="login__suggestion">
-          Don&apos;t have an account?
+          {dict[lang].loginPage.signInSuggestion}
           <NavLink className="login__link" to="/registration">
-            <span className="reg-underline">Sign up!</span>
+            <span className="reg-underline">{dict[lang].buttons.signUp}!</span>
           </NavLink>
         </p>
       ) : (
         <p className="login__suggestion">
-          Already with us?
+          {dict[lang].loginPage.signInHeader}
           <NavLink className="login__link" to="/login">
-            <span className="reg-underline">Sign in!</span>
+            <span className="reg-underline">{dict[lang].buttons.signIn}!</span>
           </NavLink>
         </p>
       )}

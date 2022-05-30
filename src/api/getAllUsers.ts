@@ -1,47 +1,53 @@
 import { API_URL } from '../data/constants';
-import { ApiUserInfo } from '../data/interfacesA';
+import dict from '../data/dict';
+import { ApiUserInfo, Languages } from '../data/interfaces';
 import { toastErrorDark, toastWarnDark } from '../utils/toast';
-import decodeToken from './decodeToken';
+import validateUser from './_validateUser';
 
-const getAllUsers = async (logoutUser: () => void) => {
-  const { token } = decodeToken();
+const getAllUsers = async (
+  logoutUser: () => void,
+  setSpinner: React.Dispatch<React.SetStateAction<boolean>>,
+  lang: Languages
+) => {
+  const userData = await validateUser(logoutUser, setSpinner, lang);
   const defData: ApiUserInfo[] = [];
 
-  if (!token) {
-    toastErrorDark('Invalid token. Please, sign in again');
-    logoutUser();
-    return defData;
-  }
+  if (userData) {
+    setSpinner(true);
 
-  const options = {
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-  };
+    const options = {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${userData.token}`,
+      },
+    };
 
-  let res = {} as Response;
-  let users: ApiUserInfo[] = [];
+    let res = {} as Response;
+    let users: ApiUserInfo[] = [];
 
-  try {
-    res = await fetch(`${API_URL}/users`, options);
-    users = await res.json();
-  } catch (err) {
-    toastErrorDark('No response from server');
-    return defData;
-  }
+    try {
+      res = await fetch(`${API_URL}/users`, options);
+      users = await res.json();
+    } catch (err) {
+      toastWarnDark(dict[lang].toastNoServResp);
+      setSpinner(false);
+      return defData;
+    }
 
-  if (res.ok) {
-    return users;
-  }
+    setSpinner(false);
 
-  if (res.status === 401) {
-    toastErrorDark('Not authorized or credentials expired. Please, log in again');
-    logoutUser();
-  } else if (res.status >= 400 && res.status <= 499) {
-    toastErrorDark('User not found or query error');
-  } else if (res.status >= 500) {
-    toastWarnDark('Server Error');
+    if (res.ok) {
+      return users;
+    }
+
+    if (res.status === 401) {
+      toastErrorDark(dict[lang].toastInvToken);
+      logoutUser();
+    } else if (res.status >= 400 && res.status <= 499) {
+      toastErrorDark(dict[lang].toastNoUsers);
+    } else if (res.status >= 500) {
+      toastWarnDark(dict[lang].toastServError);
+    }
   }
 
   return defData;

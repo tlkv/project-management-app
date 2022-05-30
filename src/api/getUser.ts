@@ -1,13 +1,14 @@
 import { API_URL } from '../data/constants';
-import { ApiUserInfo } from '../data/interfacesA';
+import dict from '../data/dict';
+import { ApiUserInfo, Languages } from '../data/interfaces';
 import { toastErrorDark, toastWarnDark } from '../utils/toast';
 
-export default async function getUser(id: string, logoutUser: () => void) {
+export default async function getUser(id: string, logoutUser: () => void, lang: Languages) {
   const url = `${API_URL}/users/${id}`;
   const token = localStorage.getItem('pmapp34-token') || '';
 
   if (!token) {
-    toastErrorDark('Invalid token');
+    toastErrorDark(dict[lang].toastInvToken);
     logoutUser();
     return false;
   }
@@ -23,21 +24,21 @@ export default async function getUser(id: string, logoutUser: () => void) {
       },
     });
   } catch {
-    toastErrorDark('No response from server');
+    toastWarnDark(dict[lang].toastNoServResp);
     return false;
   }
 
   if (res.ok) {
-    const board: ApiUserInfo = await res.json();
-    return board;
+    const user: ApiUserInfo = await res.json();
+    return user;
   }
 
   if (res.status >= 400 && res.status <= 499) {
-    toastErrorDark('User not found');
+    toastErrorDark(dict[lang].toastUserNotFound);
   }
 
   if (res.status >= 500) {
-    toastWarnDark('Server Error');
+    toastWarnDark(dict[lang].toastServError);
   }
   return false;
 }

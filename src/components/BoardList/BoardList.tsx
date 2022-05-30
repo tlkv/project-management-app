@@ -1,17 +1,17 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../App';
-import { SET_BOARDS } from '../../data/constantsV';
+import { SET_BOARDS } from '../../data/constants';
 import getBoards from '../../api/getBoards';
 import Board from '../Board/Board';
+import dict from '../../data/dict';
 
 function BoardList() {
-  const { logoutUser, isAuth, boards, dispatchBoards } = useContext(AppContext);
+  const { logoutUser, isAuth, boards, dispatchBoards, setSpinner, lang } = useContext(AppContext);
   const navigate = useNavigate();
 
   const loadBoards = async () => {
-    const data = await getBoards(logoutUser);
+    const data = await getBoards(logoutUser, setSpinner, lang);
     if (data) {
       dispatchBoards({ type: SET_BOARDS, payload: data });
     }
@@ -20,7 +20,7 @@ function BoardList() {
   useEffect(() => {
     if (!isAuth && !localStorage.getItem('pmapp34-token')) {
       navigate('/welcome');
-    } else if (!boards.length) {
+    } else {
       loadBoards();
     }
   }, [isAuth]);
@@ -33,7 +33,7 @@ function BoardList() {
 
   return (
     <div className="board-list">
-      {boardsArray || <h3 className="no-data">No boards available</h3>}
+      {boardsArray || <h3 className="no-data">{dict[lang].noBoards}</h3>}
     </div>
   );
 }

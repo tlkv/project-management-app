@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/control-has-associated-label */
-
 import { createPortal } from 'react-dom';
 import './Spinner.scss';
 
@@ -9,13 +7,20 @@ export default function Spinner() {
       <div id="spinner-bott-circle ">
         <svg
           id="loading-spinner"
-          width="40"
-          height="40"
-          viewBox="0 0 40 40"
+          width="80"
+          height="80"
+          viewBox="0 0 80 80"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <circle id="loading-circle" cx="20" cy="20" r="18" stroke="#005CB9" strokeWidth="4" />
+          <circle
+            id="loading-circle-large"
+            cx="40"
+            cy="40"
+            r="36"
+            stroke="#005CB9"
+            strokeWidth="8"
+          />
         </svg>
       </div>
     </div>,

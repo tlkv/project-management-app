@@ -58,8 +58,7 @@
     filter: brightness(1.1);
   }
   &:disabled {
-    background-color: #f71735;
-    background-image: linear-gradient(147deg, #f71735 0%, #db3445 74%);
+    filter: brightness(0.8);
     cursor: not-allowed;
   }
 }

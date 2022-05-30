@@ -8,17 +8,16 @@ import './sass/normalize.scss';
 import { ROUTES_LIST } from './utils/router';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import { AppContextData } from './data/interfaces';
+import { AppContextData, Languages } from './data/interfaces';
 import { LANG_EN } from './data/constants';
 import { boardsReducer } from './utils/reducers';
-import { Languages } from './data/interfacesA';
 import Spinner from './components/Spinner/Spinner';
 
 export const AppContext = createContext({} as AppContextData);
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isSpinning, setSpinner] = useState(false);
   const [lang, switchLang] = useState(LANG_EN);
   const [boards, dispatchBoards] = useReducer(boardsReducer, []);
 
@@ -48,18 +47,18 @@ function App() {
       boards,
       dispatchBoards,
       logoutUser,
-      isLoading,
-      setIsLoading,
+      isSpinning,
+      setSpinner,
     }),
-    [lang, isAuth, boards, isLoading]
+    [lang, isAuth, boards, isSpinning]
   );
 
   return (
     <AppContext.Provider value={store}>
-      <ToastContainer />
+      <ToastContainer limit={3} newestOnTop />
       <BrowserRouter>
         <Header />
-        <main className="main-container">
+        <main className={`main-container ${isSpinning ? 'main-darken' : ''}`}>
           <Routes>
             {ROUTES_LIST.map(({ path, element }, ind) => (
               <Route path={path} element={element} key={`route_${ind + 1}`} />
@@ -68,7 +67,7 @@ function App() {
         </main>
         <Footer />
       </BrowserRouter>
-      {isLoading && <Spinner />}
+      {isSpinning && <Spinner />}
     </AppContext.Provider>
   );
 }
