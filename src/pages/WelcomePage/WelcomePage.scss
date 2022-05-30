@@ -17,7 +17,7 @@
   i {
     margin: 5px;
   }
-  width: 128px;
+  width: 142px;
   height: 34px;
   padding: 5px;
   border: 0;
@@ -255,6 +255,9 @@
       }
       .pers-card-done {
         text-align: left;
+        ul {
+          padding-left: 25px;
+        }
       }
       .pers-photo-1 {
         background: #fff url('../../assets/img/av1.png') center/cover no-repeat;

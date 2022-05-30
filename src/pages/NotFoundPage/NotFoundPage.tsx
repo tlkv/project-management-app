@@ -13,7 +13,7 @@ function NotFoundPage() {
       <div className="not-found-button-wrapper">
         <NavLink to="/" className="main-nav-btn">
           <i className="fa-solid fa-circle-arrow-left" />
-          Main Page
+          {dict[lang].buttons.toMainButtonText}
         </NavLink>
       </div>
     </div>

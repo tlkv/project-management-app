@@ -12,27 +12,23 @@ function WelcomePage() {
       <section className="front-sec-one">
         <div className="front-content-wrapper">
           <div className="sec-one-left">
-            <h2 className="main-title-heading">A flexible tool for teams to organize their work</h2>
-            <p className="front-content-paragraph">
-              Collaborate, manage projects, and reach new productivity peaks. From high rises to the
-              home office, the way your team works is unique — accomplish it all with RS Project
-              Management App.
-            </p>
+            <h2 className="main-title-heading">{dict[lang].welcomePage.titleMain}</h2>
+            <p className="front-content-paragraph">{dict[lang].welcomePage.paragraphMain}</p>
             <div className="buttons-head-top">
               {isAuth && (
                 <NavLink to="/" className="main-nav-btn">
                   <i className="fa-solid fa-circle-arrow-left" />
-                  Main Page
+                  {dict[lang].buttons.toMainButtonText}
                 </NavLink>
               )}
               {!isAuth && (
                 <>
                   <NavLink to="/login" className="main-nav-btn main-nav-btn-dark">
                     <i className="fa-solid fa-user-lock" />
-                    Sign In
+                    {dict[lang].buttons.signIn}
                   </NavLink>
                   <NavLink to="/registration" className="main-nav-btn">
-                    <i className="fa-solid fa-user-check" /> Sign up
+                    <i className="fa-solid fa-user-check" /> {dict[lang].buttons.signUp}
                   </NavLink>
                 </>
               )}
@@ -47,8 +43,8 @@ function WelcomePage() {
             <div className="front-icon-large">
               <i className="fa-solid fa-people-group" />
             </div>
-            <h2>Build the workflow you want</h2>
-            <p>Manage your boards using Drag-n-Drop</p>
+            <h2>{dict[lang].welcomePage.title1}</h2>
+            <p>{dict[lang].welcomePage.paragraph1}</p>
           </div>
           <div className="advantages-video">
             <video autoPlay playsInline loop muted className="video-el">
@@ -66,8 +62,8 @@ function WelcomePage() {
             <div className="front-icon-large">
               <i className="fa-solid fa-list-check" />
             </div>
-            <h2>Tasks contain everything you need</h2>
-            <p>You can specify additional info in task description and assign users</p>
+            <h2>{dict[lang].welcomePage.title2}</h2>
+            <p>{dict[lang].welcomePage.paragraph2}</p>
           </div>
         </div>
         <div className="front-content-wrapper">
@@ -75,8 +71,8 @@ function WelcomePage() {
             <div className="front-icon-large">
               <i className="fa-solid fa-clipboard-list" />
             </div>
-            <h2>Unlimited kanban boards, columns and tasks</h2>
-            <p>No limits for all registered users</p>
+            <h2>{dict[lang].welcomePage.title3}</h2>
+            <p>{dict[lang].welcomePage.paragraph3}</p>
           </div>
           <div className="advantages-video">
             <video autoPlay playsInline loop muted className="video-el">
@@ -91,11 +87,11 @@ function WelcomePage() {
       </section>
       <section className="front-sec-four">
         <div className="front-content-wrapper">
-          <h2 className="front-sec-title">Our team</h2>
+          <h2 className="front-sec-title">{dict[lang].welcomePage.teamTitle}</h2>
           <div className="team-wrapper">
             <div className="pers-card-wrapper">
               <h3 className="pers-card-name">
-                Andrey
+                {dict[lang].welcomePage.teamName1}
                 <a
                   href="https://github.com/tlkv"
                   target="_blank"
@@ -109,18 +105,18 @@ function WelcomePage() {
               <div className="pers-card-details">
                 <div className="pers-card-done">
                   <ul>
-                    <li>Kanban board - Drag-n-Drop</li>
-                    <li>Front page, Profile page</li>
-                    <li>API error handling, toast popups</li>
-                    <li>Project Architecture</li>
-                    <li>CI/CD</li>
+                    <li>{dict[lang].welcomePage.team1done1}</li>
+                    <li>{dict[lang].welcomePage.team1done2}</li>
+                    <li>{dict[lang].welcomePage.team1done3}</li>
+                    <li>{dict[lang].welcomePage.team1done4}</li>
+                    <li>{dict[lang].welcomePage.team1done5}</li>
                   </ul>
                 </div>
               </div>
             </div>
             <div className="pers-card-wrapper">
               <h3 className="pers-card-name">
-                Vitali
+                {dict[lang].welcomePage.teamName2}
                 <a
                   href="https://github.com/deftonjke"
                   target="_blank"
@@ -134,10 +130,10 @@ function WelcomePage() {
               <div className="pers-card-details">
                 <div className="pers-card-done">
                   <ul>
-                    <li>Kanban board - columns, tasks</li>
-                    <li>Boards management</li>
-                    <li>Tasks management</li>
-                    <li>Modal boxes</li>
+                    <li>{dict[lang].welcomePage.team2done1}</li>
+                    <li>{dict[lang].welcomePage.team2done2}</li>
+                    <li>{dict[lang].welcomePage.team2done3}</li>
+                    <li>{dict[lang].welcomePage.team2done4}</li>
                   </ul>
                 </div>
               </div>
