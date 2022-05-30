@@ -1,5 +1,5 @@
 import { API_URL } from '../data/constants';
-import { toastErrorDark } from '../utils/toast';
+import { toastErrorDark, toastWarnDark } from '../utils/toast';
 
 export default async function getToken(
   login: string,
@@ -24,7 +24,7 @@ export default async function getToken(
   try {
     res = await fetch(`${API_URL}/signin`, options);
   } catch (err) {
-    toastErrorDark('No response from server');
+    toastWarnDark('No response from server');
     setSpinner(false);
     return false;
   }
@@ -40,7 +40,7 @@ export default async function getToken(
     toastErrorDark('Wrong login or password');
   }
   if (res.status >= 500) {
-    toastErrorDark('Server error');
+    toastWarnDark('Server error');
   }
 
   return false;

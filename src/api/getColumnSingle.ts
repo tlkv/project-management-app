@@ -27,7 +27,7 @@ export default async function getColumnSingle(
       },
     });
   } catch {
-    toastErrorDark('No response from server');
+    toastWarnDark('No response from server');
     return false;
   }
 

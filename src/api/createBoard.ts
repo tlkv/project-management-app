@@ -35,7 +35,7 @@ export default async function createBoard(
       res = await fetch(url, options);
       board = await res.json();
     } catch {
-      toastErrorDark('No response from server');
+      toastWarnDark('No response from server');
       setSpinner(false);
       return false;
     }

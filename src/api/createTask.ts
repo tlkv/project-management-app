@@ -40,7 +40,7 @@ export default async function createTask(
       res = await fetch(url, options);
       task = await res.json();
     } catch {
-      toastErrorDark('No response from server');
+      toastWarnDark('No response from server');
       setSpinner(false);
       return false;
     }

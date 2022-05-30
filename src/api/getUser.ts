@@ -23,7 +23,7 @@ export default async function getUser(id: string, logoutUser: () => void) {
       },
     });
   } catch {
-    toastErrorDark('No response from server');
+    toastWarnDark('No response from server');
     return false;
   }
 

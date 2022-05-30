@@ -1,5 +1,5 @@
 import { API_URL } from '../data/constants';
-import { toastErrorDark } from '../utils/toast';
+import { toastWarnDark } from '../utils/toast';
 
 export default async function getResponseOnCreatingUser(
   name: string,
@@ -26,7 +26,7 @@ export default async function getResponseOnCreatingUser(
   try {
     res = await fetch(`${API_URL}/signup`, options);
   } catch {
-    toastErrorDark('No response from server');
+    toastWarnDark('No response from server');
     setSpinner(false);
     return res;
   }
@@ -34,11 +34,11 @@ export default async function getResponseOnCreatingUser(
   setSpinner(false);
 
   if (res.status >= 400 && res.status <= 499) {
-    toastErrorDark('Login already exists or client error');
+    toastWarnDark('Login already exists or client error');
   }
 
   if (res.status >= 500) {
-    toastErrorDark('Server error');
+    toastWarnDark('Server error');
   }
 
   return res;

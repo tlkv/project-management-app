@@ -46,7 +46,7 @@ export default async function updateColumn(
     try {
       res = await fetch(url, options);
     } catch {
-      toastErrorDark('No response from server');
+      toastWarnDark('No response from server');
       setSpinner(false);
       return false;
     }

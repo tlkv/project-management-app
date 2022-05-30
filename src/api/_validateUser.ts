@@ -47,8 +47,9 @@ const validateUser = async (
     res = await fetch(url, options);
     user = await res.json();
   } catch (err) {
-    toastErrorDark('No response from server');
-    logoutAndStopSpinner();
+    toastWarnDark('No response from server');
+    /* logoutAndStopSpinner(); */
+    setSpinner(false);
     return false;
   }
 

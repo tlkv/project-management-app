@@ -34,7 +34,7 @@ export default async function createColumn(
       res = await fetch(url, options);
       column = await res.json();
     } catch {
-      toastErrorDark('No response from server');
+      toastWarnDark('No response from server');
       setSpinner(false);
       return false;
     }

@@ -46,7 +46,7 @@ export default async function updateTask(
     try {
       res = await fetch(url, options);
     } catch {
-      toastErrorDark('No response from server');
+      toastWarnDark('No response from server');
       setSpinner(false);
       return false;
     }
@@ -59,7 +59,7 @@ export default async function updateTask(
     }
 
     if (res.status === 401) {
-      toastErrorDark('Invalid token. Please, log in again');
+      toastWarnDark('Invalid token. Please, log in again');
       logoutUser();
     } else if (res.status >= 400 && res.status <= 499) {
       toastErrorDark('Bad query or conflict with another user session');

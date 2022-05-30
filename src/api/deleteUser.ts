@@ -23,7 +23,7 @@ const deleteUser = async (
     try {
       res = await fetch(`${API_URL}/users/${userData.id}`, options);
     } catch (err) {
-      toastErrorDark('No response from server');
+      toastWarnDark('No response from server');
       setSpinner(false);
       return false;
     }

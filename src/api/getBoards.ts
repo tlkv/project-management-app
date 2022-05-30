@@ -27,7 +27,7 @@ export default async function getBoards(
     try {
       res = await fetch(url, options);
     } catch {
-      toastErrorDark('No response from server');
+      toastWarnDark('No response from server');
       setSpinner(false);
       return false;
     }

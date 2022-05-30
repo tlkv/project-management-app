@@ -27,7 +27,7 @@ const getAllUsers = async (
       res = await fetch(`${API_URL}/users`, options);
       users = await res.json();
     } catch (err) {
-      toastErrorDark('No response from server');
+      toastWarnDark('No response from server');
       setSpinner(false);
       return defData;
     }

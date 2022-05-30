@@ -27,7 +27,7 @@ const getAllTasks = async (
       res = await fetch(`${API_URL}/search/tasks`, options);
       tasks = await res.json();
     } catch (err) {
-      toastErrorDark('No response from server');
+      toastWarnDark('No response from server');
       setSpinner(false);
       return defData;
     }
