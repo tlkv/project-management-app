@@ -4,6 +4,7 @@ import { AppContext } from '../../App';
 import { LANG_EN, LANG_RU } from '../../data/constants';
 import './Header.scss';
 import CreateBoardBar from '../CreateBoardBar/CreateBoardBar';
+import dict from '../../data/dict';
 
 function Header() {
   const { lang, switchLang, isAuth, logoutUser } = useContext(AppContext);
@@ -64,7 +65,7 @@ function Header() {
                 >
                   <span>
                     <i className="fa-solid fa-plus" />
-                    New Board
+                    {dict[lang].header.newBoard}
                   </span>
                 </button>
                 {isCreateBoardOpen && (
@@ -78,7 +79,7 @@ function Header() {
                 <NavLink to="/search" className="nav-inner">
                   <span>
                     <i className="fa-solid fa-magnifying-glass" />
-                    Search
+                    {dict[lang].header.search}
                   </span>
                 </NavLink>
               </li>
@@ -89,7 +90,7 @@ function Header() {
                 <NavLink to="/profile" className="nav-inner">
                   <span>
                     <i className="fa-solid fa-user" />
-                    Edit Profile
+                    {dict[lang].header.editProfile}
                   </span>
                 </NavLink>
               </li>
@@ -100,7 +101,7 @@ function Header() {
                 <NavLink to="/" className="nav-inner">
                   <span>
                     <i className="fa-solid fa-clipboard-check" />
-                    Main Page
+                    {dict[lang].header.mainPage}
                   </span>
                 </NavLink>
               </li>
@@ -117,7 +118,7 @@ function Header() {
                 >
                   <span>
                     <i className="fa-solid fa-right-from-bracket" />
-                    Sign Out
+                    {dict[lang].buttons.signOut}
                   </span>
                 </button>
               </li>
@@ -127,7 +128,7 @@ function Header() {
               <li className="nav-item">
                 <NavLink to="/login" className="main-nav-btn main-nav-btn-dark">
                   <i className="fa-solid fa-user-lock" />
-                  Sign In
+                  {dict[lang].buttons.signIn}
                 </NavLink>
               </li>
             )}
@@ -135,7 +136,7 @@ function Header() {
             {!isAuth && (
               <li className="nav-item">
                 <NavLink to="/registration" className="main-nav-btn">
-                  <i className="fa-solid fa-user-check" /> Sign up
+                  <i className="fa-solid fa-user-check" /> {dict[lang].buttons.signUp}
                 </NavLink>
               </li>
             )}
