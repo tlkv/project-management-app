@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable react/jsx-props-no-spreading */
 import { useContext, useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import deleteTask from '../../../api/deleteTask';

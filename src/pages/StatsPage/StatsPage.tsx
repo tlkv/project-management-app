@@ -22,7 +22,6 @@ export default function StatsPage() {
     } else {
       handleCurrentUsers();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuth]);
 
   return (

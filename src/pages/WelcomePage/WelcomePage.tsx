@@ -1,4 +1,3 @@
-/* eslint-disable react/self-closing-comp */
 import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AppContext } from '../../App';

@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/control-has-associated-label */
 import { MouseEvent } from 'react';
 import { createPortal } from 'react-dom';
 import { ModalConfirmation } from '../../data/interfaces';

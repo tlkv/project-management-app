@@ -1,6 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable react/self-closing-comp */
 import { createRef, useContext, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import createColumn from '../../api/createColumn';

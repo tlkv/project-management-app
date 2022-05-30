@@ -26,7 +26,6 @@ function LoginPage() {
     if (isAuth && localStorage.getItem('pmapp34-token')) {
       navigate('/');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuth]);
 
   const handleNameInput = (e: React.ChangeEvent<HTMLInputElement>) => {

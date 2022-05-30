@@ -48,7 +48,6 @@ const validateUser = async (
     user = await res.json();
   } catch (err) {
     toastWarnDark('No response from server');
-    /* logoutAndStopSpinner(); */
     setSpinner(false);
     return false;
   }

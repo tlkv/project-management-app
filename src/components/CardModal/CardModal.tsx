@@ -1,6 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { createRef, Dispatch, useContext, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { AppContext } from '../../App';
@@ -114,9 +111,9 @@ function CardModal({
       );
 
       if (res) {
-        await loadBoard();
         toastInfoDark('Task was updated');
       }
+      await loadBoard();
     }
   };
 

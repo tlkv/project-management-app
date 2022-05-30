@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react-hooks/exhaustive-deps */
 import './ProfilePage.scss';
 import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';

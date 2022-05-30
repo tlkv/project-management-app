@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../App';
@@ -21,7 +20,6 @@ function BoardList() {
     if (!isAuth && !localStorage.getItem('pmapp34-token')) {
       navigate('/welcome');
     } else {
-      /* if (!boards.length) */
       loadBoards();
     }
   }, [isAuth]);

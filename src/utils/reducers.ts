@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { BoardsResponse, BoardsAction } from '../data/interfaces';
 import { SET_BOARDS } from '../data/constants';
 

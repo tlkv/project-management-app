@@ -17,7 +17,6 @@ export default function SearchPage() {
     if (!isAuth && !localStorage.getItem('pmapp34-token')) {
       navigate('/welcome');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuth]);
 
   const loadTasks = async () => {

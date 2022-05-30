@@ -12,7 +12,6 @@ function MainPage() {
     if (!isAuth && !localStorage.getItem('pmapp34-token')) {
       navigate('/welcome');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuth]);
 
   return (

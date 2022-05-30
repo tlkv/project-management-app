@@ -7,7 +7,7 @@
   left: calc(50vw - 40px);
   pointer-events: none;
   opacity: 0.8;
-  $custom-easing: cubic-bezier(0.445, 0.05, 0.55, 0.95); // Sine
+  $custom-easing: cubic-bezier(0.445, 0.05, 0.55, 0.95);
   $animation-duration: 1.7s;
   $small-stroke: 105;
   $small-stroke-animate: 95;

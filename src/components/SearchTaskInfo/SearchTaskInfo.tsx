@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useContext, useState } from 'react';
 import deleteTask from '../../api/deleteTask';
 import validateUser from '../../api/_validateUser';
@@ -15,7 +13,6 @@ export default function SearchTaskInfo({
   id,
   order,
   userId,
-  /* user, */
   boardId,
   columnId,
   title,

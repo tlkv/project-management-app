@@ -1,7 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/self-closing-comp */
-/* eslint-disable react/jsx-props-no-spreading */
 import './CreateBoardBar.scss';
 import React, { Dispatch, useContext, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
