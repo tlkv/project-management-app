@@ -5,7 +5,7 @@ export default function UserInfo({ name, login }: ApiUserInfo) {
   return (
     <div className={s.ProfDescr}>
       <div className={s.ProfDescrItem}>
-        <img src="./assets/img/userIcon.png" alt="user icon" className={s.UserImg} />
+        <i className="fa-solid fa-user-large user-big" />
       </div>
       <div className={s.ProfDescrItem}>
         <div className={s.ProfDescrText}>

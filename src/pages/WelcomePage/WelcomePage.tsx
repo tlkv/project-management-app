@@ -23,7 +23,7 @@ function WelcomePage() {
               )}
               {!isAuth && (
                 <>
-                  <NavLink to="/login" className="main-nav-btn main-nav-btn-dark">
+                  <NavLink to="/login" className="main-nav-btn main-nav-btn-dark main-btn-narrow ">
                     <i className="fa-solid fa-user-lock" />
                     {dict[lang].buttons.signIn}
                   </NavLink>
