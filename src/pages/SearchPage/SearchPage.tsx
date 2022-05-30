@@ -5,9 +5,10 @@ import { AppContext } from '../../App';
 import getAllTasks from '../../api/getAllTasks';
 import { SearchTaskResponse } from '../../data/interfaces';
 import SearchTaskInfo from '../../components/SearchTaskInfo/SearchTaskInfo';
+import dict from '../../data/dict';
 
 export default function SearchPage() {
-  const { isAuth, logoutUser, setSpinner } = useContext(AppContext);
+  const { isAuth, logoutUser, setSpinner, lang } = useContext(AppContext);
   const navigate = useNavigate();
   const [tasks, setTasks] = useState<SearchTaskResponse[]>([]);
   const [searchVal, setSearchVal] = useState('');
@@ -47,12 +48,12 @@ export default function SearchPage() {
 
   return (
     <div className="narrow-container">
-      <h1 className="title">Search tasks</h1>
+      <h1 className="title">{dict[lang].searchTasks}</h1>
       <div className="search-form-wrapper">
         <form onSubmit={handleSubmit} className="search-form">
           <input
             type="text"
-            placeholder="search in task titles or descriptions"
+            placeholder={dict[lang].searchTasksPholder}
             className="search-res-query"
             value={searchVal}
             onChange={handleChange}
@@ -61,13 +62,17 @@ export default function SearchPage() {
             type="submit"
             className={`search-res-button ${isButtonDisabled ? 'temp-disabled' : ''}`}
           >
-            search
+            {dict[lang].search}
           </button>
         </form>
       </div>
       <div className="search-tasks-wrapper">
-        {tasks.length === 0 && <h3>Nothing found yet. Another attempt?</h3>}
-        {tasks.length !== 0 && <h3>Tasks found: {tasks.length}</h3>}
+        {tasks.length === 0 && <h3>{dict[lang].searchHeader}</h3>}
+        {tasks.length !== 0 && (
+          <h3>
+            {dict[lang].searchResults} {tasks.length}
+          </h3>
+        )}
         {tasks.map((i) => (
           <SearchTaskInfo
             id={i.id}

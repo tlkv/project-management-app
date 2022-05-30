@@ -10,9 +10,10 @@ import deleteUser from '../../api/deleteUser';
 import { passRegExp, userRegExp } from '../../data/constants';
 import UserInfo from '../../components/UserInfo/UserInfo';
 import validateUser from '../../api/_validateUser';
+import dict from '../../data/dict';
 
 function ProfilePage() {
-  const { logoutUser, isAuth, setSpinner } = useContext(AppContext);
+  const { logoutUser, isAuth, setSpinner, lang } = useContext(AppContext);
   const [isModalOpen, showModal] = useState(false);
   const [currName, setCurrName] = useState('');
   const [currLogin, setCurrLogin] = useState('');
@@ -66,70 +67,58 @@ function ProfilePage() {
         <div className="form-wrapper">
           <h3>
             <i className="fa-solid fa-pen-to-square prof-icon" />
-            Edit profile
+            {dict[lang].editProfileHeader}
           </h3>
           <form onSubmit={onSubmit} className="user-controls">
             <div className="profile-field">
               <label htmlFor="form-name">
-                Name
+                {dict[lang].forms.nameLabel}
                 <input
                   id="form-name"
                   type="text"
                   className="form-name  user-edit-input"
-                  placeholder="Enter your name"
+                  placeholder={dict[lang].forms.namePholder}
                   {...register('name', { required: true, pattern: userRegExp })}
                 />
               </label>
-              {errors.name && (
-                <div className="valid-err">
-                  4-20 letters (eng) or numbers, no spaces or special symbols
-                </div>
-              )}
+              {errors.name && <div className="valid-err">{dict[lang].forms.nameLoginValid}</div>}
             </div>
             <div className="profile-field">
               <label htmlFor="form-login">
-                Login
+                {dict[lang].forms.loginLabel}
                 <input
                   id="form-login"
                   type="text"
                   className="form-login user-edit-input"
-                  placeholder="Enter your login"
+                  placeholder={dict[lang].forms.loginPholder}
                   {...register('login', { required: true, pattern: userRegExp })}
                 />
               </label>
-              {errors.login && (
-                <div className="valid-err">
-                  4-20 letters (eng) or numbers, no spaces or special symbols
-                </div>
-              )}
+              {errors.login && <div className="valid-err">{dict[lang].forms.nameLoginValid}</div>}
             </div>
             <div className="profile-field">
               <label htmlFor="form-password">
-                Password
+                {dict[lang].forms.passwordLabel}
                 <input
                   id="form-password"
                   type="password"
                   className="form-password  user-edit-input"
                   autoComplete="on"
-                  placeholder="Enter your password"
+                  placeholder={dict[lang].forms.passwordPholder}
                   {...register('password', { required: true, pattern: passRegExp })}
                 />
               </label>
-              {errors.password && (
-                <div className="valid-err">
-                  8-30 letters (eng) or numbers or ! @ # $ & ( ) - ‘ . / + ,
-                </div>
-              )}
+              {errors.password && <div className="valid-err">{dict[lang].forms.passwordValid}</div>}
             </div>
             <input
               type="submit"
-              value="Save"
+              value={dict[lang].saveText}
               className={`save-button ${isButtonDisabled ? 'temp-disabled' : ''}`}
             />
           </form>
         </div>
         <button type="button" className="delete-profile" onClick={() => showModal(true)}>
-          Delete my account
+          {dict[lang].deleteAccount}
         </button>
       </div>
       {isModalOpen && (
@@ -137,7 +126,8 @@ function ProfilePage() {
           showModal={showModal}
           message={
             <p>
-              Are you sure? <br /> This action is irreversible!
+              {dict[lang].confirmSure1} <br />
+              {dict[lang].confirmSure2}
             </p>
           }
           modalCallback={onDelete}

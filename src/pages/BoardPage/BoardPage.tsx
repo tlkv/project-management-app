@@ -7,9 +7,10 @@ import ColumnList from '../../components/ColumnList/ColumnList';
 import './BoardPage.scss';
 import updateColumn from '../../api/updateColumn';
 import updateTask from '../../api/updateTask';
+import dict from '../../data/dict';
 
 function BoardPage() {
-  const { logoutUser, isAuth, setSpinner } = useContext(AppContext);
+  const { logoutUser, isAuth, setSpinner, lang } = useContext(AppContext);
   const [board, setBoard] = useState<BoardResponse>({
     id: '',
     title: '',
@@ -128,7 +129,7 @@ function BoardPage() {
       <div className="board-header">
         <div className="board-header-title-wrapper">
           <Link className="board-header__btn" to="/">
-            <i className="fa-solid fa-angle-left"> </i> Back
+            <i className="fa-solid fa-angle-left"> </i> {dict[lang].backText}
           </Link>
           <h1 className="board-header__title">{board.title}</h1>
         </div>
