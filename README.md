@@ -11,8 +11,7 @@
 
 https://pm-app-34.netlify.app
 
-## Final PR with detailed description and video
-https://github.com/tlkv/project-management-app/pull/21
+## Final PR with detailed description and video - https://github.com/tlkv/project-management-app/pull/21
 
 ## Downloading
 
